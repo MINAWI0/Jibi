@@ -1,6 +1,8 @@
 package com.ensa.jibi.domain.entities.creance;
 
 import com.ensa.jibi.domain.entities.ConfirmationPaiement;
+import com.ensa.jibi.domain.entities.Impaye;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +26,10 @@ public class Creance {
     @OneToMany(mappedBy = "creance" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ConfirmationPaiement> confirmationPaiements = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    //je sais pas ci jsonIgnore est essentielle
+    // TODO:: l'essayer apres avoir creé les services
+    private List<Impaye> impayes = new ArrayList<>();
 
 }

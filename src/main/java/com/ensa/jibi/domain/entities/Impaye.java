@@ -1,7 +1,10 @@
 package com.ensa.jibi.domain.entities;
 
-import com.ensa.jibi.domain.entities.creance.Creance;
-import jakarta.persistence.*;
+import com.ensa.jibi.domain.enums.ImpayeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,20 +15,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ConfirmationPaiement {
-    //la meme classe sera utilisé pour l'historique des transactions
+public class Impaye {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Double montant;
 
-    @ManyToOne
-    private ComptePaiement compte;
-
-    @ManyToOne
-    private Creance creance;
-
+    private ImpayeType type;
     private LocalDate date;
 
 }

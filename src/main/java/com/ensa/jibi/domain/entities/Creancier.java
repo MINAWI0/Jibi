@@ -6,26 +6,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ConfirmationPaiement {
-    //la meme classe sera utilisé pour l'historique des transactions
+public class Creancier {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String nom;
+    private String categorie;
+    private String logoURL;
 
-    private Double montant;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Creance> creances = new ArrayList<>();
 
-    @ManyToOne
-    private ComptePaiement compte;
-
-    @ManyToOne
-    private Creance creance;
-
-    private LocalDate date;
 
 }
