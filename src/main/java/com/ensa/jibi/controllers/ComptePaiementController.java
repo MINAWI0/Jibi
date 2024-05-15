@@ -36,6 +36,7 @@ public class ComptePaiementController {
     }
 
     @GetMapping("/{id}")
+    //get By Phone Number
     public ResponseEntity<ComptePaiementDto> getCompteById(@PathVariable String id) {
         try {
             ComptePaiementDto compte = comptePaiementService.findOne(id).orElseThrow(() -> new RuntimeException("Compte not found"));
