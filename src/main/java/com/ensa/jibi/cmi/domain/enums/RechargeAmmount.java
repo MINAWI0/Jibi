@@ -1,4 +1,4 @@
-package com.ensa.jibi.domain.enums;
+package com.ensa.jibi.cmi.domain.enums;
 
 public enum RechargeAmmount {
     RECHARGE_AMMOUNT_10(10),

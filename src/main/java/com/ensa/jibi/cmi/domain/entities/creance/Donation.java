@@ -1,4 +1,4 @@
-package com.ensa.jibi.domain.entities.creance;
+package com.ensa.jibi.cmi.domain.entities.creance;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;

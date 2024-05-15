@@ -1,6 +1,6 @@
-package com.ensa.jibi.domain.entities.creance;
+package com.ensa.jibi.cmi.domain.entities.creance;
 
-import com.ensa.jibi.domain.entities.Impaye;
+import com.ensa.jibi.cmi.domain.entities.Impaye;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

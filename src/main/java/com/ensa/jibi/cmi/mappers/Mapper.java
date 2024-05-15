@@ -1,4 +1,4 @@
-package com.ensa.jibi.mappers;
+package com.ensa.jibi.cmi.mappers;
 
 public interface Mapper<A,B> {
     B mapTo(A a);

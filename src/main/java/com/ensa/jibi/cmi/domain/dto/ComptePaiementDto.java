@@ -1,4 +1,4 @@
-package com.ensa.jibi.domain.dto;
+package com.ensa.jibi.cmi.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

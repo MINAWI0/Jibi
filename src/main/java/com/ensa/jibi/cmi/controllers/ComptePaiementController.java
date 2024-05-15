@@ -1,9 +1,9 @@
-package com.ensa.jibi.controllers;
+package com.ensa.jibi.cmi.controllers;
 
-import com.ensa.jibi.domain.dto.ComptePaiementDto;
-import com.ensa.jibi.domain.entities.ComptePaiement;
-import com.ensa.jibi.repositories.ComptePaiementRepository;
-import com.ensa.jibi.services.ComptePaimentService;
+import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
+import com.ensa.jibi.cmi.domain.entities.ComptePaiement;
+import com.ensa.jibi.cmi.repositories.ComptePaiementRepository;
+import com.ensa.jibi.cmi.services.ComptePaimentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

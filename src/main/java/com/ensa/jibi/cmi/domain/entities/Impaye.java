@@ -1,10 +1,7 @@
-package com.ensa.jibi.domain.entities;
+package com.ensa.jibi.cmi.domain.entities;
 
-import com.ensa.jibi.domain.enums.ImpayeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.ensa.jibi.cmi.domain.enums.ImpayeType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +19,7 @@ public class Impaye {
 
     private Double montant;
 
+    @Enumerated(EnumType.STRING)
     private ImpayeType type;
     private LocalDate date;
 

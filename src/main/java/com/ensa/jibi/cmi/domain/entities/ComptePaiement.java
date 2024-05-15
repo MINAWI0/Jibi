@@ -1,7 +1,7 @@
-package com.ensa.jibi.domain.entities;
+package com.ensa.jibi.cmi.domain.entities;
 
-import com.ensa.jibi.domain.entities.creance.Creance;
-import com.ensa.jibi.exceptions.InsufficientBalanceException;
+import com.ensa.jibi.cmi.exceptions.InsufficientBalanceException;
+import com.ensa.jibi.cmi.domain.entities.creance.Creance;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

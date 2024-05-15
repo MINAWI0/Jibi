@@ -1,8 +1,7 @@
-package com.ensa.jibi.repositories;
+package com.ensa.jibi.cmi.repositories;
 
-import com.ensa.jibi.domain.entities.ComptePaiement;
+import com.ensa.jibi.cmi.domain.entities.ComptePaiement;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

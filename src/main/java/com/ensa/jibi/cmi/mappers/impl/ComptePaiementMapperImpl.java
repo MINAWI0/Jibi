@@ -1,8 +1,8 @@
-package com.ensa.jibi.mappers.impl;
+package com.ensa.jibi.cmi.mappers.impl;
 
-import com.ensa.jibi.domain.dto.ComptePaiementDto;
-import com.ensa.jibi.domain.entities.ComptePaiement;
-import com.ensa.jibi.mappers.Mapper;
+import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
+import com.ensa.jibi.cmi.domain.entities.ComptePaiement;
+import com.ensa.jibi.cmi.mappers.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,6 @@
-package com.ensa.jibi.services;
+package com.ensa.jibi.cmi.services;
 
-import com.ensa.jibi.domain.dto.ComptePaiementDto;
-import com.ensa.jibi.domain.entities.ComptePaiement;
+import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +11,9 @@ public interface ComptePaimentService {
     Optional<ComptePaiementDto> findOne(String id);
     boolean isExists(String id);
     ComptePaiementDto partialUpdate(String id, ComptePaiementDto comptePaiementDto);
+
+    ComptePaiementDto payer(String compteId,Long creanceId, Double montant);
+
 
     void delete(String id);
 

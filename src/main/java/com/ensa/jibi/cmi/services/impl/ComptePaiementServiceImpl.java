@@ -1,16 +1,17 @@
-package com.ensa.jibi.services.impl;
+package com.ensa.jibi.cmi.services.impl;
 
-import com.ensa.jibi.domain.dto.ComptePaiementDto;
-import com.ensa.jibi.domain.entities.ComptePaiement;
-import com.ensa.jibi.mappers.impl.ComptePaiementMapperImpl;
-import com.ensa.jibi.repositories.ComptePaiementRepository;
-import com.ensa.jibi.services.ComptePaimentService;
+import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
+import com.ensa.jibi.cmi.domain.entities.ComptePaiement;
+import com.ensa.jibi.cmi.exceptions.InsufficientBalanceException;
+import com.ensa.jibi.cmi.mappers.impl.ComptePaiementMapperImpl;
+import com.ensa.jibi.cmi.repositories.ComptePaiementRepository;
+import com.ensa.jibi.cmi.services.ComptePaimentService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ComptePaiementServiceImpl implements ComptePaimentService {
@@ -59,6 +60,21 @@ public class ComptePaiementServiceImpl implements ComptePaimentService {
                     return compteMapper.mapTo(
                             comptePaiementRepository.save(existingCompte));
                 }).orElseThrow(() -> new RuntimeException("ComptePaiement not found"));
+    }
+
+    @Override
+    public ComptePaiementDto payer(String id,Long creanceId, Double montant){
+//            throws InsufficientBalanceException {
+        Optional<ComptePaiement> optionalComptePaiement = comptePaiementRepository.findById(id);
+        //TODO::find the creance needed by id
+        if (optionalComptePaiement.isPresent()) {
+            ComptePaiement comptePaiement = optionalComptePaiement.get();
+//            comptePaiement.payer(montant, creance);
+            comptePaiementRepository.save(comptePaiement);
+            return compteMapper.mapTo(comptePaiement);
+        } else {
+            throw new EntityNotFoundException("ComptePaiement not found with id: " + id);
+        }
     }
 
     @Override

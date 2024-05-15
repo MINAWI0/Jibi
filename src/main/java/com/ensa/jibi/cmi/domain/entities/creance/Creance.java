@@ -1,7 +1,7 @@
-package com.ensa.jibi.domain.entities.creance;
+package com.ensa.jibi.cmi.domain.entities.creance;
 
-import com.ensa.jibi.domain.entities.ConfirmationPaiement;
-import com.ensa.jibi.domain.entities.Impaye;
+import com.ensa.jibi.cmi.domain.entities.ConfirmationPaiement;
+import com.ensa.jibi.cmi.domain.entities.Impaye;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
