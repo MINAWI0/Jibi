@@ -20,6 +20,7 @@ import java.util.List;
 @Entity
 public class Facture extends Creance{
     private Long numFacture;
+    //num Facture = 203445 => 3 impayes
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
