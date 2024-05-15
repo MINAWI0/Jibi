@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ComptePaiementServiceImpl implements ComptePaimentService {
@@ -21,33 +23,46 @@ public class ComptePaiementServiceImpl implements ComptePaimentService {
         this.compteMapper = compteMapper;
     }
     @Override
-    public ComptePaiement save(ComptePaiementDto comptePaiementDto) {
+    public ComptePaiementDto save(ComptePaiementDto comptePaiementDto) {
         ComptePaiement comptePaiement = compteMapper.mapFrom(comptePaiementDto);
-        return comptePaiementRepository.save(comptePaiement);
+        return compteMapper.mapTo(comptePaiementRepository.save(comptePaiement));
     }
 
     @Override
-    public List<ComptePaiement> findAll() {
-        return null;
+    public List<ComptePaiementDto> findAll() {
+        return comptePaiementRepository.findAll()
+                .stream()
+                .map(compteMapper::mapTo)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<ComptePaiement> findOne(String id) {
-        return Optional.empty();
+    public Optional<ComptePaiementDto> findOne(String id) {
+        return comptePaiementRepository.findById(id)
+                .map(compte -> {
+                    ComptePaiementDto compteDto = compteMapper.mapTo(compte);
+                    return Optional.of(compteDto);
+                }).orElseThrow(() -> new RuntimeException("ComptePaiement not found!"));
     }
 
     @Override
     public boolean isExists(String id) {
-        return false;
+        return comptePaiementRepository.existsById(id);
     }
 
     @Override
-    public ComptePaiement partialUpdate(String id, ComptePaiementDto comptePaiementDto) {
-        return null;
+    public ComptePaiementDto partialUpdate(String id, ComptePaiementDto comptePaiementDto) {
+        return comptePaiementRepository.findById(id).map(
+                existingCompte -> {
+                    Optional.ofNullable(comptePaiementDto.getSolde())
+                            .ifPresent(existingCompte::setSolde);
+                    return compteMapper.mapTo(
+                            comptePaiementRepository.save(existingCompte));
+                }).orElseThrow(() -> new RuntimeException("ComptePaiement not found"));
     }
 
     @Override
     public void delete(String id) {
-
+        comptePaiementRepository.deleteById(id);
     }
 }

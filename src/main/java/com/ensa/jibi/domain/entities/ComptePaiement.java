@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 public class ComptePaiement {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;//numTelephone
     private Double solde;
 
