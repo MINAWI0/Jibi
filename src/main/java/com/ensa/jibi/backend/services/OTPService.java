@@ -6,6 +6,7 @@ import com.ensa.jibi.backend.repositories.OTPTokenRepository;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class OTPService {
     @Value("${twilio.accountSid}")
     private String accountSid;
 
+
     @Value("${twilio.authToken}")
     private String authToken;
 
@@ -31,6 +33,11 @@ public class OTPService {
     private String outGoingSmsNumber;
 
     public OTPService() {
+        log.info(accountSid);
+    }
+
+    @PostConstruct
+    public void init() {
         log.info(accountSid);
     }
 
