@@ -1,7 +1,7 @@
 package com.ensa.jibi.backend.domain.enums;
 
 public enum ClientType {
-    Hsab1(200),
+    Hsab_1(200),
     Hsab_2(5000),
     Hsab_3(20000),
     Hsab_PRO(0);
