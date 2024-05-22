@@ -1,5 +1,7 @@
 package com.ensa.jibi.controllers;
 
+import com.ensa.jibi.domain.dto.ComptePaiementDto;
+import com.ensa.jibi.domain.dto.ConfirmationPaiementDto;
 import com.ensa.jibi.domain.entities.ConfirmationPaiement;
 import com.ensa.jibi.services.ConfirmationPaiementService;
 import org.springframework.http.HttpStatus;
@@ -28,9 +30,12 @@ public class ConfirmationPaiementController {
         return ResponseEntity.ok(confirmations);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ConfirmationPaiement> getConfirmationById(@PathVariable Long id) {
-        Optional<ConfirmationPaiement> confirmation = confirmationPaiementService.getConfirmationById(id);
+
+
+    // hna je sais pas wach hadchi s7i7 !  comment en peut avoir
+    @GetMapping("/")
+    public ResponseEntity<ConfirmationPaiement> getConfirmationById(@RequestBody ComptePaiementDto comptePaiementDto) {
+        Optional<ConfirmationPaiement> confirmation = confirmationPaiementService.getConfirmationByCompte(comptePaiementDto);
         return confirmation.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
