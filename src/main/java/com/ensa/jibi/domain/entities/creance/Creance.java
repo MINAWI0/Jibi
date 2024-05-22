@@ -1,6 +1,7 @@
 package com.ensa.jibi.domain.entities.creance;
 
 import com.ensa.jibi.domain.entities.ConfirmationPaiement;
+import com.ensa.jibi.domain.entities.Creancier;
 import com.ensa.jibi.domain.entities.Impaye;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -15,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "creance_type")
 public class Creance {
 
     @Id
@@ -22,14 +25,13 @@ public class Creance {
     private Long id;
     private String nom;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "creancier_id")
+    @JsonIgnore
+    private Creancier creancier;
 
-    @OneToMany(mappedBy = "creance" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "creance" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ConfirmationPaiement> confirmationPaiements = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    //je sais pas ci jsonIgnore est essentielle
-    // TODO:: l'essayer apres avoir creé les services
-    private List<Impaye> impayes = new ArrayList<>();
 
 }

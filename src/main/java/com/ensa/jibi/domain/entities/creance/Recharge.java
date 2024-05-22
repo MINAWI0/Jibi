@@ -1,6 +1,7 @@
 package com.ensa.jibi.domain.entities.creance;
 
 import com.ensa.jibi.domain.enums.RechargeAmmount;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@DiscriminatorValue("RECHARGE")
 public class Recharge extends Creance{
     @Enumerated(EnumType.ORDINAL)
     private RechargeAmmount montant;

@@ -1,5 +1,6 @@
 package com.ensa.jibi.domain.entities.creance;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@DiscriminatorValue("DONATION")
 public class Donation extends Creance{
     private String nomDonateur;
     private Double montant;

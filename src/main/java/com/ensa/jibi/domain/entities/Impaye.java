@@ -1,10 +1,9 @@
 package com.ensa.jibi.domain.entities;
 
+import com.ensa.jibi.domain.entities.creance.Creance;
 import com.ensa.jibi.domain.enums.ImpayeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +23,9 @@ public class Impaye {
 
     private ImpayeType type;
     private LocalDate date;
+    @ManyToOne
+    @JoinColumn(name = "creance_id")
+    @JsonIgnore
+    private Creance creance;
 
 }

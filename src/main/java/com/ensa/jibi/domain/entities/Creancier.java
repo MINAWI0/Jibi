@@ -1,6 +1,7 @@
 package com.ensa.jibi.domain.entities;
 
 import com.ensa.jibi.domain.entities.creance.Creance;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Creancier {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +23,7 @@ public class Creancier {
     private String categorie;
     private String logoURL;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER ,mappedBy = "creancier")
     private List<Creance> creances = new ArrayList<>();
 
 
