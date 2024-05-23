@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 public class Client extends User{
     private String email;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String numTel;
 
     @Enumerated(EnumType.ORDINAL)

@@ -1,9 +1,6 @@
 package com.ensa.jibi.backend.domain.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +21,10 @@ public class Agent extends User{
     private LocalDate dateNaissance;
     private String adresse;
     private String email;
+
+    @Column(unique = true)
     private String numTel;
+
     private String numCommerce;
     private String numPatente;
 //    private String docUrl;
