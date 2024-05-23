@@ -1,0 +1,76 @@
+<main>
+  <div class="intro-style section-space-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-xxl-12">
+          <div class="section__title-wrapper section__title-space text-center">
+            <h2 class="section__title">Welcome Again</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Login area start -->
+
+  <div class="contact__area section-space-bottom">
+    <div class="container">
+      <div class="col-xxl-6 col-xl-6 col-lg-7 mx-auto">
+        <div class="contact__wrapper">
+          <div class="contact__form">
+            <div class="login__intro mb-40">
+              <h3 class="login__title">Login</h3>
+              <p>Enter your credentials to access your account</p>
+            </div>
+
+
+
+            <form action="#" >
+
+
+              <div class="login__input mb-25">
+                <input type="tel" [(ngModel)]="login" name="login" placeholder="Phone number or username">
+              </div>
+
+              <div class="login__input mb-25">
+                <input type="password" [(ngModel)]="password" name="password" placeholder="Password">
+              </div>
+
+
+              <div class="login__option mb-20 d-sm-flex justify-content-between">
+                <div class="login__remember">
+                  <input type="checkbox" [(ngModel)]="rememberMe" name="remember_me" id="login">
+                  <label for="login">Remember me</label>
+                </div>
+
+                <div class="login__forgot">
+                  <a routerLink="/forgot-password"  >Forgot password?</a>
+                </div>
+              </div>
+
+              <div class="login__submit mb-25">
+                <button class="bd-gradient-btn w-100" type="submit"  (click)="handleSubmit($event)" >Login</button>
+              </div>
+            </form>
+
+
+
+            <p class="ajax-response">{{errorMessage}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Login area end -->
+
+
+
+
+
+
+
+
+
+
+</main>
