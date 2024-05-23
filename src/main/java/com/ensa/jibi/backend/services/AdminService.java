@@ -1,7 +1,10 @@
 package com.ensa.jibi.backend.services;
 
 import com.ensa.jibi.backend.domain.dto.AdminDto;
+import com.ensa.jibi.backend.domain.dto.AgentDto;
 import com.ensa.jibi.backend.domain.entities.Admin;
+import com.ensa.jibi.backend.domain.entities.Agent;
+import com.ensa.jibi.backend.domain.requests.LoginRequest;
 import com.ensa.jibi.backend.mappers.AdminMapper;
 import com.ensa.jibi.backend.repositories.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,13 @@ public class AdminService {
 
         Admin admin = adminRepository.save(adminMapper.mapFrom(adminDto));
         return adminMapper.mapTo(admin);
+    }
+
+    public AdminDto getUserByUsernameAndPassword(LoginRequest loginRequest){
+        Admin agent = adminRepository.
+                findByUsernameAndPassword(loginRequest.getUsername(),
+                        loginRequest.getPassword());
+        return adminMapper.mapTo(agent);
     }
 
 

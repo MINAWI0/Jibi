@@ -1,6 +1,10 @@
 package com.ensa.jibi.backend.controllers;
 
+import com.ensa.jibi.backend.domain.dto.AdminDto;
+import com.ensa.jibi.backend.domain.dto.AgentDto;
 import com.ensa.jibi.backend.domain.dto.UserDto;
+import com.ensa.jibi.backend.domain.entities.Admin;
+import com.ensa.jibi.backend.domain.entities.Agent;
 import com.ensa.jibi.backend.domain.entities.User;
 import com.ensa.jibi.backend.domain.requests.LoginRequest;
 import com.ensa.jibi.backend.services.UserService;
@@ -32,23 +36,26 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser( @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Object> loginUser(@RequestBody LoginRequest loginRequest) {
         if (userService.isAdmin(loginRequest)) {
-            // Handle successful admin login (return specific user data or token)
-
-            return new ResponseEntity<>("Admin", HttpStatus.OK); // Replace with appropriate response
+            AdminDto admin = userService.getAdminByUsernameAndPassword(loginRequest);
+            return new ResponseEntity<>(admin, HttpStatus.OK);
         } else if (userService.isAgent(loginRequest)) {
-            // Handle successful agent login (return specific user data or token)
-            return new ResponseEntity<>("Agent", HttpStatus.OK); // Replace with appropriate response
+            AgentDto agent = userService.getAgentByUsernameAndPassword(loginRequest);
+            return new ResponseEntity<>(agent, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User Not Found", HttpStatus.UNAUTHORIZED);
         }
-//        } else {
-//            return new ResponseEntity<>("User Not Found", HttpStatus.UNAUTHORIZED); // Unauthorized login
-//        }
-//        if(userService.existsByUsernameAndPassword(loginRequest)){
-//            return new ResponseEntity<>("User Found", HttpStatus.OK); // Replace with appropriate response
-//        }
+    }
 
-        return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
+    @PutMapping("/{userId}/set-password")
+    public ResponseEntity<String> setPassword(@PathVariable Long userId, @RequestParam String newPassword) {
+        try {
+            userService.setPassword(userId, newPassword);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     // You can add other API endpoints for specific user functionalities

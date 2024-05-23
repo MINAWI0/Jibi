@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(DuplicatePhoneNumberException.class)
-    public ResponseEntity<String> handleDuplicatePhoneNumberException(DuplicatePhoneNumberException ex) {
+    @ExceptionHandler(PhoneNumberException.class)
+    public ResponseEntity<String> handlePhoneNumberException(PhoneNumberException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 

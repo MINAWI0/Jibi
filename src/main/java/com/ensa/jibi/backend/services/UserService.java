@@ -1,5 +1,7 @@
 package com.ensa.jibi.backend.services;
 
+import com.ensa.jibi.backend.domain.dto.AdminDto;
+import com.ensa.jibi.backend.domain.dto.AgentDto;
 import com.ensa.jibi.backend.domain.dto.UserDto;
 import com.ensa.jibi.backend.domain.entities.Admin;
 import com.ensa.jibi.backend.domain.entities.Agent;
@@ -20,6 +22,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AdminService adminRepository;
+
+    @Autowired
+    private AgentService agentService;
 
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
@@ -58,5 +66,28 @@ public class UserService {
         return user != null && user instanceof Agent; // Check if user is an Agent instance
     }
 
-    // You can add other methods like getUserById, updateUser etc. based on your needs
+    public boolean isFirstLogin(LoginRequest loginRequest) {
+        User user = getUserByUsernameAndPassword(loginRequest);
+        return user != null && user.isFirstLogin();
+    }
+
+    public void setPassword(Long userId, String newPassword) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            user.setPassword(newPassword);
+            user.setFirstLogin(false);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found with ID: " + userId);
+        }
+    }
+
+    public AdminDto getAdminByUsernameAndPassword(LoginRequest loginRequest){
+        return adminRepository.getUserByUsernameAndPassword(loginRequest);
+    }
+
+    public AgentDto getAgentByUsernameAndPassword(LoginRequest loginRequest){
+        return agentService.getUserByUsernameAndPassword(loginRequest);
+    }
+
 }

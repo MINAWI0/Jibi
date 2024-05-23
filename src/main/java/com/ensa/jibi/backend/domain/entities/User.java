@@ -20,4 +20,7 @@ public class User {
     private String username;
     private String password;
 
+    @Column(name = "first_login", columnDefinition = "boolean default true")
+    private boolean firstLogin = true;
+
 }

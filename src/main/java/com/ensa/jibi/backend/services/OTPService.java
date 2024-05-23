@@ -14,7 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
-
+//leave it! it will mainly be used to confirm transactions!
+//it is also used to send passwords to users.
 @Service
 @Slf4j
 public class OTPService {
@@ -44,7 +45,7 @@ public class OTPService {
     public String sendOTP(String smsNumber) {
         Twilio.init(accountSid, authToken);
 
-        String otpToken = RandomStringUtils.randomNumeric(6);
+        String otpToken = RandomStringUtils.randomAlphanumeric(9);
 
         // Set the expiration time (1 hour)
         long expirationTimeMillis = System.currentTimeMillis() + TimeUnit.HOURS.toMillis(1);
@@ -62,12 +63,13 @@ public class OTPService {
                 messageWithOTP
         ).create();
 
-        return message.getStatus().toString();
+        return otpToken;
     }
 
     public boolean verifyOTP(OTPTokenDto otpToken) {
         OTPToken otp = otpRepository.findByToken(otpToken.getToken());
         log.info("token found! " + otp);
+
         return otp != null && otp.getExpirationTime() > System.currentTimeMillis();
     }
 
