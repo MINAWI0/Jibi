@@ -51,16 +51,17 @@ public class ClientServiceImpl implements ClientService {
             existingClient.setNumTel(clientDto.getNumTel());
             existingClient.setClientType(clientDto.getClientType());
 
-            // Clear the existing documents and add new ones
-            existingClient.getDocuments().clear();
-            List<Document> documents = clientDto.getDocuments().stream()
-                    .map(documentDto -> {
-                        Document document = modelMapper.map(documentDto, Document.class);
-                        document.setClient(existingClient); // Set the client reference
-                        return document;
-                    })
-                    .collect(Collectors.toList());
-            existingClient.getDocuments().addAll(documents);
+//            // Clear the existing documents and add new ones
+            // Minaoui : disabling update for doc =  they should be static i guess !!
+//            existingClient.getDocuments().clear();
+//            List<Document> documents = clientDto.getDocuments().stream()
+//                    .map(documentDto -> {
+//                        Document document = modelMapper.map(documentDto, Document.class);
+//                        document.setClient(existingClient); // Set the client reference
+//                        return document;
+//                    })
+//                    .collect(Collectors.toList());
+//            existingClient.getDocuments().addAll(documents);
 
             Client updatedClient = clientRepository.save(existingClient);
             return clientMapper.mapTo(updatedClient);
