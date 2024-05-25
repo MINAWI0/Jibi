@@ -1,3 +1,5 @@
+import {DocumentDto} from "./document-dto";
+
 export interface AgentDto {
   cin: string;
   passeport: string;
@@ -12,4 +14,5 @@ export interface AgentDto {
   username: string;
   password: string;
   firstLogin: boolean;
+  documents: DocumentDto[];
 }

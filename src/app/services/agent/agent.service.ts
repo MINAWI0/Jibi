@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {AgentDto} from "../../entities/agent-dto";
+import { AgentDto } from '../../entities/agent-dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentService {
-
-  private baseUrl = 'http://localhost:8080/api/agents'; // Assuming your backend API is served from this base URL
+  private apiUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) { }
 
-  saveAgent(agentDto: AgentDto): Observable<AgentDto> {
-    return this.http.post<AgentDto>(`${this.baseUrl}`, agentDto);
+  uploadDocument(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/documents/upload`, formData);
   }
 
-  // You can add other methods here to interact with other endpoints of the AgentController if needed
+  saveAgent(agent: AgentDto): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/agents`, agent);
+  }
 }

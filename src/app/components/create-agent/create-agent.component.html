@@ -14,12 +14,13 @@
         </ul>
       </div>
     </div>
+    <form  [formGroup]="agentForm">
     <div class="col-xxl-12">
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane show active" id="infos-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
           <!-- tab 1 -->
           <div class="contact__wrapper">
-            <div class="contact__form" [formGroup]="agentForm">
+            <div class="contact__form">
               <div class="contact__input-wrapper">
                 <div class="row">
                   <!-- Nom -->
@@ -165,34 +166,34 @@
             </div>
           </div>
           <!-- tab 2 -->
-<!--          <div class="tab-pane" id="doc-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">-->
-<!--            <div class="row">-->
-<!--              &lt;!&ndash; Description &ndash;&gt;-->
-<!--              <div class="col-xxl-6 col-xl-6 col-lg-6">-->
-<!--                <div class="contact__input-box mb-15">-->
-<!--                  <div class="contact__input-title">-->
-<!--                    <label for="description">Description</label>-->
-<!--                  </div>-->
-<!--                  <div class="contact__input">-->
-<!--                    <input formControlName="description" id="description" type="text" placeholder="Description">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              &lt;!&ndash; Documents &ndash;&gt;-->
-<!--              <div class="col-xxl-6 col-xl-6 col-lg-6">-->
-<!--                <div class="contact__input-box mb-15">-->
-<!--                  <div class="contact__input-title">-->
-<!--                    <label for="documents">Fichier</label>-->
-<!--                  </div>-->
-<!--                  <div class="contact__input">-->
-<!--                    <label class="bd-gradient-btn-white w-100" for="documents">Parcourir</label>-->
-<!--                    <input-->
-<!--                      formControlName="documents"-->
-<!--                      id="documents" style="display:none" type="file" placeholder="">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
+          <div class="tab-pane" id="doc-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <div class="row">
+              <!-- Description -->
+              <div class="col-xxl-6 col-xl-6 col-lg-6">
+                <div class="contact__input-box mb-15">
+                  <div class="contact__input-title">
+                    <label for="description">Description</label>
+                  </div>
+                  <div class="contact__input">
+                    <input formControlName="description" id="description" type="text" placeholder="Description">
+                  </div>
+                </div>
+              </div>
+              <!-- Documents -->
+              <div class="col-xxl-6 col-xl-6 col-lg-6">
+                <div class="contact__input-box mb-15">
+                  <div class="contact__input-title">
+                    <label for="documents">Fichier</label>
+                  </div>
+                  <div class="contact__input">
+                    <label class="bd-gradient-btn-white w-100" for="documents">Parcourir</label>
+                    <input
+                      (change)="onFileChange($event)"
+                      id="documents" style="display:none" type="file" placeholder="">
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="contact__btn">
               <button class="bd-gradient-btn w-100" (click)="onSubmit()">Submit</button>
             </div>
@@ -200,6 +201,7 @@
         </div>
       </div>
     </div>
+    </form>
   </div>
-<!--</div>-->
+</div>
 <!-- Contact form area end -->
