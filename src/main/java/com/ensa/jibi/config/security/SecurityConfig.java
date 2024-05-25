@@ -30,12 +30,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/**")
                         .permitAll()
+
+
 //                        .requestMatchers("/api/auth/**")
 //                        .permitAll()
 //                        .requestMatchers("/admin/**").hasRole("admin")
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
 //                        .requestMatchers("/user/**").permitAll()
-
                         .anyRequest()
                         .authenticated());
         http.httpBasic(Customizer.withDefaults());

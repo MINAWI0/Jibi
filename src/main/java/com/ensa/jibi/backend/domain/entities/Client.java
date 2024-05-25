@@ -19,10 +19,8 @@ public class Client extends User{
     private String email;
     @Column(unique = true)
     private String numTel;
-
     @Enumerated(EnumType.ORDINAL)
     private ClientType clientType;
-
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Document> documents = new ArrayList<>();
 }
