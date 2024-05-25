@@ -22,19 +22,19 @@ public class AgentService {
         this.otpService = otpService;
     }
 
-    public Agent save(AgentDto agentDto) {
-        String agentPhoneNumber = agentDto.getNumTel();
-
-        if (agentRepository.existsByNumTel(agentPhoneNumber)) {
-            throw new PhoneNumberException("Phone number " + agentPhoneNumber + " already exists.");
-        }
-        try {
-            agentDto.setPassword(otpService.sendOTP(agentDto.getNumTel()));
-            return agentRepository.save(agentMapper.mapFrom(agentDto));
-        } catch (Exception e) {
-            throw new PhoneNumberException("Phone number " + agentDto.getNumTel() + " invalid.");
-        }
-
+    public AgentDto save(AgentDto agentDto) {
+//        String agentPhoneNumber = agentDto.getNumTel();
+//
+//        if (agentRepository.existsByNumTel(agentPhoneNumber)) {
+//            throw new PhoneNumberException("Phone number " + agentPhoneNumber + " already exists.");
+//        }
+//        try {
+//            agentDto.setPassword(otpService.sendOTP(agentDto.getNumTel()));
+//            return agentMapper.mapTo(agentRepository.save(agentMapper.mapFrom(agentDto)));
+//        } catch (Exception e) {
+//            throw new PhoneNumberException("Phone number " + agentDto.getNumTel() + " invalid.");
+//        }
+        return agentMapper.mapTo(agentRepository.save(agentMapper.mapFrom(agentDto)));
     }
     public AgentDto getUserByUsernameAndPassword(LoginRequest loginRequest){
     Agent agent = agentRepository.

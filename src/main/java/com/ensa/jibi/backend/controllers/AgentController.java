@@ -19,8 +19,8 @@ public class AgentController {
     }
 
     @PostMapping
-    public ResponseEntity<Agent> saveAgent(@RequestBody AgentDto agentDto) {
-        Agent savedAgent = agentService.save(agentDto);
+    public ResponseEntity<AgentDto> saveAgent(@RequestBody AgentDto agentDto) {
+        AgentDto savedAgent = agentService.save(agentDto);
         return ResponseEntity.ok(savedAgent);
     }
 
