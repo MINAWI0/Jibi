@@ -1,36 +1,55 @@
 package com.ensa.jibi.cmi.controllers;
 
-import com.ensa.jibi.cmi.domain.entities.Creancier;
-import com.ensa.jibi.cmi.domain.entities.creance.Creance;
-import com.ensa.jibi.cmi.domain.entities.creance.Recharge;
-import com.ensa.jibi.cmi.domain.enums.RechargeAmmount;
-import com.ensa.jibi.cmi.repositories.CreanceRepository;
-import com.ensa.jibi.cmi.services.impl.CreancierServiceImpl;
+import com.ensa.jibi.cmi.domain.dto.CreancierDto;
+import com.ensa.jibi.cmi.services.CreancierService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/creanciers")
-
 public class CreancierController {
-    @Autowired
-    private CreancierServiceImpl creancierService;
 
     @Autowired
-    private CreanceRepository creanceRepository;
-    @GetMapping({"/{id}"})
-    public Creancier getCreancier(@PathVariable("id") Long id) {
-        return creancierService.getCreancier(id);
-    }
+    private CreancierService creancierService;
+
     @GetMapping
-    public List<Creancier> getCreancier() {
-        return creancierService.getAllCreanciers();
+    public ResponseEntity<List<CreancierDto>> getAllCreanciers() {
+        List<CreancierDto> creanciers = creancierService.getAllCreanciers();
+        return ResponseEntity.ok(creanciers);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CreancierDto> getCreancier(@PathVariable Long id) {
+        CreancierDto creancier = creancierService.getCreancier(id);
+        if (creancier != null) {
+            return ResponseEntity.ok(creancier);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
+    @PostMapping
+    public ResponseEntity<CreancierDto> createCreancier(@RequestBody CreancierDto creancierDto) {
+        CreancierDto createdCreancier = creancierService.save(creancierDto);
+        return ResponseEntity.ok(createdCreancier);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CreancierDto> updateCreancier(@PathVariable Long id, @RequestBody CreancierDto creancierDto) {
+        CreancierDto updatedCreancier = creancierService.updateCreancier(id, creancierDto);
+        if (updatedCreancier != null) {
+            return ResponseEntity.ok(updatedCreancier);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCreancier(@PathVariable Long id) {
+        creancierService.deleteCreancier(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DiscriminatorValue("DONATION")
+//@DiscriminatorValue("DONATION")
 public class Donation extends Creance{
     private String nomDonateur;
     private Double montant;

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DiscriminatorValue("RECHARGE")
+//@DiscriminatorValue("RECHARGE")
 public class Recharge extends Creance{
     @Enumerated(EnumType.ORDINAL)
     private RechargeAmmount montant;

@@ -15,8 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "creance_type")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "creance_type")
 public class Creance {
 
     @Id
@@ -26,7 +26,6 @@ public class Creance {
     private String description;
     @ManyToOne
     @JoinColumn(name = "creancier_id")
-    @JsonIgnore
     private Creancier creancier;
 
     @OneToMany(mappedBy = "creance" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)

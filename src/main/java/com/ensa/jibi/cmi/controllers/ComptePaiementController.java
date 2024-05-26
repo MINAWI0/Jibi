@@ -28,7 +28,6 @@ public class ComptePaiementController {
     }
 
     @GetMapping
-    //TODO:: uncomment the commented bloc underneath
     public ResponseEntity<List<ComptePaiement>> getAllComptes() {
 //        List<ComptePaiementDto> comptes = comptePaiementService.findAll();
 //        return new ResponseEntity<>(comptes, HttpStatus.OK);
