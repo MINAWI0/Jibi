@@ -11,4 +11,6 @@ public interface ClientService {
     void deleteClient(Long id);
     ClientDto getClientById(Long id);
     List<ClientDto> getAllClients();
+
+    void deleteByNumTel(String id);
 }

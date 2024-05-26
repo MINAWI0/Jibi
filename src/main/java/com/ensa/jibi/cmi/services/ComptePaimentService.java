@@ -17,4 +17,6 @@ public interface ComptePaimentService {
 
     void delete(String id);
 
+    boolean existsById(String id);
+
 }

@@ -1,12 +1,14 @@
 package com.ensa.jibi.cmi.services.impl;
 
+import com.ensa.jibi.backend.repositories.ClientRepository;
+import com.ensa.jibi.backend.services.impl.ClientServiceImpl;
 import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
 import com.ensa.jibi.cmi.domain.entities.ComptePaiement;
-import com.ensa.jibi.cmi.exceptions.InsufficientBalanceException;
 import com.ensa.jibi.cmi.mappers.impl.ComptePaiementMapperImpl;
 import com.ensa.jibi.cmi.repositories.ComptePaiementRepository;
 import com.ensa.jibi.cmi.services.ComptePaimentService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,14 +17,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class ComptePaiementServiceImpl implements ComptePaimentService {
-    private ComptePaiementRepository comptePaiementRepository;
-    private ComptePaiementMapperImpl compteMapper;
+    private final ComptePaiementRepository comptePaiementRepository;
+    private final ComptePaiementMapperImpl compteMapper;
+    private final ClientRepository clientRepository;
 
-
-    public ComptePaiementServiceImpl(ComptePaiementRepository comptePaiementRepository, ComptePaiementMapperImpl compteMapper) {
+    @Autowired
+    public ComptePaiementServiceImpl(ComptePaiementRepository comptePaiementRepository,
+                                     ComptePaiementMapperImpl compteMapper,
+                                     ClientRepository clientRepository) {
         this.comptePaiementRepository = comptePaiementRepository;
         this.compteMapper = compteMapper;
+        this.clientRepository = clientRepository;
     }
+
     @Override
     public ComptePaiementDto save(ComptePaiementDto comptePaiementDto) {
         ComptePaiement comptePaiement = compteMapper.mapFrom(comptePaiementDto);
@@ -63,13 +70,11 @@ public class ComptePaiementServiceImpl implements ComptePaimentService {
     }
 
     @Override
-    public ComptePaiementDto payer(String id,Long creanceId, Double montant){
-//            throws InsufficientBalanceException {
+    public ComptePaiementDto payer(String id, Long creanceId, Double montant) {
         Optional<ComptePaiement> optionalComptePaiement = comptePaiementRepository.findById(id);
-        //TODO::find the creance needed by id
         if (optionalComptePaiement.isPresent()) {
             ComptePaiement comptePaiement = optionalComptePaiement.get();
-//            comptePaiement.payer(montant, creance);
+            // Logic for paying the creance and updating the solde
             comptePaiementRepository.save(comptePaiement);
             return compteMapper.mapTo(comptePaiement);
         } else {
@@ -79,6 +84,17 @@ public class ComptePaiementServiceImpl implements ComptePaimentService {
 
     @Override
     public void delete(String id) {
-        comptePaiementRepository.deleteById(id);
+        if (comptePaiementRepository.existsById(id)) {
+            comptePaiementRepository.deleteById(id);
+
+            clientRepository.deleteByNumTel(id);
+        } else {
+            throw new EntityNotFoundException("ComptePaiement not found with id: " + id);
+        }
+    }
+
+    @Override
+    public boolean existsById(String id) {
+        return comptePaiementRepository.existsById(id);
     }
 }
