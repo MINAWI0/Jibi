@@ -1,10 +1,7 @@
 package com.ensa.jibi.cmi.domain.entities.creance;
 
 import com.ensa.jibi.cmi.domain.entities.Impaye;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@DiscriminatorValue("FACTURE")
 public class Facture extends Creance{
     private Long numFacture;
     //num Facture = 203445 => 3 impayes

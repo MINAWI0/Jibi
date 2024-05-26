@@ -1,6 +1,7 @@
 package com.ensa.jibi.cmi.domain.entities;
 
 import com.ensa.jibi.cmi.domain.entities.creance.Creance;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Creancier {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
