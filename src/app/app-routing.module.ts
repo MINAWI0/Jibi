@@ -9,12 +9,14 @@ import {CreateClientComponent} from "./components/create-client/create-client.co
 import {SuccessSignupPageComponent} from "./pages/success-signup-page/success-signup-page.component";
 import {AgentPageComponent} from "./pages/agent-page/agent-page.component";
 import {ChangePasswordComponent} from "./pages/change-password/change-password.component";
+import {ClientPageComponent} from "./pages/client-page/client-page.component";
 
 const routes: Routes = [
   {path: '',redirectTo: 'home',pathMatch: 'full'},
   {path:'success-signup', component:SuccessSignupPageComponent },
   {path: 'home',component: HomeComponent},
   {path: 'agent', component:AgentPageComponent},
+  {path: 'client', component:ClientPageComponent},
   {path: 'change-password', component:ChangePasswordComponent},
   {path: 'login',component: LoginComponent},
   {path: 'forgot-password',component: ForgotPasswordComponent},

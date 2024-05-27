@@ -1,0 +1,6 @@
+/* src/app/components/create-client/create-client.component.css */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  height: 100vh;
+}

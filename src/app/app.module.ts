@@ -16,6 +16,7 @@ import {HttpClientModule, provideHttpClient, withFetch} from "@angular/common/ht
 import { SuccessSignupPageComponent } from './pages/success-signup-page/success-signup-page.component';
 import { AgentPageComponent } from './pages/agent-page/agent-page.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ClientPageComponent } from './pages/client-page/client-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
     CreateClientComponent,
     SuccessSignupPageComponent,
     AgentPageComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ClientPageComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,6 @@ export interface AgentDto {
   prenom: string;
   username: string;
   password: string;
-  firstLogin: boolean;
   documents: DocumentDto[];
+  firstLogin: boolean;
 }

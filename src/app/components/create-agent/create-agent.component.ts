@@ -32,9 +32,9 @@ export class CreateAgentComponent {
       prenom: ['', Validators.required],
       username: ['', Validators.required],
       password: [''],
-      firstLogin: [true],
       description: [''], // Added description field
-      documents: [[]]
+      documents: [[]],
+      firstLogin: [true]
     });
   }
 
