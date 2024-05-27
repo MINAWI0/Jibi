@@ -4,11 +4,17 @@ import com.ensa.jibi.backend.domain.dto.DocumentDto;
 import com.ensa.jibi.backend.domain.entities.Document;
 import com.ensa.jibi.backend.services.DocumentService;
 import com.ensa.jibi.backend.services.FileStorageService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
 
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,4 +72,25 @@ public class DocumentController {
         List<Document> documents = documentService.findByAgent_NumTel(numTel);
         return ResponseEntity.ok(documents);
     }
+
+    @GetMapping("/download/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResource(fileName);
+
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            // Set default content type if unable to determine
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
 }

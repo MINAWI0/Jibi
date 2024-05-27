@@ -2,13 +2,16 @@ package com.ensa.jibi.backend.services;
 
 import com.ensa.jibi.backend.domain.dto.AdminDto;
 import com.ensa.jibi.backend.domain.dto.AgentDto;
+import com.ensa.jibi.backend.domain.dto.ClientDto;
 import com.ensa.jibi.backend.domain.dto.UserDto;
 import com.ensa.jibi.backend.domain.entities.Admin;
 import com.ensa.jibi.backend.domain.entities.Agent;
+import com.ensa.jibi.backend.domain.entities.Client;
 import com.ensa.jibi.backend.domain.entities.User;
 import com.ensa.jibi.backend.domain.requests.LoginRequest;
 import com.ensa.jibi.backend.mappers.UserMapper;
 import com.ensa.jibi.backend.repositories.UserRepository;
+import com.ensa.jibi.backend.services.impl.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +31,9 @@ public class UserService {
 
     @Autowired
     private AgentService agentService;
+
+    @Autowired
+    private ClientServiceImpl clientService;
 
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
@@ -65,6 +71,10 @@ public class UserService {
         User user = getUserByUsernameAndPassword(loginRequest);
         return user != null && user instanceof Agent; // Check if user is an Agent instance
     }
+    public boolean isClient(LoginRequest loginRequest) {
+        User user = getUserByUsernameAndPassword(loginRequest);
+        return user != null && user instanceof Client; // Check if user is an Client instance
+    }
 
     public boolean isFirstLogin(LoginRequest loginRequest) {
         User user = getUserByUsernameAndPassword(loginRequest);
@@ -88,6 +98,10 @@ public class UserService {
 
     public AgentDto getAgentByUsernameAndPassword(LoginRequest loginRequest){
         return agentService.getUserByUsernameAndPassword(loginRequest);
+    }
+
+    public ClientDto getClientByUsernameAndPassword(LoginRequest loginRequest){
+        return clientService.getClientByUsernameAndPassword(loginRequest);
     }
 
 }

@@ -24,5 +24,4 @@ public class AgentController {
         return ResponseEntity.ok(savedAgent);
     }
 
-    // Add other endpoints as needed, for example, getting an agent by ID or numTel
 }

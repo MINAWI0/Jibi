@@ -11,4 +11,5 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 void deleteByNumTel(String numTel);
 
 Optional<Client> findByNumTel(String numTel);
+Client findByUsernameAndPassword(String username, String password);
 }

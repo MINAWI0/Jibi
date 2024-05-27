@@ -2,6 +2,7 @@ package com.ensa.jibi.backend.controllers;
 
 import com.ensa.jibi.backend.domain.dto.AdminDto;
 import com.ensa.jibi.backend.domain.dto.AgentDto;
+import com.ensa.jibi.backend.domain.dto.ClientDto;
 import com.ensa.jibi.backend.domain.dto.UserDto;
 import com.ensa.jibi.backend.domain.entities.Admin;
 import com.ensa.jibi.backend.domain.entities.Agent;
@@ -43,6 +44,9 @@ public class UserController {
         } else if (userService.isAgent(loginRequest)) {
             AgentDto agent = userService.getAgentByUsernameAndPassword(loginRequest);
             return new ResponseEntity<>(agent, HttpStatus.OK);
+        } else if (userService.isClient(loginRequest)) {
+            ClientDto client = userService.getClientByUsernameAndPassword(loginRequest);
+            return new ResponseEntity<>(client, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("User Not Found", HttpStatus.UNAUTHORIZED);
         }
