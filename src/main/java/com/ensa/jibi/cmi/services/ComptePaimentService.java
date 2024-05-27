@@ -11,12 +11,8 @@ public interface ComptePaimentService {
     Optional<ComptePaiementDto> findOne(String id);
     boolean isExists(String id);
     ComptePaiementDto partialUpdate(String id, ComptePaiementDto comptePaiementDto);
-
-    ComptePaiementDto payer(String compteId,Long creanceId, Double montant);
-
-
+    ComptePaiementDto payer(String id, Long creanceId, Double montant);
     void delete(String id);
-
     boolean existsById(String id);
-
+    ComptePaiementDto rechargeSolde(String numTel, Double montant);
 }

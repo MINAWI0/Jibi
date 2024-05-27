@@ -1,7 +1,7 @@
 package com.ensa.jibi.cmi.services.impl;
 
+import com.ensa.jibi.backend.domain.enums.ClientType;
 import com.ensa.jibi.backend.repositories.ClientRepository;
-import com.ensa.jibi.backend.services.impl.ClientServiceImpl;
 import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
 import com.ensa.jibi.cmi.domain.entities.ComptePaiement;
 import com.ensa.jibi.cmi.mappers.impl.ComptePaiementMapperImpl;
@@ -96,5 +96,24 @@ public class ComptePaiementServiceImpl implements ComptePaimentService {
     @Override
     public boolean existsById(String id) {
         return comptePaiementRepository.existsById(id);
+    }
+
+    @Override
+    public ComptePaiementDto rechargeSolde(String numTel, Double montant) {
+        Optional<ComptePaiement> optionalComptePaiement = comptePaiementRepository.findById(numTel);
+        if (optionalComptePaiement.isPresent()) {
+            ComptePaiement comptePaiement = optionalComptePaiement.get();
+            ClientType clientType = clientRepository.findByNumTel(numTel).get().getClientType();
+
+            if (clientType != ClientType.Hsab_PRO && comptePaiement.getSolde() + montant > clientType.getAccountLimit()) {
+                throw new IllegalArgumentException("Recharge amount exceeds the limit for client type " + clientType);
+            }
+
+            comptePaiement.setSolde(comptePaiement.getSolde() + montant);
+            comptePaiementRepository.save(comptePaiement);
+            return compteMapper.mapTo(comptePaiement);
+        } else {
+            throw new EntityNotFoundException("ComptePaiement not found with id: " + numTel);
+        }
     }
 }
