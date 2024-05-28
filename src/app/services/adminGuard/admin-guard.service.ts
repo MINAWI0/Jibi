@@ -19,6 +19,10 @@ export class AdminGuard implements CanActivate {
     }
   }
   isAdmin(user: any): boolean {
-    return user && 'username' in user && user.username === 'admin';
+    return user && 'username' in user &&
+      user.username === 'admin'
+      && user.password === 'admin'
+      && user.nom === 'Admin'
+      && user.prenom === 'Admin';
   }
 }
