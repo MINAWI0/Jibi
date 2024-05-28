@@ -5,7 +5,7 @@ import { ClientService } from '../../services/client/client.service';
 import { ClientDto } from '../../entities/client-dto';
 import { Router } from '@angular/router';
 import { DocumentDto } from '../../entities/document-dto';
-import {ClientType} from "../../entities/enums/client-type";
+import { ClientType } from '../../entities/enums/client-type';
 
 @Component({
   selector: 'app-create-client',
@@ -25,9 +25,9 @@ export class CreateClientComponent {
     this.clientForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       numTel: ['', Validators.required],
-      clientType: ['', Validators.required],
+      clientType: [''],
       documents: [[]],
-      description: [''], // Added description field
+      description: [''],
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       username: ['', Validators.required],
@@ -40,7 +40,6 @@ export class CreateClientComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-      console.log(this.selectedFile);
     }
   }
 
@@ -48,19 +47,17 @@ export class CreateClientComponent {
     if (this.clientForm.valid) {
       const formData = new FormData();
       const client: ClientDto = this.clientForm.value;
+      console.log(client.clientType);
 
       if (this.selectedFile) {
-        // Append the file and description to the formData
         formData.append('file', this.selectedFile);
         formData.append('description', this.clientForm.get('description')?.value || '');
 
         this.clientService.uploadDocument(formData).subscribe(
           response => {
-            // Update the document URL in the client's documents
             const documentDto: DocumentDto = { docUrl: response.docUrl, description: this.clientForm.get('description')?.value || '' };
             client.documents.push(documentDto);
-            console.log("document part done!!!");
-            // Save the client with the updated documents
+
             this.clientService.saveClient(client).subscribe(
               res => {
                 this.router.navigate(['/success-signup']);
@@ -76,7 +73,6 @@ export class CreateClientComponent {
           }
         );
       } else {
-        // Handle the case where no file is selected
         this.clientService.saveClient(client).subscribe(
           response => {
             this.router.navigate(['/success-signup']);
@@ -87,8 +83,8 @@ export class CreateClientComponent {
           }
         );
       }
+    } else {
+      this.clientForm.markAllAsTouched();
     }
   }
-
-
 }

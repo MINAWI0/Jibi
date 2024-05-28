@@ -86,6 +86,8 @@ export class AgentPageComponent {
           }
         );
       }
+    }else {
+      this.clientForm.markAllAsTouched();
     }
   }
 

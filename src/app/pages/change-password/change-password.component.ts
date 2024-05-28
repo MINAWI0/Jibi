@@ -40,12 +40,18 @@ export class ChangePasswordComponent implements OnInit {
     this.loginService.setPassword(this.userId, this.newPassword).subscribe(
       () => {
         this.successMessage = 'Password successfully updated!';
+        this.errorMessage = '';
         this.router.navigate(['/login']);
       },
       (error) => {
         console.error('Error setting password:', error);
         this.errorMessage = 'Failed to update password. Please try again.';
+        this.successMessage = '';
       }
     );
+  }
+
+  isValidPassword(password: string): boolean {
+    return password.length >= 8;
   }
 }

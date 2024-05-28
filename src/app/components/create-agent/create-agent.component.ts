@@ -88,13 +88,20 @@ export class CreateAgentComponent {
           }
         );
       }
+    }else {
+      this.agentForm.markAllAsTouched();
     }
   }
 
   nextTab() {
-    const profileTab = document.getElementById('doc-tab');
-    if (profileTab) {
-      profileTab.click();
+    if (this.agentForm.valid) {
+      const profileTab = document.getElementById('doc-tab');
+      if (profileTab) {
+        profileTab.click();
+      }
+    }else {
+      this.agentForm.markAllAsTouched();
     }
+
   }
 }

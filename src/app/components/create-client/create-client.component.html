@@ -37,12 +37,14 @@
 
 
 
+  <!-- src/app/components/create-client/create-client.component.html -->
   <div class="col-xxl-6 col-xl-6 col-lg-7 my-5 mx-auto">
     <div class="contact__wrapper">
       <div class="contact__form">
         <form [formGroup]="clientForm">
           <div class="contact__input-wrapper">
             <div class="row">
+              <!-- Nom -->
               <div class="col-lg-12">
                 <div class="contact__input-box mb-15 mb-20">
                   <div class="contact__input-title">
@@ -50,9 +52,13 @@
                   </div>
                   <div class="contact__input">
                     <input name="nom" id="nom" formControlName="nom" type="text" placeholder="Enter your name">
+                    <div *ngIf="clientForm.get('nom')?.invalid && clientForm.get('nom')?.touched" class="text-danger">
+                      Nom is required
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- Prenom -->
               <div class="col-lg-12">
                 <div class="contact__input-box mb-15 mb-20">
                   <div class="contact__input-title">
@@ -60,9 +66,13 @@
                   </div>
                   <div class="contact__input">
                     <input name="prenom" id="prenom" formControlName="prenom" type="text" placeholder="Enter your surname">
+                    <div *ngIf="clientForm.get('prenom')?.invalid && clientForm.get('prenom')?.touched" class="text-danger">
+                      Prenom is required
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- Email -->
               <div class="col-lg-12">
                 <div class="contact__input-box mb-15 mb-20">
                   <div class="contact__input-title">
@@ -70,9 +80,13 @@
                   </div>
                   <div class="contact__input">
                     <input name="email" id="email" formControlName="email" type="email" placeholder="Enter your email">
+                    <div *ngIf="clientForm.get('email')?.invalid && clientForm.get('email')?.touched" class="text-danger">
+                      Valid email is required
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- Username -->
               <div class="col-lg-12">
                 <div class="contact__input-box mb-15 mb-20">
                   <div class="contact__input-title">
@@ -80,9 +94,13 @@
                   </div>
                   <div class="contact__input">
                     <input name="username" id="username" formControlName="username" type="text" placeholder="Enter your username">
+                    <div *ngIf="clientForm.get('username')?.invalid && clientForm.get('username')?.touched" class="text-danger">
+                      Username is required
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- Num Tel -->
               <div class="col-lg-12">
                 <div class="contact__input-box mb-15 mb-20">
                   <div class="contact__input-title">
@@ -90,58 +108,57 @@
                   </div>
                   <div class="contact__input">
                     <input name="numTel" id="numTel" formControlName="numTel" type="text" placeholder="Enter your phone number">
+                    <div *ngIf="clientForm.get('numTel')?.invalid && clientForm.get('numTel')?.touched" class="text-danger">
+                      Num Tel is required
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- Client Type -->
+<!--              <div class="col-lg-12">-->
+<!--                <div class="contact__input-box mb-15 mb-20">-->
+<!--                  <div class="contact__input-title">-->
+<!--                    <label>Client Type<span> *</span></label>-->
+<!--                  </div>-->
+<!--                  <div class="contact__select">-->
+<!--                    <select id="clientType" formControlName="clientType" >-->
+<!--                      <option *ngFor="let type of clientTypes | keyvalue" [value]="type.value">{{ type.value }}</option>-->
+<!--                    </select>-->
+<!--                    <div *ngIf="clientForm.get('clientType')?.invalid && clientForm.get('clientType')?.touched" class="text-danger">-->
+<!--                      Client Type is required-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
 
-  <!--            <div class="col-lg-12">-->
-  <!--              <div class="contact__input-box mb-15 mb-20">-->
-  <!--                <div class="contact__input-title">-->
-  <!--                  <label>Number of employees<span>*</span></label>-->
-  <!--                </div>-->
-  <!--                <div class="nice-select contact__select" >-->
-
-  <!--                  <select >-->
-  <!--                    <option *ngFor="let type of clientTypes | keyvalue" [value]="type.value">{{ type.value }}</option>-->
-
-  <!--                  </select>-->
-  <!--                </div>-->
-  <!--              </div>-->
-  <!--            </div>-->
-
-
-              <div class="col-lg-12">
-                <div class="contact__input-box mb-15 mb-20">
+                  <div class="col-lg-12">
                   <div class="contact__input-title">
-                    <label>Client Type<span>*</span></label>
+                    <label>Client Type<span> *</span></label>
                   </div>
-                  <div class="contact__select" style="display: none;">
-                    <select>
+                    <select id="clientType"  formControlName="clientType">
                       <option *ngFor="let type of clientTypes | keyvalue" [value]="type.value">{{ type.value }}</option>
                     </select>
                   </div>
-                  <div class="nice-select contact__select" tabindex="0">
-                    <span class="current">Client Type</span>
-                      <ul class="list">
-                        <li *ngFor="let type of clientTypes | keyvalue " [attr.data-value]="type.value" class="option" >
-                          {{ type.value }}
-                        </li>
-
-                      </ul>
-                  </div>
-                </div>
-              </div>
-
-
-
+              <!-- File -->
               <div class="col-lg-12">
                 <div class="contact__input-box mb-25">
                   <div class="contact__input-title">
                     <label for="file">Fichier</label>
                   </div>
                   <div class="contact__input">
-                    <label class="bd-gradient-btn-white w-100" style="cursor:pointer"  for="file">Parcourir</label>
-                    <input type="file" id="file" (change)="onFileChange($event)" class="form-control" style="display:none"  >
+                    <label class="bd-gradient-btn-white w-100" style="cursor:pointer" for="file">Parcourir</label>
+                    <input type="file" id="file" (change)="onFileChange($event)" class="form-control" style="display:none">
+                  </div>
+                </div>
+              </div>
+              <!-- Description -->
+              <div class="col-lg-12">
+                <div class="contact__input-box mb-15 mb-20">
+                  <div class="contact__input-title">
+                    <label for="description">Description</label>
+                  </div>
+                  <div class="contact__input">
+                    <input name="description" id="description" formControlName="description" type="text" placeholder="Description...">
                   </div>
                 </div>
               </div>
@@ -150,11 +167,10 @@
             </div>
           </div>
           <div class="contact__btn">
-            <button class="bd-gradient-btn w-100"  (click)="onSubmit()" type="submit">Submit</button>
+            <button class="bd-gradient-btn w-100" (click)="onSubmit()" type="submit">Submit</button>
           </div>
         </form>
         <p class="ajax-response"></p>
       </div>
     </div>
   </div>
-
