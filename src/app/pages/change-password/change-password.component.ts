@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-change-password',
@@ -17,13 +18,19 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private userService: UserService
   ) {}
 
+  // ngOnInit(): void {
+  //   this.route.queryParams.subscribe(params => {
+  //     this.userId = +params['userId'] || null;
+  //   });
+  //
+  // }
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.userId = +params['userId'] || null;
-    });
+    const user = this.userService.getUser();
+    this.userId = user ? user.id : null;
   }
 
   handleChangePassword(): void {

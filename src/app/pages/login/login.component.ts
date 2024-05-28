@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from "../../services/login/login.service";
+import { LoginService } from '../../services/login/login.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,11 @@ export class LoginComponent {
   rememberMe: boolean = false;
   errorMessage: string = '';
 
-  constructor(private router: Router, private authService: LoginService) {}
+  constructor(
+    private router: Router,
+    private authService: LoginService,
+    private userService: UserService
+  ) {}
 
   handleSubmit(event: Event) {
     event.preventDefault(); // Prevents the default form submission behavior
@@ -26,16 +31,17 @@ export class LoginComponent {
     this.authService.login(loginRequest).subscribe(
       (response: any) => {
         const user = JSON.parse(response);
-        console.log(user.firstLogin);
+        this.userService.setUser(user); // Save user data to localStorage
+
         if (user.firstLogin) {
           this.router.navigate(['/change-password'], { queryParams: { userId: user.id } });
           return;
         }
-        if (this.isClient(response) ) {
+        if (this.isClient(user)) {
           this.router.navigate(['/client']);
-        } else if (this.isAgent(response)) {
+        } else if (this.isAgent(user)) {
           this.router.navigate(['/agent']);
-        } else if (this.isAdmin(response)) {
+        } else if (this.isAdmin(user)) {
           this.router.navigate(['/admin']);
         } else {
           this.errorMessage = 'User not found or unauthorized.';
@@ -52,23 +58,14 @@ export class LoginComponent {
   }
 
   isAdmin(user: any): boolean {
-    const obj: Object = JSON.parse(user);
-    // Check if the user has admin-specific properties
-    console.log("admin");
-    return obj && 'username' in obj ;
-
+    return user && 'username' in user;
   }
 
   isAgent(user: any): boolean {
-    const obj: Object = JSON.parse(user);
-    // Check if the user has agent-specific properties
-    console.log("agent");
-    return obj && 'numPatente' in obj;
+    return user && 'numPatente' in user;
   }
 
   isClient(user: any): boolean {
-    const obj: Object = JSON.parse(user);
-    // Check if the user has client-specific properties
-    return obj && 'clientType' in obj;
+    return user && 'clientType' in user;
   }
 }
