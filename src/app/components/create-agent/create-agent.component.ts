@@ -92,7 +92,7 @@ export class CreateAgentComponent {
   }
 
   nextTab() {
-    const profileTab = document.getElementById('profile-tab');
+    const profileTab = document.getElementById('doc-tab');
     if (profileTab) {
       profileTab.click();
     }
