@@ -1,8 +1,11 @@
 package com.ensa.jibi.cmi.controllers;
 
+import com.ensa.jibi.backend.domain.requests.TransferRequest;
 import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
 import com.ensa.jibi.cmi.services.ComptePaimentService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +62,18 @@ public class ComptePaiementController {
             return ResponseEntity.ok(updatedComptePaiement);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<?> transferSolde(@RequestBody TransferRequest transferRequest) {
+        try {
+            ComptePaiementDto updatedComptePaiement = comptePaimentService.transferSolde(transferRequest.getFromAccount(), transferRequest.getToAccount(), transferRequest.getAmount());
+            return ResponseEntity.ok(updatedComptePaiement);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }

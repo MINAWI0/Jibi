@@ -15,4 +15,7 @@ public interface ComptePaimentService {
     void delete(String id);
     boolean existsById(String id);
     ComptePaiementDto rechargeSolde(String numTel, Double montant);
+    // Add a method to transfer solde
+    public ComptePaiementDto transferSolde(String fromAccountId, String toAccountId, Double amount);
+
 }

@@ -10,6 +10,7 @@ import com.ensa.jibi.cmi.services.ComptePaimentService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -116,4 +117,30 @@ public class ComptePaiementServiceImpl implements ComptePaimentService {
             throw new EntityNotFoundException("ComptePaiement not found with id: " + numTel);
         }
     }
+
+    @Override
+    public ComptePaiementDto transferSolde(String fromAccountId, String toAccountId, Double amount) {
+        Optional<ComptePaiement> fromAccountOpt = comptePaiementRepository.findById(fromAccountId);
+        Optional<ComptePaiement> toAccountOpt = comptePaiementRepository.findById(toAccountId);
+
+        if (fromAccountOpt.isPresent() && toAccountOpt.isPresent()) {
+            ComptePaiement fromAccount = fromAccountOpt.get();
+            ComptePaiement toAccount = toAccountOpt.get();
+
+            if (fromAccount.getSolde() < amount) {
+                throw new IllegalArgumentException("Insufficient funds in the source account.");
+            }
+
+            fromAccount.setSolde(fromAccount.getSolde() - amount);
+            toAccount.setSolde(toAccount.getSolde() + amount);
+
+            comptePaiementRepository.save(fromAccount);
+            comptePaiementRepository.save(toAccount);
+
+            return compteMapper.mapTo(fromAccount);
+        } else {
+            throw new EntityNotFoundException("One or both accounts not found.");
+        }
+    }
+
 }
