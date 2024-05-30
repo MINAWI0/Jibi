@@ -19,6 +19,6 @@ export class ClientGuard implements CanActivate {
     }
   }
   isClient(user: any): boolean {
-    return user && 'clientType' in user;
+    return user && 'clientType' in user && user.clientType !='Hsab_PRO';
   }
 }

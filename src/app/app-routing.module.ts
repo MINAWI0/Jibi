@@ -17,17 +17,23 @@ import {AdminGuard} from "./services/adminGuard/admin-guard.service";
 import {LoginGuard} from "./services/loginGuard/login-guard.service";
 import {AccountComponent} from "./components/account/account.component";
 import {QrCodeScannerComponent} from "./components/qr-code-scanner/qr-code-scanner.component";
-import {QrScannerComponent} from "angular2-qrscanner";
 import {RechargeSoldeComponent} from "./components/recharge-solde/recharge-solde.component";
+import {ProClientPageComponent} from "./pages/pro-client-page/pro-client-page.component";
+import {ProClientGuard} from "./services/proClientGuard/pro-client-guard.service";
+import {
+  ConfirmationPaiementListComponent
+} from "./components/confirmation-paiement-list/confirmation-paiement-list.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'success-signup', component: SuccessSignupPageComponent },
   { path: 'home', component: HomeComponent },
   { path: 'agent', component: AgentPageComponent, canActivate: [AuthGuard, AgentGuard] },
-  { path: 'client', component: ClientPageComponent, canActivate: [AuthGuard, ClientGuard] },
+  { path: 'client', component: ClientPageComponent, canActivate: [AuthGuard, ClientGuard], children: [
+      { path: 'confirmation-paiements', component: ConfirmationPaiementListComponent }] },
   { path: 'qr-transfer', component: QrCodeScannerComponent, canActivate: [AuthGuard, ClientGuard] },
   { path: 'recharge-solde', component: RechargeSoldeComponent, canActivate: [AuthGuard, ClientGuard] },
+  { path: 'pro-client', component: ProClientPageComponent, canActivate: [AuthGuard, ProClientGuard] },
   { path: 'qr-account', component: AccountComponent, canActivate: [AuthGuard, ClientGuard] },
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent, canActivate:[LoginGuard] },

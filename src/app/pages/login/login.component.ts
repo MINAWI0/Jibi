@@ -44,10 +44,15 @@ export class LoginComponent {
         }
 
         if (this.isClient(user)) {
+
           this.comptePaiementService.getComptePaiement(user.numTel).subscribe(
             (comptePaiement: ComptePaiementDto) => {
               this.compteService.setCompte(comptePaiement);
-              this.router.navigate(['/client']);
+              if(this.isClientPro(user)){
+
+              }else{
+                this.router.navigate(['/client']);
+              }
             },
             (error) => {
               console.error(error);
@@ -80,6 +85,9 @@ export class LoginComponent {
   }
 
   isClient(user: any): boolean {
-    return user && 'clientType' in user;
+    return user && 'clientType' in user && user.clientType !='Hsab_PRO';
+  }
+  isClientPro(user:any): boolean{
+    return user && 'clientType' in user && user.clientType ==='Hsab_PRO';
   }
 }

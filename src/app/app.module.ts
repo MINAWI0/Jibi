@@ -23,7 +23,13 @@ import { AccountComponent } from './components/account/account.component';
 import {NgxScannerQrcodeModule} from "ngx-scanner-qrcode";
 import { QrCodeScannerComponent } from './components/qr-code-scanner/qr-code-scanner.component';
 import { RechargeSoldeComponent } from './components/recharge-solde/recharge-solde.component';
-
+import { ProClientPageComponent } from './pages/pro-client-page/pro-client-page.component';
+import {
+  ConfirmationPaiementListComponent
+} from "./components/confirmation-paiement-list/confirmation-paiement-list.component";
+import {NgOptimizedImage} from "@angular/common";
+import {CheckIcon} from "primeng/icons/check";
+import {ArrowDownIcon} from "primeng/icons/arrowdown";
 
 @NgModule({
   declarations: [
@@ -43,7 +49,9 @@ import { RechargeSoldeComponent } from './components/recharge-solde/recharge-sol
     QrCodeComponent,
     AccountComponent,
     QrCodeScannerComponent,
-    RechargeSoldeComponent
+    RechargeSoldeComponent,
+    ProClientPageComponent,
+    ConfirmationPaiementListComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +60,10 @@ import { RechargeSoldeComponent } from './components/recharge-solde/recharge-sol
     ReactiveFormsModule,
     FormsModule,
     QRCodeModule,
-    NgxScannerQrcodeModule
+    NgxScannerQrcodeModule,
+    NgOptimizedImage,
+    CheckIcon,
+    ArrowDownIcon,
   ],
   providers: [
     provideClientHydration(),
