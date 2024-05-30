@@ -1,0 +1,10 @@
+.nav-btn{
+  cursor: pointer;
+  width: fit-content;
+}
+.qr-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}

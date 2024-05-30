@@ -273,9 +273,9 @@
                         <div class="header__right">
                             <div class="header__action d-flex align-items-center">
                               <div class="header__btn-wrap d-none d-xl-inline-flex">
+                                <a *ngIf="isClient()" class="bd-gradient-btn nav-btn" (click)="getSolde()" routerLink="qr-account">Solde : {{solde}}</a>
                                 <a *ngIf="!isLoggedIn()" class="sub__btn nav-btn" routerLink="login">Log In</a>
                                 <a *ngIf="isLoggedIn()" class="sub__btn nav-btn" (click)="logout()">Log Out</a>
-<!--                                <a class="bd-gradient-btn" href="contact-light.html">Get Started</a>-->
                               </div>
                                 <div class="header__hamburger ml-20 d-xl-none">
                                     <div class="sidebar__toggle">

@@ -34,12 +34,12 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   handleChangePassword(): void {
-    if (this.newPassword !== this.confirmPassword) {
+    if (this.newPassword === '' || this.newPassword !== this.confirmPassword) {
       this.errorMessage = 'Passwords do not match!';
       return;
     }
 
-    if (this.userId === null) {
+  if (this.userId === null) {
       this.errorMessage = 'Invalid user ID!';
       return;
     }

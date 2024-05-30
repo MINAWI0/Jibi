@@ -15,6 +15,10 @@ import {AgentGuard} from "./services/agentGuard/agent-guard.service";
 import {ClientGuard} from "./services/clientGuard/client-guard.service";
 import {AdminGuard} from "./services/adminGuard/admin-guard.service";
 import {LoginGuard} from "./services/loginGuard/login-guard.service";
+import {AccountComponent} from "./components/account/account.component";
+import {QrCodeScannerComponent} from "./components/qr-code-scanner/qr-code-scanner.component";
+import {QrScannerComponent} from "angular2-qrscanner";
+import {RechargeSoldeComponent} from "./components/recharge-solde/recharge-solde.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +26,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'agent', component: AgentPageComponent, canActivate: [AuthGuard, AgentGuard] },
   { path: 'client', component: ClientPageComponent, canActivate: [AuthGuard, ClientGuard] },
+  { path: 'qr-transfer', component: QrCodeScannerComponent, canActivate: [AuthGuard, ClientGuard] },
+  { path: 'recharge-solde', component: RechargeSoldeComponent, canActivate: [AuthGuard, ClientGuard] },
+  { path: 'qr-account', component: AccountComponent, canActivate: [AuthGuard, ClientGuard] },
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent, canActivate:[LoginGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },

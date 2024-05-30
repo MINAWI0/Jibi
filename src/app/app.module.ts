@@ -17,6 +17,13 @@ import { SuccessSignupPageComponent } from './pages/success-signup-page/success-
 import { AgentPageComponent } from './pages/agent-page/agent-page.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { ClientPageComponent } from './pages/client-page/client-page.component';
+import { QrCodeComponent } from './components/qr-code/qr-code.component';
+import {QRCodeModule} from "angularx-qrcode";
+import { AccountComponent } from './components/account/account.component';
+import {NgxScannerQrcodeModule} from "ngx-scanner-qrcode";
+import { QrCodeScannerComponent } from './components/qr-code-scanner/qr-code-scanner.component';
+import { RechargeSoldeComponent } from './components/recharge-solde/recharge-solde.component';
+
 
 @NgModule({
   declarations: [
@@ -32,14 +39,20 @@ import { ClientPageComponent } from './pages/client-page/client-page.component';
     SuccessSignupPageComponent,
     AgentPageComponent,
     ChangePasswordComponent,
-    ClientPageComponent
+    ClientPageComponent,
+    QrCodeComponent,
+    AccountComponent,
+    QrCodeScannerComponent,
+    RechargeSoldeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    QRCodeModule,
+    NgxScannerQrcodeModule
   ],
   providers: [
     provideClientHydration(),

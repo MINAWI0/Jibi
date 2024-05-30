@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
+import {ComptePaiementService} from "../../services/comptePaiement/compte-paiement.service";
+import {response} from "express";
+import {ComptePaiementDto} from "../../entities/comptePaiement-dto";
+import {CompteService} from "../../services/compte/compte.service";
 
 @Component({
   selector: 'app-header',
@@ -8,10 +12,14 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  solde: number = -1;
 
-  constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit(): void {}
+  constructor(private userService: UserService, private router: Router, private compte: CompteService) {}
+
+  ngOnInit(): void {
+    this.solde = this.getSolde();
+  }
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
@@ -20,5 +28,19 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.userService.clearUser();
     this.router.navigate(['/login']);
+  }
+  isClient(): boolean {
+    const user = this.userService.getUser();
+    return user && 'clientType' in user;
+  }
+  getSolde(): number {
+    const user = this.userService.getUser();
+    const numTel = user.numTel;
+    let solde = 0;
+    const compte = this.compte.getCompte();
+    if (compte) {
+      solde = compte.solde;
+    }
+    return solde;
   }
 }

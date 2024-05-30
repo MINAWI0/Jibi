@@ -21,7 +21,6 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   login(loginRequest: LoginRequest): Observable<string> {
-    console.log("called: ");
     console.log(loginRequest);
     return this.http.post(this.loginUrl + '/login', loginRequest, { responseType: 'text' });
   }

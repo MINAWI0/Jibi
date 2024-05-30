@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { UserService } from '../../services/user/user.service';
+import { CompteService } from '../../services/compte/compte.service';
+import { ComptePaiementService } from '../../services/comptePaiement/compte-paiement.service';
+import { ComptePaiementDto } from '../../entities/comptePaiement-dto';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +20,9 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private authService: LoginService,
-    private userService: UserService
+    private userService: UserService,
+    private compteService: CompteService,
+    private comptePaiementService: ComptePaiementService
   ) {}
 
   handleSubmit(event: Event) {
@@ -30,15 +35,24 @@ export class LoginComponent {
 
     this.authService.login(loginRequest).subscribe(
       (response: any) => {
-        const user = JSON.parse(response);
-        this.userService.setUser(user); // Save user data to localStorage
+        const user = JSON.parse(response); // Assuming response is already a JSON object
+        this.userService.setUser(user); // Save user data using UserService
 
         if (user.firstLogin) {
           this.router.navigate(['/change-password'], { queryParams: { userId: user.id } });
           return;
         }
+
         if (this.isClient(user)) {
-          this.router.navigate(['/client']);
+          this.comptePaiementService.getComptePaiement(user.numTel).subscribe(
+            (comptePaiement: ComptePaiementDto) => {
+              this.compteService.setCompte(comptePaiement);
+              this.router.navigate(['/client']);
+            },
+            (error) => {
+              console.error(error);
+            }
+          );
         } else if (this.isAgent(user)) {
           this.router.navigate(['/agent']);
         } else if (this.isAdmin(user)) {
