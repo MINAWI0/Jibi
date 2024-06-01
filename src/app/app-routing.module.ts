@@ -23,6 +23,7 @@ import {ProClientGuard} from "./services/proClientGuard/pro-client-guard.service
 import {
   ConfirmationPaiementListComponent
 } from "./components/confirmation-paiement-list/confirmation-paiement-list.component";
+import {FormsComponent} from "./components/forms/forms.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent, canActivate:[LoginGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'formulaire' , component: FormsComponent},
   {
     path: 'admin',
     component: AdminPageComponent,

@@ -1,0 +1,16 @@
+<div>
+    <label for="type">Type de créance:</label>
+    <input id="type" [(ngModel)]="type">
+    <button (click)="loadFormulaire(type)">Charger Formulaire</button>
+</div>
+
+<form [formGroup]="formulaire" (ngSubmit)="onSubmit()">
+    <div *ngFor="let field of formFields">
+        <label [for]="field.nom">{{ field.nom }}:</label>
+        <input *ngIf="field.type !== 'Enum'" [id]="field.nom" [formControlName]="field.nom" [type]="field.type.toLowerCase()">
+        <select *ngIf="field.type === 'Enum'" [id]="field.nom" [formControlName]="field.nom">
+            <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+        </select>
+    </div>
+    <button type="submit">Soumettre</button>
+</form>

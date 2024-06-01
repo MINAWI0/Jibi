@@ -30,6 +30,7 @@ import {
 import {NgOptimizedImage} from "@angular/common";
 import {CheckIcon} from "primeng/icons/check";
 import {ArrowDownIcon} from "primeng/icons/arrowdown";
+import { FormsComponent } from './components/forms/forms.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {ArrowDownIcon} from "primeng/icons/arrowdown";
     QrCodeScannerComponent,
     RechargeSoldeComponent,
     ProClientPageComponent,
-    ConfirmationPaiementListComponent
+    ConfirmationPaiementListComponent,
+    FormsComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,7 @@ import {ArrowDownIcon} from "primeng/icons/arrowdown";
     NgOptimizedImage,
     CheckIcon,
     ArrowDownIcon,
+
   ],
   providers: [
     provideClientHydration(),
