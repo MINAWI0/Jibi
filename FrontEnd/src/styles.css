@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+.contact__wrapper {
+  background: #f6f8fa;
+}
+.body-content{
+  margin-left: 226px;
+  margin-top: 72px;
+  width: 81%;
+  height: 90%;
+}
+
+
+.mat-step-header:hover:not([aria-disabled]), .mat-step-header.cdk-program-focused{
+  background-color:transparent;
+}
+.mat-primary, .mat-step-header{
+  --mat-full-pseudo-checkbox-disabled-selected-icon-color: transparent;
+}
+mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white;
+}
+.has-mask {
+  position: absolute;
+  clip: rect(10px, 150px, 130px, 10px);
+}
+

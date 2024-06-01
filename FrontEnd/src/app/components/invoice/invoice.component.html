@@ -1,0 +1,8 @@
+<div *ngFor="let invoice of invoices">
+  <h2>Facture #{{ invoice.id }}</h2>
+  <p>Client : {{ invoice.customer }}</p>
+  <p>Montant : {{ invoice.amount | currency }}</p>
+  <p>Date d'échéance : {{ invoice.dueDate | date }}</p>
+  <button (click)="confirmPayment()">Payer</button>
+</div>
+<button (click)="downloadReceipt()">Télécharger le reçu</button>

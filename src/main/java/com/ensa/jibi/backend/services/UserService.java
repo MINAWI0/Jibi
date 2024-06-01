@@ -53,6 +53,10 @@ public class UserService {
         return users.stream().map(userMapper::mapTo).collect(Collectors.toList()); // Use mapper to convert User to UserDto
     }
 
+    public User getUserByUsername(String userName) {
+        return userRepository.findByUsername(userName);
+    }
+    public User getUserById(Long id) { return userRepository.findById(id).orElse(null);}
     public User getUserByUsernameAndPassword(LoginRequest loginRequest) {
         return userRepository.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
     }
@@ -103,5 +107,6 @@ public class UserService {
     public ClientDto getClientByUsernameAndPassword(LoginRequest loginRequest){
         return clientService.getClientByUsernameAndPassword(loginRequest);
     }
+
 
 }

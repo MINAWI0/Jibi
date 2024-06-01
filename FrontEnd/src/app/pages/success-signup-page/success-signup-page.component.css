@@ -1,0 +1,14 @@
+.success-container{
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.success-btn{
+  margin-top: 30px;
+}
+.correct-logo{
+  width: 100px;
+  margin-bottom: 15px;
+}
