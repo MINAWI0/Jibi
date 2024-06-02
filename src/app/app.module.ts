@@ -30,6 +30,7 @@ import {
 import {NgOptimizedImage} from "@angular/common";
 import {CheckIcon} from "primeng/icons/check";
 import {ArrowDownIcon} from "primeng/icons/arrowdown";
+import { CreditorComponent } from './components/creditor/creditor.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {ArrowDownIcon} from "primeng/icons/arrowdown";
     QrCodeScannerComponent,
     RechargeSoldeComponent,
     ProClientPageComponent,
-    ConfirmationPaiementListComponent
+    ConfirmationPaiementListComponent,
+    CreditorComponent
   ],
   imports: [
     BrowserModule,
