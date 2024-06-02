@@ -18,7 +18,7 @@ public class FileStorageService {
     private final Path fileStorageLocation;
 
     public FileStorageService() {
-        this.fileStorageLocation = Paths.get("C:\\Users\\Mehdi BM\\Desktop\\Projet Jibi\\uploads")
+        this.fileStorageLocation = Paths.get("C:\\Users\\HP\\OneDrive\\Bureau\\Projects\\Jibi\\src\\main\\java\\com\\ensa\\jibi\\uploads")
                 .toAbsolutePath().normalize();
 
         try {

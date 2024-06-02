@@ -5,6 +5,7 @@ import com.ensa.jibi.backend.domain.entities.Role;
 import com.ensa.jibi.backend.domain.entities.User;
 import com.ensa.jibi.backend.repositories.RoleRepository;
 import com.ensa.jibi.backend.services.UserService;
+import com.ensa.jibi.jwt.models.AuthenticationRequest;
 import com.ensa.jibi.jwt.models.AuthenticationResponse;
 import com.ensa.jibi.jwt.models.UserPrincipal;
 import com.ensa.jibi.jwt.services.AuthenticateService;
@@ -17,6 +18,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,20 +40,20 @@ public class AuthenticateController implements UserDetailsService {
     return new UserPrincipal(userEntity);
   }
 
-  @RequestMapping(value = "/login")
-  public ResponseEntity<?> authenticate(String userName, String password)
+  @PostMapping(value = "/login")
+  public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authenticationRequest)
           throws NoSuchAlgorithmException {
-    if (userName.isEmpty() || password.isEmpty()) {
+    if (authenticationRequest.getUsername().isEmpty() || authenticationRequest.getPassword().isEmpty()) {
       throw new BadCredentialsException("Unauthorized");
     }
 
-    var userEntity = userService.getUserByUsername(userName);
+    var userEntity = userService.getUserByUsername(authenticationRequest.getUsername());
 
     if (userEntity == null) {
       return ResponseEntity.badRequest().body("User with the given UserName doesn't exist !");
     }
 
-    if (!passwordEncoder.matches(password, userEntity.getPassword())) {
+    if (!passwordEncoder.matches(authenticationRequest.getPassword(), userEntity.getPassword())) {
       return ResponseEntity.badRequest().body("The given Password is incorrect !");
     }
     Role role = getRole(userEntity.getId());
