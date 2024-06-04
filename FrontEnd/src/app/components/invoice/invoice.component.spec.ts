@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InvoiceComponent } from './invoice.component';
 
-describe('InvoiceComponent', () => {
+describe('Invoice1Component', () => {
   let component: InvoiceComponent;
   let fixture: ComponentFixture<InvoiceComponent>;
 
@@ -11,7 +11,7 @@ describe('InvoiceComponent', () => {
       declarations: [InvoiceComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(InvoiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

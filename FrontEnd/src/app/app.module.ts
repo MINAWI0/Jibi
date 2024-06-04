@@ -8,7 +8,6 @@ import {FooterComponent} from './components/footer/footer.component';
 import {LoginComponent} from './pages/login/login.component';
 import {ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AdminPageComponent} from './pages/admin-page/admin-page.component';
 import {CreateAgentComponent} from './components/create-agent/create-agent.component';
 import {CreateClientComponent} from './components/create-client/create-client.component';
 import {provideHttpClient, withFetch} from "@angular/common/http";
@@ -19,16 +18,14 @@ import {ClientPageComponent} from './pages/client-page/client-page.component';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatIcon} from "@angular/material/icon";
-import {RechargeComponent} from './components/recharge/recharge.component';
 import {InvoiceComponent} from './components/invoice/invoice.component';
-import {DonationComponent} from './components/donation/donation.component';
-import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
 import {KeyValuePipe, NgForOf} from "@angular/common";
 import {MatButton} from "@angular/material/button";
 import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelect} from "@angular/material/select";
 import {MatOption} from "@angular/material/autocomplete";
+import {AdminModule} from "./pages/admin-page/admin.module";
 
 @NgModule({
 
@@ -39,17 +36,13 @@ import {MatOption} from "@angular/material/autocomplete";
     FooterComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    AdminPageComponent,
     CreateAgentComponent,
     CreateClientComponent,
     SuccessSignupPageComponent,
     AgentPageComponent,
     ChangePasswordComponent,
     ClientPageComponent,
-    RechargeComponent,
     InvoiceComponent,
-    DonationComponent,
-    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +63,7 @@ import {MatOption} from "@angular/material/autocomplete";
     MatSelect,
     MatOption,
     MatFormFieldModule,
+    AdminModule,
   ],
   providers: [
     provideClientHydration(),
@@ -78,5 +72,8 @@ import {MatOption} from "@angular/material/autocomplete";
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
+  exports: [
+    HeaderComponent
+  ]
 })
 export class AppModule { }

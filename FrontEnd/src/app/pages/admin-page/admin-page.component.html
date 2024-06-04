@@ -1,4 +1,4 @@
-<app-sidebar/>
+<app-sidebar (itemClicked)="loadComponent($event)" [currentContent]="current"></app-sidebar>
 <div class="body-content">
-  <router-outlet/>
+  <ng-container #componentContainer></ng-container>
 </div>
