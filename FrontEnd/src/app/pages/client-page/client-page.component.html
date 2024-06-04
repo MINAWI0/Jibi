@@ -1,4 +1,4 @@
-<app-sidebar/>
-<div class="body-content">
-  <router-outlet/>
+<app-sidebar (itemClicked)="loadComponent($event)" [currentContent]="current"></app-sidebar>
+<div class="body-content" style="background: #eff4fcde">
+  <ng-container #componentContainer></ng-container>
 </div>

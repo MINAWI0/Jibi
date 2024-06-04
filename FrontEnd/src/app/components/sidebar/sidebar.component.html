@@ -21,6 +21,6 @@
     </a>
   </div>
   <ul *ngFor="let element of navs">
-    <li class="m-4 w-100 content-center" *ngIf="element.visible" [class.active]="currentRoute === element.link"><img src="{{element.image}}" style="width: 20px;height: 20px"><a routerLink="{{element.link}}">{{element.name}}</a></li>
+    <li class="m-4 w-100 content-center" *ngIf="element.visible" [class.active]="currentContent === element.link"><img src="{{element.image}}" style="width: 20px;height: 20px"><a (click)="selectComponent(element.link)">{{element.name}}</a></li>
   </ul>
 </nav>

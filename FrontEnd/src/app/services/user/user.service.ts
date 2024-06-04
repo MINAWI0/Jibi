@@ -11,8 +11,11 @@ export class UserService {
   }
 
   getUser(): any {
-    const user = localStorage.getItem(this.storageKey);
-    return user ? JSON.parse(user) : null;
+    if (typeof localStorage !== 'undefined')
+    {
+      const user = localStorage.getItem(this.storageKey);
+      return user ? JSON.parse(user) : null;
+    }
   }
 
   clearUser(): void {

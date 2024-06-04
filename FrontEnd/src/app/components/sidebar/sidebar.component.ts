@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
 
 
@@ -7,7 +7,7 @@ import {NavigationEnd, Router} from "@angular/router";
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
   currentRoute!: any;
   current!: any;
@@ -15,22 +15,31 @@ export class SidebarComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url.split('/').at(2);
         this.current= event.url.split('/').at(1);
       }
       this.navs =[
         {name: 'Dashboard',image: 'assets/imgs/icons/dash.png',link:'dashboard',visible: this.current=='admin' || this.current=='client' },
         {name: 'Transactions',image: 'assets/imgs/icons/img_2.png',link:'',visible: this.current=='admin' || this.current=='client' },
-        {name: 'Paiements et factures',image: 'assets/imgs/icons/img_2.png',link:'',visible: this.current=='admin' || this.current=='client'},
-        {name: 'Notifications',image: 'assets/imgs/icons/img_2.png',link:'',visible: this.current=='admin' || this.current=='client'},
+        {name: 'Paiements et factures',image: 'assets/imgs/icons/img_2.png',link:'invoice',visible: this.current=='client'},
+        {name: 'Notifications',image: 'assets/imgs/icons/img_2.png',link:'',visible: this.current=='client'},
         {name: 'New Client',image: 'assets/imgs/icons/img_5.png',link:'create-client',visible: this.current=='agent'},
         {name: 'New Agent',image: 'assets/imgs/icons/img_7.png',link:'create-agent',visible: this.current=='admin'},
-        {name: 'New Agency',image: 'assets/imgs/icons/img_8.png',link:'user-management',visible: this.current=='admin'}
+        {name: 'New Agency',image: 'assets/imgs/icons/img_8.png',link:'create-client',visible: this.current=='admin'}
       ]
     });
   }
   searchTerm: string = '';
+  @Output() itemClicked: EventEmitter<string> = new EventEmitter<string>();
+  @Input() currentContent!: any;
 
+  ngOnInit() {
+    this.itemClicked.emit(this.currentContent)
+    console.log(this.currentContent)
+  }
+
+  selectComponent(componentName: string) {
+    this.itemClicked.emit(componentName);
+  }
   search() {
     // Add your search logic here
     console.log('Searching for:', this.searchTerm);

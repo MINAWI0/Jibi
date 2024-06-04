@@ -1,76 +1,86 @@
-import {Component, OnInit} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { jsPDF } from 'jspdf';
-import {CurrencyPipe, DatePipe} from "@angular/common";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.css'],
-  providers: [CurrencyPipe, DatePipe]
+  styleUrls: ['../../../assets/css/style.css']
 })
 export class InvoiceComponent implements OnInit{
-  invoice: any;
-  paymentConfirmed: boolean = false;
-  invoices!: Invoice[];
-  constructor(
-    private http: HttpClient,private currencyPipe: CurrencyPipe,
-    private datePipe: DatePipe) { }
-
+  @ViewChild('downloadSection') downloadSection!: ElementRef;
+  invoiceNumber: string = '';
   ngOnInit() {
-    this.getInvoices();
+    this.generateInvoiceNumber()
   }
 
-  getInvoices() {
-    this.http.get<Invoice[]>('./assets/data/invoices.json').subscribe(
-      (data) => {
-        this.invoices = data;
-        this.generatePdfReceipt();
-      },
-      (error) => {
-        // Gérer l'erreur de récupération des factures
+  invoiceData = {
+    invoiceNumber: '#LL93784',
+    invoiceDate: '01.07.2022',
+    sender: {
+      name: 'Lowell H. Dominguez',
+      address: '84 Spilman Street, London,',
+      email: 'lowell@gmail.com'
+    },
+    paymentInfo: {
+      companyName: 'Laralink Ltd',
+      address: '86-90 Paul Street, London,\n England EC2A 4NE',
+      email: 'demo@gmail.com'
+    },
+    Transaction: {
+      type: 'Payment',
+      date: '01/07/2022',
+      number: 'PNM768787',
+      paymentMethodType: 'CreditCard',
+      paymentMethodNumber: '*************5654',
+      amount: '1000',
+    }
+  };
+  generateInvoiceNumber() {
+    const randomPart = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+    this.invoiceNumber = `INV-${Date.now()}-${randomPart}`;
+  }
+  downloadPDF() {
+    const downloadSection = this.downloadSection.nativeElement;
+    const invoiceNumber = this.invoiceNumber;
+    const cWidth = downloadSection.clientWidth;
+    const cHeight = downloadSection.clientHeight;
+    const topLeftMargin = 0;
+    const pdfWidth = cWidth + topLeftMargin * 2;
+    const pdfHeight = pdfWidth * 1.5 + topLeftMargin * 2;
+    const canvasImageWidth = cWidth;
+    const canvasImageHeight = cHeight;
+    const totalPDFPages = Math.ceil(cHeight / pdfHeight) - 1;
+
+    html2canvas(downloadSection, { allowTaint: true }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png', 4.0);
+      const pdf = new jsPDF('p', 'pt', [pdfWidth, pdfHeight]);
+      pdf.addImage(
+        imgData,
+        'PNG',
+        topLeftMargin,
+        topLeftMargin,
+        canvasImageWidth,
+        canvasImageHeight
+      );
+      for (let i = 1; i <= totalPDFPages; i++) {
+        pdf.addPage();
+        pdf.addImage(
+          imgData,
+          'PNG',
+          topLeftMargin,
+          -(pdfHeight * i) + topLeftMargin * 0,
+          canvasImageWidth,
+          canvasImageHeight
+        );
       }
-    );
+      pdf.save(`${invoiceNumber}.pdf`);
+    });
   }
 
+  th=['Transaction Type','Transaction Date','Transaction Number','Payment Method Type','Payment Method Number','Applied Amount']
 
-  generatePdfReceipt(): jsPDF {
-    const doc = new jsPDF();
-    const invoice = this.invoices[0];
-
-    const docDefinition = [
-      { text: 'Reçu de paiement', style: 'header' },
-      { text: `Facture #${invoice.id}`, style: 'subheader' },
-      { text: `Client : ${invoice.customer}`, margin: [0, 10, 0, 0] },
-      { text: `Montant : ${this.currencyPipe.transform(invoice.amount)}`, margin: [0, 5, 0, 0] },
-      { text: `Date d'échéance : ${this.datePipe.transform(invoice.dueDate, 'yyyy-MM-dd')}`, margin: [0, 5, 0, 0] }
-    ].map(item => item.text);
-
-    doc.setFontSize(12);
-    doc.text(docDefinition, 20, 20);
-
-    return doc;
+  h() {
+    console.log(this.invoiceData);
   }
-  downloadReceipt() {
-    const doc = this.generatePdfReceipt();
-    doc.save('invoice.pdf');
-  }
-  confirmPayment() {
-    // Envoyer la requête de confirmation de paiement au serveur
-    this.http.post('/api/invoice/payment', { invoiceId: this.invoice.id }).subscribe(
-      (response) => {
-        this.paymentConfirmed = true;
-        // Enregistrer la transaction et envoyer la confirmation à l'utilisateur
-      },
-      (error) => {
-        // Gérer l'erreur de paiement
-      }
-    );
-  }
-}
-interface Invoice {
-  id: number;
-  customer: string;
-  amount: number;
-  dueDate: string;
 }

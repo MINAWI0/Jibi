@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, OnInit, Type, ViewChild, ViewContainerRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClientType} from "../../entities/enums/client-type";
 import {ClientService} from "../../services/client/client.service";
 import {Router} from "@angular/router";
 import {ClientDto} from "../../entities/client-dto";
 import {DocumentDto} from "../../entities/document-dto";
+import {CreateAgentComponent} from "../../components/create-agent/create-agent.component";
+import {CreateClientComponent} from "../../components/create-client/create-client.component";
 
 @Component({
   selector: 'app-agent-page',
   templateUrl: './agent-page.component.html',
   styleUrl: './agent-page.component.css'
 })
-export class AgentPageComponent {
+export class AgentPageComponent implements OnInit, AfterViewInit{
+  @ViewChild('componentContainer', { read: ViewContainerRef }) componentContainer!: ViewContainerRef;
+  current!: any;
   clientForm: FormGroup;
   selectedFile: File | null = null;
   clientTypes = ClientType;
@@ -34,7 +38,27 @@ export class AgentPageComponent {
       firstLogin: [true]
     });
   }
-
+  ngOnInit() {}
+  ngAfterViewInit() {
+    this.loadComponent('create-client');
+  }
+  loadComponent(componentName: string) {
+    if(this.componentContainer)
+      this.componentContainer.clear();
+    let componentType: Type<any> | undefined;
+    this.current = componentName
+    switch (componentName) {
+      case 'create-agent':
+        componentType = CreateAgentComponent;
+        break;
+      case 'create-client':
+        componentType = CreateClientComponent;
+        break;
+    }
+    if (componentType) {
+      this.componentContainer?.createComponent(componentType);
+    }
+  }
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {

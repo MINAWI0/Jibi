@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgentService } from '../../services/agent/agent.service';
 import { AgentDto } from '../../entities/agent-dto';
@@ -8,7 +8,7 @@ import {DocumentDto} from "../../entities/document-dto";
 @Component({
   selector: 'app-create-agent',
   templateUrl: './create-agent.component.html',
-  styleUrls: ['./create-agent.component.css']
+  styleUrls: ['./create-agent.component.css'],
 })
 export class CreateAgentComponent {
   agentForm: FormGroup;
