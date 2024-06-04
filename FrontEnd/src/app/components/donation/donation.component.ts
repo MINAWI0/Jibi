@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { jsPDF } from 'jspdf';
+
 
 @Component({
   selector: 'app-donation',
@@ -29,9 +29,6 @@ export class DonationComponent {
   }
 
   generatePdfReceipt() {
-    const doc = new jsPDF();
-    // Générer le reçu PDF à partir des informations de la donation
-    doc.save('donation_receipt.pdf');
   }
 
   confirmPayment() {

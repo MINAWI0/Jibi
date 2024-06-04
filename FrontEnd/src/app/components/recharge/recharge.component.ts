@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { v4 as uuidv4 } from 'uuid';
+
 
 @Component({
   selector: 'app-recharge',
@@ -15,7 +15,7 @@ export class RechargeComponent {
     this.rechargeCode = '';
   }
   initiateRecharge() {
-    this.rechargeCode = uuidv4();
+
     // Afficher le code de recharge à l'utilisateur
   }
 

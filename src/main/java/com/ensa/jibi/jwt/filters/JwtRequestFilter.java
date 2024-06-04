@@ -1,9 +1,7 @@
 package com.ensa.jibi.jwt.filters;
 
 
-
-
-import com.ensa.jibi.jwt.services.AuthenticateService;
+import com.ensa.jibi.jwt.services.ApplicationUserDetailsService;
 import com.ensa.jibi.jwt.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,14 +15,13 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-
 import java.io.IOException;
 
 @AllArgsConstructor
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-  private final AuthenticateService authenticateService;
+  private final ApplicationUserDetailsService userDetailsService;
 
   private final JwtUtil jwtUtil;
   @Override
@@ -50,7 +47,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
       SecurityContextHolder.getContext().getAuthentication() == null
     ) {
       UserDetails userDetails =
-        this.authenticateService.loadUserByUsername(username);
+        this.userDetailsService.loadUserByUsername(username);
 
       if (jwtUtil.validateToken(token, userDetails)) {
         var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
