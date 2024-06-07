@@ -18,7 +18,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/users")
+
 public class UserController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class UserController {
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/log")
     public ResponseEntity<Object> loginUser(@RequestBody LoginRequest loginRequest) {
         if (userService.isAdmin(loginRequest)) {
             AdminDto admin = userService.getAdminByUsernameAndPassword(loginRequest);
@@ -52,15 +52,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{userId}/set-password")
-    public ResponseEntity<String> setPassword(@PathVariable Long userId, @RequestParam String newPassword) {
-        try {
-            userService.setPassword(userId, newPassword);
-            return ResponseEntity.ok().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-    }
+
 
     // You can add other API endpoints for specific user functionalities
 }

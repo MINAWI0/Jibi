@@ -54,7 +54,7 @@ public class OTPService {
         otp.setToken(otpToken);
         otp.setExpirationTime(expirationTimeMillis);
         otpRepository.save(otp);
-
+/*
         String messageWithOTP = "Your OTP token is: " + otpToken + ". This token will expire in 1 hour.";
 
         Message message = Message.creator(
@@ -62,7 +62,7 @@ public class OTPService {
                 new PhoneNumber(outGoingSmsNumber),
                 messageWithOTP
         ).create();
-
+*/
         return otpToken;
     }
 

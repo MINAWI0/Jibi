@@ -1,5 +1,6 @@
 package com.ensa.jibi.backend.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class Agent extends User{
     private String numPatente;
 //    private String docUrl;
     @OneToMany(mappedBy = "agent" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Document> documents = new ArrayList<>();
 
 

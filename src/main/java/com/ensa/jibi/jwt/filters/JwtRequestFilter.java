@@ -1,7 +1,7 @@
 package com.ensa.jibi.jwt.filters;
 
 
-import com.ensa.jibi.jwt.services.ApplicationUserDetailsService;
+import com.ensa.jibi.backend.services.AuthenticationService;
 import com.ensa.jibi.jwt.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-  private final ApplicationUserDetailsService userDetailsService;
+  private final AuthenticationService userDetailsService;
 
   private final JwtUtil jwtUtil;
   @Override

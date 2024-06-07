@@ -1,6 +1,7 @@
 package com.ensa.jibi.backend.domain.entities;
 
 import com.ensa.jibi.backend.domain.enums.ClientType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,6 @@ public class Client extends User{
     @Enumerated(EnumType.ORDINAL)
     private ClientType clientType;
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Document> documents = new ArrayList<>();
 }

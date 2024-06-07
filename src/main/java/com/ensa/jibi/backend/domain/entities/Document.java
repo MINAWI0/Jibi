@@ -1,5 +1,6 @@
 package com.ensa.jibi.backend.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,8 +18,10 @@ public class Document {
     private String description;
 
     @ManyToOne
+    @JsonManagedReference
     private Agent agent;
 
     @ManyToOne
+    @JsonManagedReference
     private Client client;
 }

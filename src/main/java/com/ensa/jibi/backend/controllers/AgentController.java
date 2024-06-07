@@ -5,10 +5,11 @@ import com.ensa.jibi.backend.domain.entities.Agent;
 import com.ensa.jibi.backend.services.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/agents")
+@RequestMapping("/agents")
 public class AgentController {
 
     private final AgentService agentService;
@@ -19,6 +20,7 @@ public class AgentController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<AgentDto> saveAgent(@RequestBody AgentDto agentDto) {
         AgentDto savedAgent = agentService.save(agentDto);
         return ResponseEntity.ok(savedAgent);

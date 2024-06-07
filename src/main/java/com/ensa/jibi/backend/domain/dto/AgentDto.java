@@ -17,6 +17,7 @@ public class AgentDto extends UserDto{
     private String adresse;
     private String email;
     private String numTel;
+
     private String numCommerce;
     private String numPatente;
     private List<DocumentDto> documents = new ArrayList<>();

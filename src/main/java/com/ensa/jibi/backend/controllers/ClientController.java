@@ -3,12 +3,13 @@ package com.ensa.jibi.backend.controllers;
 import com.ensa.jibi.backend.domain.dto.ClientDto;
 import com.ensa.jibi.backend.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/clients")
+@RequestMapping("/clients")
 public class ClientController {
 
     private final ClientService clientService;
@@ -19,6 +20,7 @@ public class ClientController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_AGENT')")
     public ClientDto addClient(@RequestBody ClientDto clientDto) {
         return clientService.addClient(clientDto);
     }
@@ -37,6 +39,7 @@ public class ClientController {
     public ClientDto getClientById(@PathVariable Long id) {
         return clientService.getClientById(id);
     }
+
     @GetMapping("/list")
     public List<ClientDto> getAllClients() {
         return clientService.getAllClients();

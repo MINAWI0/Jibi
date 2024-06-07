@@ -85,16 +85,7 @@ public class UserService {
         return user != null && user.isFirstLogin();
     }
 
-    public void setPassword(Long userId, String newPassword) {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user != null) {
-            user.setPassword(newPassword);
-            user.setFirstLogin(false);
-            userRepository.save(user);
-        } else {
-            throw new RuntimeException("User not found with ID: " + userId);
-        }
-    }
+
 
     public AdminDto getAdminByUsernameAndPassword(LoginRequest loginRequest){
         return adminRepository.getUserByUsernameAndPassword(loginRequest);
