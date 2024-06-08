@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {CreanceDto} from "../../entities/creance-dto";
 import {environment} from "../../../environments/environment.development";
+import {SessionService} from "../../components/utils/session/session.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ import {environment} from "../../../environments/environment.development";
 export class CreanceService {
 
   private baseUrl = 'http://localhost:8080/api/creances';
-  private jsonHttpOptions: { headers: HttpHeaders } = environment.jsonHttpOptions;
+  private jsonHttpOptions: { headers: HttpHeaders } = {
+    headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + new SessionService().getToken())
+  }
 
   constructor(private http: HttpClient) { }
 

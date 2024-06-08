@@ -6,6 +6,8 @@ import {DialogService} from "../../components/utils/dialog/dialog.service";
 import {AlertService} from "../../components/utils/alert/alert.service";
 import {SessionService}from '../../components/utils/session/session.service';
 import {NavigatorService} from "../../components/utils/navigator/navigator.service";
+import {CompteService} from "../../services/compte/compte.service";
+import {ComptePaiementService} from "../../services/comptePaiement/compte-paiement.service";
 
 @Component({
   selector: 'app-login',
@@ -25,7 +27,9 @@ export class LoginComponent {
     protected dialogService: DialogService,
     protected alertService: AlertService,
     private navigatorService: NavigatorService,
-    private session: SessionService
+    private session: SessionService,
+    private comptePaiment: ComptePaiementService,
+    private compteData: CompteService
   ) {}
 
   handleSubmit(event: Event) {
@@ -40,6 +44,9 @@ export class LoginComponent {
       (response: any) => {
         const user = response.role.users.find((user: { username: string; }) => user.username === loginRequest.username);
         this.session.setSessionData({ user: user,role: response.role.name,token: response.token});
+        this.comptePaiment.getComptePaiement(user.numTel).subscribe((response: any) => {
+          this.compteData.setCompte(response);
+        })
         if (user.firstLogin) {
           this.dialogService.openChangePasswordPage()
           return;

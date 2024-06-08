@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class ComptePaiementController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ComptePaiementDto> getComptePaiement(@PathVariable String id) {
+    @PreAuthorize("hasAnyRole('ROLE_CLIENT','ROLE_CLIENT_PRO')")
+    public ResponseEntity<ComptePaiementDto> getComptePaiement(@PathVariable("id") String id) {
         return comptePaimentService.findOne(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

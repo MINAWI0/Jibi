@@ -3,13 +3,16 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CreancierDto} from "../../entities/creancier-dto";
 import {environment} from "../../../environments/environment.development";
+import {SessionService} from "../../components/utils/session/session.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreancierService {
   private baseUrl = 'http://localhost:8080/api/creanciers';
-  private jsonHttpOptions: { headers: HttpHeaders } = environment.jsonHttpOptions;
+  private jsonHttpOptions: { headers: HttpHeaders } = {
+    headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + new SessionService().getToken())
+  }
 
   constructor(private http: HttpClient) { }
 

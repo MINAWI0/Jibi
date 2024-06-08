@@ -22,7 +22,7 @@ public class CreanceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCreance(@PathVariable Long id) {
+    public ResponseEntity<?> getCreance(@PathVariable("id") Long id) {
         Object creance = creanceService.getCreance(id);
         if (creance != null) {
             return ResponseEntity.ok(creance);

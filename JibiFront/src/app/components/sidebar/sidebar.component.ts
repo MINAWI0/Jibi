@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
 import {SessionService} from "../utils/session/session.service"
+import {CompteService} from "../../services/compte/compte.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -12,7 +13,7 @@ export class SidebarComponent implements OnInit {
   currentRoute!: any;
   current!: any;
   navs!: any;
-  constructor(private router: Router,private sessionService: SessionService) {
+  constructor(private router: Router,private sessionService: SessionService, private compte: CompteService) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.current= event.url.split('/').at(1);
@@ -49,6 +50,7 @@ export class SidebarComponent implements OnInit {
 
   logout(){
     this.sessionService.clearSessionData()
+    this.compte.clearCompte();
     this.router.navigate(['/home']);
   }
 }

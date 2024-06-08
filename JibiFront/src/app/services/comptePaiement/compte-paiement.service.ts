@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {ComptePaiementDto} from "../../entities/comptePaiement-dto";
 import {environment} from "../../../environments/environment.development";
+import {SessionService} from "../../components/utils/session/session.service";
 
 interface TransferRequest {
   fromAccount: string;
@@ -15,16 +16,20 @@ interface TransferRequest {
 export class ComptePaiementService {
 
   private baseUrl = 'http://localhost:8080/api/comptePaiements';
-  private jsonHttpOptions: { headers: HttpHeaders } = environment.jsonHttpOptions;
 
-  constructor(private http: HttpClient) { }
+  private jsonHttpOptions: { headers: HttpHeaders } =   {
+    headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + this.session.getToken())
+  };
+
+  constructor(private http: HttpClient, private session: SessionService) { }
 
   createComptePaiement(comptePaiementDto: ComptePaiementDto): Observable<ComptePaiementDto> {
     return this.http.post<ComptePaiementDto>(this.baseUrl, comptePaiementDto,this.jsonHttpOptions);
   }
 
   getComptePaiement(id: string): Observable<ComptePaiementDto> {
-    return this.http.get<ComptePaiementDto>(`${this.baseUrl}/${id}`,this.jsonHttpOptions);
+    console.log(this.session.getToken())
+    return this.http.get<ComptePaiementDto>(`${this.baseUrl}/${id}`);
   }
 
   getAllComptePaiements(): Observable<ComptePaiementDto[]> {
@@ -52,7 +57,7 @@ export class ComptePaiementService {
   }
 
   transferSolde(transferRequest: TransferRequest): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/transfer`, transferRequest,this.jsonHttpOptions);
+    return this.http.post<void>(`${this.baseUrl}/transfer`, transferRequest);
   }
 
 }

@@ -40,6 +40,7 @@ const routes: Routes = [
   { path: 'recharge-solde', component: RechargeSoldeComponent, canActivate: [AuthGuard, ClientGuard] },
   { path: 'client-pro', component: ProClientPageComponent, canActivate: [AuthGuard, ProClientGuard] },
   { path: 'qr-account', component: AccountComponent, canActivate: [AuthGuard, ClientGuard] },
+  {path: 'confirmation-paiement', component: ConfirmationPaiementListComponent, canActivate: [AuthGuard, ClientGuard] },
 
   {
     path: 'agent',
