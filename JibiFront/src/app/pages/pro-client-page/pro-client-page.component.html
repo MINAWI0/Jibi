@@ -1,0 +1,42 @@
+<!--<div>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let creancier of creanciers">-->
+<!--      {{ creancier.nom }}-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<div class="blog__area section-space">
+  <div class="container">
+    <div class="row gy-5">
+      <div *ngFor="let creancier of creanciers" class="col-xxl-4 col-xl-4 col-lg-6">
+        <article  class="blog__grid-item wow fadeIn" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;">
+          <div class="blog__thumb-warapper p-relative mb-30">
+            <div class="" style="cursor: pointer">
+              <a [routerLink]="['/creancier', creancier.id]"><img src="{{creancier.logoURL}}" alt="creancier image"></a>
+            </div>
+            <div class="blog__thumb-inner">
+              <a class="blog__thumb-overlay" [routerLink]="['/creancier', creancier.id]"></a>
+              <a class="blog__link" [routerLink]="['/creancier', creancier.id]"><i class="fa-regular fa-angle-right"></i></a>
+            </div>
+          </div>
+          <div class="blog__content">
+            <h3 class="blog__title"><a [routerLink]="['/creancier', creancier.id]">{{creancier.nom}}</a></h3>
+            <div class="postbox__meta">
+              <!--              <span><a href="#">By : Marilia Valse</a></span>-->
+              <span>{{creancier.categorie}}</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="colxxl-12">
+        <div class="btn__wrapper d-flex justify-content-center">
+          <a class="bd-gradient-btn" href="#">More coming soon...<span><i class="fa-regular fa-angle-right"></i></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
