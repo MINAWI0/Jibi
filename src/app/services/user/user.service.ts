@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserService {
-  private storageKey = 'currentUser';
+  private storageKey = 'user';
 
   setUser(user: any): void {
     localStorage.setItem(this.storageKey, JSON.stringify(user));

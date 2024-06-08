@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ComptePaiementService } from '../../services/comptePaiement/compte-paiement.service';
-import {CompteService} from "../../services/compte/compte.service";
+import { CompteService } from '../../services/compte/compte.service';
 
 @Component({
   selector: 'app-recharge-solde',
@@ -30,21 +30,26 @@ export class RechargeSoldeComponent {
     }
 
     const amount = this.rechargeForm.value.amount;
-    const currentCompteId = this.compteService.getCompte().id; // Add logic to get current account ID from CompteService
+    const currentCompte = this.compteService.getCompte();
 
-    this.comptePaiementService.rechargeSolde(currentCompteId, amount).subscribe(
-      (response: any) => {
-        // Recharge successful
-        this.successMessage = 'Recharge réussie!';
-        this.errorMessage = '';
-        this.compteService.setCompte(response);
-        this.rechargeForm.reset();
-      },
-      error => {
-        console.error('Recharge failed', error);
-        this.successMessage = '';
-        this.errorMessage = 'Recharge échouée. Veuillez réessayer.';
-      }
-    );
+    if (currentCompte) {
+      const currentCompteId = currentCompte.id;
+      this.comptePaiementService.rechargeSolde(currentCompteId, amount).subscribe(
+        (response: any) => {
+          // Recharge successful
+          this.successMessage = 'Recharge réussie!';
+          this.errorMessage = '';
+          this.compteService.setCompte(response);
+          this.rechargeForm.reset();
+        },
+        error => {
+          console.error('Recharge failed', error);
+          this.successMessage = '';
+          this.errorMessage = 'Recharge échouée. Veuillez réessayer.';
+        }
+      );
+    } else {
+      this.errorMessage = 'Compte non trouvé.';
+    }
   }
 }

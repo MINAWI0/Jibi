@@ -1,0 +1,7 @@
+<div>
+  <ul>
+    <li *ngFor="let creance of creances">
+     <a [routerLink]="['/creance', creance.id]"> {{ creance.nom }}</a>
+    </li>
+  </ul>
+</div>

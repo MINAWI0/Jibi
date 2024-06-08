@@ -12,7 +12,7 @@ export class AccountComponent implements OnInit {
   solde: number = 0;
 
   constructor(private userService: UserService, private compteService: CompteService  ) {
-    this.solde=compteService.getCompte().solde
+    this.solde=compteService.getCompte().solde;
   }
 
   ngOnInit(): void {

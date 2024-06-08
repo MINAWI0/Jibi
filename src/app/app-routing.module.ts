@@ -10,30 +10,42 @@ import { SuccessSignupPageComponent } from './pages/success-signup-page/success-
 import { AgentPageComponent } from './pages/agent-page/agent-page.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { ClientPageComponent } from './pages/client-page/client-page.component';
-import {AuthGuard} from "./services/authGuard/auth-guard.service";
-import {AgentGuard} from "./services/agentGuard/agent-guard.service";
-import {ClientGuard} from "./services/clientGuard/client-guard.service";
-import {AdminGuard} from "./services/adminGuard/admin-guard.service";
-import {LoginGuard} from "./services/loginGuard/login-guard.service";
+import {AuthGuard} from "./services/guards/authGuard/auth-guard.service";
+import {AgentGuard} from "./services/guards/agentGuard/agent-guard.service";
+import {ClientGuard} from "./services/guards/clientGuard/client-guard.service";
+import {AdminGuard} from "./services/guards/adminGuard/admin-guard.service";
+import {LoginGuard} from "./services/guards/loginGuard/login-guard.service";
 import {AccountComponent} from "./components/account/account.component";
 import {QrCodeScannerComponent} from "./components/qr-code-scanner/qr-code-scanner.component";
 import {RechargeSoldeComponent} from "./components/recharge-solde/recharge-solde.component";
 import {ProClientPageComponent} from "./pages/pro-client-page/pro-client-page.component";
-import {ProClientGuard} from "./services/proClientGuard/pro-client-guard.service";
+import {ProClientGuard} from "./services/guards/proClientGuard/pro-client-guard.service";
 import {
   ConfirmationPaiementListComponent
 } from "./components/confirmation-paiement-list/confirmation-paiement-list.component";
+import {NormalClientGuardService} from "./services/guards/normalClientGuard/normal-client-guard.service";
+import {CreancierComponent} from "./components/creancier/creancier.component";
+import {CreanceComponent} from "./components/creance/creance.component";
+import {DonationComponent} from "./components/donation/donation.component";
+import {FactureComponent} from "./components/facture/facture.component";
+import {RechargeComponent} from "./components/recharge/recharge.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'success-signup', component: SuccessSignupPageComponent },
   { path: 'home', component: HomeComponent },
   { path: 'agent', component: AgentPageComponent, canActivate: [AuthGuard, AgentGuard] },
-  { path: 'client', component: ClientPageComponent, canActivate: [AuthGuard, ClientGuard], children: [
+  { path: 'client', component: ClientPageComponent, canActivate: [AuthGuard, NormalClientGuardService], children: [
       { path: 'confirmation-paiements', component: ConfirmationPaiementListComponent }] },
+  { path: 'creancier/:creancierId', component: CreancierComponent, canActivate: [AuthGuard, ClientGuard] },
+  { path: 'creance/:creanceId', component: CreanceComponent, canActivate: [AuthGuard, ClientGuard]
+  },
+  { path: 'donation', component: DonationComponent , canActivate: [AuthGuard, ClientGuard] },
+  { path: 'facture', component: FactureComponent , canActivate: [AuthGuard, ClientGuard] },
+  { path: 'recharge', component: RechargeComponent, canActivate: [AuthGuard, ClientGuard]  },
   { path: 'qr-transfer', component: QrCodeScannerComponent, canActivate: [AuthGuard, ClientGuard] },
   { path: 'recharge-solde', component: RechargeSoldeComponent, canActivate: [AuthGuard, ClientGuard] },
-  { path: 'pro-client', component: ProClientPageComponent, canActivate: [AuthGuard, ProClientGuard] },
+  { path: 'client-pro', component: ProClientPageComponent, canActivate: [AuthGuard, ProClientGuard] },
   { path: 'qr-account', component: AccountComponent, canActivate: [AuthGuard, ClientGuard] },
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent, canActivate:[LoginGuard] },

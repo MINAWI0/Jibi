@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import {UserService} from "../../services/user/user.service";
+import {CompteService} from "../../services/compte/compte.service";
 
 @Component({
   selector: 'app-change-password',
@@ -19,7 +20,8 @@ export class ChangePasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private loginService: LoginService,
-    private userService: UserService
+    private userService: UserService,
+    private compte: CompteService
   ) {}
 
   // ngOnInit(): void {
@@ -48,6 +50,8 @@ export class ChangePasswordComponent implements OnInit {
       () => {
         this.successMessage = 'Password successfully updated!';
         this.errorMessage = '';
+        this.userService.clearUser();
+        this.compte.clearCompte();
         this.router.navigate(['/login']);
       },
       (error) => {

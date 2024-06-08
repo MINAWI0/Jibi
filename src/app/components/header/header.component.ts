@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
-import {ComptePaiementService} from "../../services/comptePaiement/compte-paiement.service";
-import {response} from "express";
-import {ComptePaiementDto} from "../../entities/comptePaiement-dto";
-import {CompteService} from "../../services/compte/compte.service";
+import { CompteService } from '../../services/compte/compte.service';
 
 @Component({
   selector: 'app-header',
@@ -14,11 +11,25 @@ import {CompteService} from "../../services/compte/compte.service";
 export class HeaderComponent implements OnInit {
   solde: number = -1;
 
+  constructor(private userService: UserService, private router: Router, private compteService: CompteService) {
+    this.compteService.compte$.subscribe((compte: any) => {
+      if (compte) {
+        this.solde = compte.solde;
+      }
+    });
+  }
 
-  constructor(private userService: UserService, private router: Router, private compte: CompteService) {}
+  ngOnInit() {
+    const compte = this.compteService.getCompte();
+    if (compte) {
+      this.solde = compte.solde;
+    }
 
-  ngOnInit(): void {
-    this.solde = this.getSolde();
+    this.compteService.compte$.subscribe((compte: any) => {
+      if (compte) {
+        this.solde = compte.solde;
+      }
+    });
   }
 
   isLoggedIn(): boolean {
@@ -29,18 +40,9 @@ export class HeaderComponent implements OnInit {
     this.userService.clearUser();
     this.router.navigate(['/login']);
   }
+
   isClient(): boolean {
     const user = this.userService.getUser();
     return user && 'clientType' in user;
-  }
-  getSolde(): number {
-    const user = this.userService.getUser();
-    const numTel = user.numTel;
-    let solde = 0;
-    const compte = this.compte.getCompte();
-    if (compte) {
-      solde = compte.solde;
-    }
-    return solde;
   }
 }

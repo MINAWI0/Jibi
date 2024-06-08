@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import {UserService} from "../user/user.service";
+import {UserService} from "../../user/user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,6 @@ export class ClientGuard implements CanActivate {
     }
   }
   isClient(user: any): boolean {
-    return user && 'clientType' in user && user.clientType !='Hsab_PRO';
+    return user && 'clientType' in user;
   }
 }
