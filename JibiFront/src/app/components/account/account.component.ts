@@ -17,6 +17,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.userService.getUser();
+    console.log(user)
     this.qrData = user.numTel; // Assuming numTel is the account ID
   }
 }

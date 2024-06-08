@@ -39,6 +39,7 @@ import {
 import {CreancierComponent} from "./components/creancier/creancier.component"
 import {CreanceComponent} from "./components/creance/creance.component";
 import {DonationComponent} from "./components/donation/donation.component";
+import {QRCodeModule} from "angularx-qrcode";
 
 import {NgxScannerQrcodeModule} from "ngx-scanner-qrcode";
 import {CheckIcon} from "primeng/icons/check";
@@ -85,7 +86,7 @@ import {ArrowDownIcon} from "primeng/icons/arrowdown";
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-
+QRCodeModule,
     KeyValuePipe,
     NgForOf,
     ReactiveFormsModule,

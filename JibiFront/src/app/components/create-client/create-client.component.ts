@@ -1,5 +1,5 @@
 // src/app/components/create-client/create-client.component.ts
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../../services/client/client.service';
 import { ClientDto } from '../../entities/client-dto';
@@ -8,20 +8,21 @@ import { DocumentDto } from '../../entities/document-dto';
 import {ClientType} from "../../entities/enums/client-type";
 import {FormService} from "../utils/form/form.service"
 import {FilestoreService} from "../utils/cloudinary/filestore.service"
+import {AlertService} from "../utils/alert/alert.service";
 @Component({
   selector: 'app-create-client',
   templateUrl: './create-client.component.html',
   styleUrls: ['./create-client.component.css']
 })
-export class CreateClientComponent {
+export class CreateClientComponent implements OnInit{
   clientForm: FormGroup;
   docForm: FormGroup;
   selectedFile: File | null = null;
   clientTypes = ClientType;
-
   constructor(
     private fb: FormBuilder,
     private clientService: ClientService,
+    protected alertService: AlertService,
     private router: Router,
     private formService: FormService,
     private fileStore: FilestoreService,
@@ -30,7 +31,11 @@ export class CreateClientComponent {
     this.docForm = this.formService.docuForm
   }
 
-  onFileChange(event: Event) {
+  ngOnInit() {
+
+  }
+
+    onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
@@ -38,6 +43,7 @@ export class CreateClientComponent {
   }
 
   onSubmit() {
+
     if (this.clientForm.valid) {
       const formData = new FormData();
       const client: ClientDto = this.clientForm.value;
@@ -58,7 +64,7 @@ export class CreateClientComponent {
                 console.log('Client created successfully:', res);
               },
               error => {
-                console.error('Error creating client:', error);
+                this.alertService.showError(error.error.message)
               }
             );
           },

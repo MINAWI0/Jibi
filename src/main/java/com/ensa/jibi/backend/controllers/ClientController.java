@@ -3,6 +3,7 @@ package com.ensa.jibi.backend.controllers;
 import com.ensa.jibi.backend.domain.dto.ClientDto;
 import com.ensa.jibi.backend.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class ClientController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_AGENT')")
-    public ClientDto addClient(@RequestBody ClientDto clientDto) {
+    public ResponseEntity<?> addClient(@RequestBody ClientDto clientDto) {
         return clientService.addClient(clientDto);
     }
 

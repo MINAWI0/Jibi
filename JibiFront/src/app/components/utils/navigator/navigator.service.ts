@@ -18,8 +18,11 @@ export class NavigatorService {
       case 'ROLE_AGENT':
         this.router.navigate(['/agent']);
         break
-      case 'ROLE_USER':
+      case 'ROLE_CLIENT':
         this.router.navigate(['/client']);
+        break
+      case 'ROLE_CLIENT_PRO':
+        this.router.navigate(['/client-pro']);
         break
     }
   }

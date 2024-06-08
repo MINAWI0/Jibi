@@ -38,9 +38,11 @@ export class AgentPageComponent implements OnInit, AfterViewInit{
       firstLogin: [true]
     });
   }
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
   ngAfterViewInit() {
-    this.loadComponent('create-client');
+    this.loadComponent('c');
   }
   loadComponent(componentName: string) {
     if(this.componentContainer)
@@ -48,9 +50,6 @@ export class AgentPageComponent implements OnInit, AfterViewInit{
     let componentType: Type<any> | undefined;
     this.current = componentName
     switch (componentName) {
-      case 'create-agent':
-        componentType = CreateAgentComponent;
-        break;
       case 'create-client':
         componentType = CreateClientComponent;
         break;

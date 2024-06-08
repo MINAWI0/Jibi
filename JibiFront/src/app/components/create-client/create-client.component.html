@@ -3,8 +3,8 @@
   <div class="container">
     <div class="col-xxl-12">
       <mat-stepper linear #stepper>
+        <form [formGroup]="clientForm" >
         <mat-step>
-          <form [formGroup]="clientForm" >
             <ng-template matStepLabel>Client Informations</ng-template>
             <div class="tab-content" >
               <div class="tab-pane show active" id="infos-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -66,6 +66,9 @@
                               <div *ngIf="clientForm.get('numTel')?.invalid && clientForm.get('numTel')?.touched" class="text-danger">
                                 Num Tel is required
                               </div>
+                              <div *ngIf="clientForm.get('numTel')?.dirty && clientForm.get('numTel')?.hasError('numTelInvalid')" class="text-danger">
+                                NumTel must start with 6 or 7 and be followed by 9 numbers.
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -91,13 +94,10 @@
               </div>
             </div>
             <div>
-              <button type="button" mat-button matStepperNext>Next</button>
+              <button mat-button matStepperNext>Next</button>
             </div>
-          </form>
-
         </mat-step>
         <mat-step>
-          <form [formGroup]="clientForm" >
             <ng-template matStepLabel>Client Documents</ng-template>
             <div class="tab-content" >
               <div class="tab-pane show active" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -150,8 +150,8 @@
             <div class="contact__btn">
               <button class="bd-gradient-btn w-100" (click)="onSubmit()">Submit</button>
             </div>
-          </form>
         </mat-step>
+        </form>
       </mat-stepper>
 
     </div>

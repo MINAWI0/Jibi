@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AlertService} from "../alert/alert.service";
 import {ClientType} from "../../../entities/enums/client-type";
 import {ClientService} from "../../../services/client/client.service";
+import { cinPasseportValidator, numTelValidator, dateNaissanceValidator } from './validators/custom-validators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,12 @@ export class FormService {
   ) {
     //Agent Form
     this.agentForm = this.fb.group({
-      cin: ['', Validators.required],
-      passeport: ['', Validators.required],
-      dateNaissance: ['', Validators.required],
+      cin: ['', [Validators.required, cinPasseportValidator()]],
+      passeport: ['', cinPasseportValidator()],
+      dateNaissance: ['', [dateNaissanceValidator()]],
       adresse: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      numTel: ['', Validators.required],
+      numTel: ['', [Validators.required, numTelValidator()]],
       numCommerce: ['', Validators.required],
       numPatente: ['', Validators.required],
       nom: ['', Validators.required],
@@ -38,13 +39,13 @@ export class FormService {
       //Doc Form
     this.docuForm = this.fb.group(
       {
-        description: ['', Validators.required],
+        description: [''],
       })
     //Client Form
     this.clientForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      numTel: ['', Validators.required],
-      clientType: [''],
+      email: ['', [ Validators.email]],
+      numTel: ['', [Validators.required, numTelValidator()]],
+      clientType: ['', Validators.required],
       documents: [[]],
       nom: ['', Validators.required],
       prenom: ['', Validators.required],

@@ -7,12 +7,17 @@ import com.ensa.jibi.backend.domain.entities.Role;
 import com.ensa.jibi.backend.domain.requests.LoginRequest;
 import com.ensa.jibi.backend.mappers.ClientMapper;
 import com.ensa.jibi.backend.repositories.ClientRepository;
+import com.ensa.jibi.backend.services.AgentService;
 import com.ensa.jibi.backend.services.ClientService;
 import com.ensa.jibi.backend.services.OTPService;
 import com.ensa.jibi.backend.services.RoleService;
 import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
 import com.ensa.jibi.cmi.services.impl.ComptePaiementServiceImpl;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,45 +30,50 @@ import static java.util.Arrays.asList;
 
 @Service
 @Transactional
+@AllArgsConstructor
+@Slf4j
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
+    private final AgentService agentService;
     private final ClientMapper clientMapper;
     private final ComptePaiementServiceImpl comptePaiementService;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
     private final OTPService otpService;
 
-    @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper, ComptePaiementServiceImpl comptePaiementService, PasswordEncoder passwordEncoder, RoleService roleService, OTPService otpService) {
-        this.clientRepository = clientRepository;
-        this.clientMapper = clientMapper;
-        this.comptePaiementService = comptePaiementService;
-        this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
-        this.otpService = otpService;
-    }
+
 
     @Override
     //TODO:: add sending otp (copy it from agent dto)
-    public ClientDto addClient(ClientDto clientDto) {
+    public ResponseEntity<?> addClient(ClientDto clientDto) {
         String phoneNumber = clientDto.getNumTel();
-        Role clientRole = roleService.findByName("ROLE_USER");
-        if (comptePaiementService.existsById(phoneNumber)) {
-            throw new IllegalArgumentException("Phone number already exists as ComptePaiement ID");
+//        log.info("client number exits in table client: " + clientRepository.existsByNumTel(phoneNumber));
+//        log.info(" number exits in table comptePaiement: " + comptePaiementService.existsById(phoneNumber));
+        if(clientRepository.existsByNumTel(phoneNumber) || agentService.existsByNumTel(phoneNumber)) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Phone number " + phoneNumber+ " already exists.\"}");
+        }
+        else if (comptePaiementService.existsById(phoneNumber)) {
+            return ResponseEntity.badRequest().body("{\"message\":\"CMI error: Phone number "+ phoneNumber+" already exists as ComptePaiement ID.\"}");
+        } else {
+            Role clientRole =new Role();
+            clientRole = clientDto.getClientType().getAccountLimit()!=0 ?
+                    roleService.findByName("ROLE_CLIENT") :
+                    roleService.findByName("ROLE_CLIENT_PRO");
+            Client client = clientMapper.mapFrom(clientDto);
+            client.setPassword(passwordEncoder.encode(otpService.sendOTP(clientDto.getNumTel())));
+            client.setRoles(asList(clientRole));
+            client = clientRepository.save(client);
+
+            // Create a new ComptePaiement with the ID = phone number
+            ComptePaiementDto comptePaiement = new ComptePaiementDto();
+            comptePaiement.setId(phoneNumber);
+            comptePaiement.setSolde(0.0); // Initialize solde
+            comptePaiementService.save(comptePaiement);
+            return new ResponseEntity<>(clientMapper.mapTo(client), HttpStatus.CREATED);
+
         }
 
-        Client client = clientMapper.mapFrom(clientDto);
-        client.setPassword(passwordEncoder.encode(otpService.sendOTP(clientDto.getNumTel())));
-        client.setRoles(asList(clientRole));
-        client = clientRepository.save(client);
-
-        // Create a new ComptePaiement with the ID = phone number
-        ComptePaiementDto comptePaiement = new ComptePaiementDto();
-        comptePaiement.setId(phoneNumber);
-        comptePaiement.setSolde(0.0); // Initialize solde
-        comptePaiementService.save(comptePaiement);
-        return clientMapper.mapTo(client);
     }
 
     @Override
@@ -121,5 +131,10 @@ public class ClientServiceImpl implements ClientService {
 
     public ClientDto getClientByUsernameAndPassword(LoginRequest loginRequest) {
         return clientMapper.mapTo(clientRepository.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword()));
+    }
+
+    @Override
+    public boolean exitsByNumTel(String numTel) {
+        return clientRepository.existsByNumTel(numTel);
     }
 }

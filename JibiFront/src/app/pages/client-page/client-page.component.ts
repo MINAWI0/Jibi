@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, Type, ViewChild, ViewContainerRef} from '@angular/core';
 import {CreateClientComponent} from "../../components/create-client/create-client.component";
 import {InvoiceComponent} from "../../components/invoice/invoice.component";
+import {AccountComponent} from "../../components/account/account.component";
 
 @Component({
   selector: 'app-client-page',
@@ -14,7 +15,7 @@ export class ClientPageComponent implements OnInit, AfterViewInit{
   constructor() {}
   ngOnInit() {}
   ngAfterViewInit() {
-    this.loadComponent('create-client');
+    this.loadComponent('');
   }
 
   loadComponent(componentName: string) {
@@ -26,8 +27,8 @@ export class ClientPageComponent implements OnInit, AfterViewInit{
       case 'invoice':
         componentType = InvoiceComponent;
         break;
-      case 'create-client':
-        componentType = CreateClientComponent;
+      case 'qr-account':
+        componentType = AccountComponent;
         break;
     }
     if (componentType) {

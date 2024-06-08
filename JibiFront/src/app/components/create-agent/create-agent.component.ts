@@ -63,9 +63,10 @@ export class CreateAgentComponent implements OnInit {
               res => {
                 this.alertService.showSuccess('Agent created successfully');
                 console.log('Agent created successfully:', res);
+                this.agentForm.reset();
               },
               error => {
-                console.error('Error creating agent:', error);
+                  this.alertService.showError(error.error.message)
               }
             );
           },

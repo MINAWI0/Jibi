@@ -1,5 +1,6 @@
 package com.ensa.jibi.backend.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,11 @@ public class FileStorageService {
 
     private final Path fileStorageLocation;
 
+    @Value("${file.upload-dir}")
+    private String fileName;
+
     public FileStorageService() {
-        this.fileStorageLocation = Paths.get("C:\\Users\\HP\\OneDrive\\Bureau\\Projects\\Jibi\\src\\main\\java\\com\\ensa\\jibi\\uploads")
+        this.fileStorageLocation = Paths.get( "C:\\Users\\Mehdi BM\\Desktop\\Projet Jibi\\uploads")
                 .toAbsolutePath().normalize();
 
         try {

@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
 void deleteByNumTel(String numTel);
 
+boolean existsByNumTel(String numTel);
+
 Optional<Client> findByNumTel(String numTel);
 Client findByUsernameAndPassword(String username, String password);
 }

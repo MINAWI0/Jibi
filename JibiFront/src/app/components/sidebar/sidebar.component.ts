@@ -24,7 +24,9 @@ export class SidebarComponent implements OnInit {
         {name: 'Notifications',image: 'assets/imgs/icons/img_2.png',link:'',visible: this.current=='client'},
         {name: 'New Client',image: 'assets/imgs/icons/img_5.png',link:'create-client',visible: this.current=='agent'},
         {name: 'New Agent',image: 'assets/imgs/icons/img_7.png',link:'create-agent',visible: this.current=='admin'},
-        {name: 'New Agency',image: 'assets/imgs/icons/img_8.png',link:'create-client',visible: this.current=='admin'}
+        {name: 'New Agency',image: 'assets/imgs/icons/img_8.png',link:'create-client',visible: this.current=='admin'},
+        {name: 'infos solde',image: 'assets/imgs/icons/img_8.png',link:'qr-account',visible: this.current != 'admin' || this.current!='agent' }
+
       ]
     });
   }

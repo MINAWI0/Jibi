@@ -19,7 +19,7 @@ export class AlertService {
     Swal.fire({
       html: successHtml,
       showConfirmButton: false,
-      timer: 2000,
+      timer: 5000,
     });
   }
 
