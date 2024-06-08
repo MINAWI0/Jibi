@@ -1,0 +1,47 @@
+<div class="col-xxl-6 col-xl-6 col-lg-7 my-5 mx-auto">
+  <div class="contact__wrapper">
+    <div class="contact__form">
+      <h2>Transfert par Qr Code</h2>
+      <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+        <div class="contact__input-wrapper">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="contact__input-box mb-15 mb-20">
+                <div class="contact__input-title">
+                  <label for="amount">Montant<span> *</span></label>
+                </div>
+                <div class="contact__input">
+                  <input id="amount" formControlName="amount" type="number" placeholder="Enter amount">
+                  <div *ngIf="transferForm.get('amount')?.invalid && transferForm.get('amount')?.touched" class="text-danger">
+                    Le montant doit être > 0
+                  </div>
+                  <div *ngIf="transferForm.get('amount')?.value > accountAmmount" class="text-danger">
+                    Le montant saisi est supérieur à votre solde!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12" >
+              <div class="contact__input-title">
+                <label for="qr">Qr Code du destinataire<span> *</span></label>
+              </div>
+              <input id="qr" #file type="file" (change)="onSelects(file.files)" multiple accept=".jpg, .png, .gif, .jpeg"/>
+              <div *ngFor="let item of qrCodeResult" style="display: none">
+                <ngx-scanner-qrcode #actionFile="scanner" [src]="item.url" [config]="config" (event)="handleQrCodeResult(actionFile.data.value[0].value)"></ngx-scanner-qrcode>
+              </div>
+            </div>
+            <div class="col-lg-12" >
+              <div *ngIf="errorMessage" class="error-message text-danger">{{ errorMessage }}</div>
+              <div *ngIf="successMessage" class="success-message text-success">{{ successMessage }}</div>
+            </div>
+            <div class="col-lg-12" style="margin-top: 25px">
+              <div class="contact__btn">
+                <button class="bd-gradient-btn w-100" type="submit">Transferer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

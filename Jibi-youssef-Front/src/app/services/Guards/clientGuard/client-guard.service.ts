@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import {UserService} from "../../user/user.service";
+import {SessionService} from "../../../components/utils/session/session.service"
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientGuard implements CanActivate {
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private sessionService: SessionService, private router: Router) {}
 
   canActivate(): boolean {
-    const user = this.userService.getUser();
-    return true
-    /*
-        if (user && this.isClient(user)) {
+    const role = this.sessionService.getRole();
+    if (role && (role=='ROLE_CLIENT' || role=='ROLE_CLIENT_PRO' )) {
       return true;
     } else {
       this.router.navigate(['/home']);
       return false;
     }
-     */
   }
-  isClient(user: any): boolean {
-    return user && 'clientType' in user;
-  }
+
 }

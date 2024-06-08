@@ -9,9 +9,7 @@ import {environment} from "../../../environments/environment.development"
 })
 export class AgentService {
   private apiUrl =  environment.apiUrl;
-  private jsonHttpOptions: { headers: HttpHeaders } = {
-    headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + this.session.getToken())
-  };
+  private jsonHttpOptions: { headers: HttpHeaders } = environment.jsonHttpOptions;
 
   constructor(private http: HttpClient,private session: SessionService) { }
 

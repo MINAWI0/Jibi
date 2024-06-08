@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface CreanceService {
     List<CreanceDto> getAllCreances();
-    CreanceDto getCreance(Long id);
+    Object getCreance(Long id);
     CreanceDto createCreance(CreanceDto creanceDto);
     CreanceDto updateCreance(Long id, CreanceDto creanceDto);
     void deleteCreance(Long id);
+    List<CreanceDto> getCreanceByCreancierId(Long id);
 }

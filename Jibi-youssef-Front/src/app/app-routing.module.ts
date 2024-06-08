@@ -12,6 +12,18 @@ import {AgentGuard} from "./services/Guards/agentGuard/agent-guard.service";
 import {ClientGuard} from "./services/Guards/clientGuard/client-guard.service";
 import {LoginGuard} from "./services/Guards/loginGuard/login-guard.service";
 import {InvoiceComponent} from "./components/invoice/invoice.component";
+import {ProClientPageComponent} from "./pages/pro-client-page/pro-client-page.component";
+import {QrCodeScannerComponent} from "./components/qr-code-scanner/qr-code-scanner.component";
+import {RechargeSoldeComponent} from "./components/recharge-solde/recharge-solde.component";
+import {FactureComponent} from "./components/facture/facture.component";
+import {RechargeComponent} from "./components/recharge/recharge.component";
+import {AccountComponent} from "./components/account/account.component";
+import {ConfirmationPaiementListComponent} from "./components/confirmation-paiement-list/confirmation-paiement-list.component"
+import {CreancierComponent} from "./components/creancier/creancier.component"
+import {CreanceComponent} from "./components/creance/creance.component";
+import {DonationComponent} from "./components/donation/donation.component";
+import {ProClientGuard} from "./services/Guards/proClientGuard/pro-client-guard.service"
+import {NormalClientGuardService} from  "./services/Guards/normalClientGuard/normal-client-guard.service"
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,6 +33,14 @@ const routes: Routes = [
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent, canActivate:[LoginGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'donation', component: DonationComponent , canActivate: [AuthGuard, ClientGuard] },
+  { path: 'facture', component: FactureComponent , canActivate: [AuthGuard, ClientGuard] },
+  { path: 'recharge', component: RechargeComponent, canActivate: [AuthGuard, ClientGuard]  },
+  { path: 'qr-transfer', component: QrCodeScannerComponent, canActivate: [AuthGuard, ClientGuard] },
+  { path: 'recharge-solde', component: RechargeSoldeComponent, canActivate: [AuthGuard, ClientGuard] },
+  { path: 'client-pro', component: ProClientPageComponent, canActivate: [AuthGuard, ProClientGuard] },
+  { path: 'qr-account', component: AccountComponent, canActivate: [AuthGuard, ClientGuard] },
+
   {
     path: 'agent',
     component: AgentPageComponent,

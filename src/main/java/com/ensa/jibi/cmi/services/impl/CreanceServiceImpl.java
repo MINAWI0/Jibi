@@ -2,11 +2,18 @@ package com.ensa.jibi.cmi.services.impl;
 
 import com.ensa.jibi.cmi.domain.dto.creanceDto.CreanceDto;
 import com.ensa.jibi.cmi.domain.entities.creance.Creance;
+import com.ensa.jibi.cmi.domain.entities.creance.Donation;
+import com.ensa.jibi.cmi.domain.entities.creance.Facture;
+import com.ensa.jibi.cmi.domain.entities.creance.Recharge;
 import com.ensa.jibi.cmi.mappers.impl.CreanceMapper;
 import com.ensa.jibi.cmi.mappers.impl.CreancierMapperImpl;
 import com.ensa.jibi.cmi.repositories.CreanceRepository;
 import com.ensa.jibi.cmi.repositories.CreancierRepository;
 import com.ensa.jibi.cmi.services.CreanceService;
+import com.ensa.jibi.cmi.services.DonationService;
+import com.ensa.jibi.cmi.services.FactureService;
+import com.ensa.jibi.cmi.services.RechargeService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CreanceServiceImpl implements CreanceService {
     @Autowired
     private CreanceRepository creanceRepository;
@@ -24,6 +32,9 @@ public class CreanceServiceImpl implements CreanceService {
     private CreancierRepository creancierRepository;
     @Autowired
     private CreancierMapperImpl creancierMapper;
+    private final DonationService donationService;
+    private final FactureService factureService;
+    private final RechargeService rechargeService;
 
     @Override
     public List<CreanceDto> getAllCreances(){
@@ -32,9 +43,18 @@ public class CreanceServiceImpl implements CreanceService {
     }
 
     @Override
-    public CreanceDto getCreance(Long id){
-        Optional<Creance> creance = creanceRepository.findById(id);
-        return creance.map(creanceMapper::mapTo).orElse(null);
+    public Object getCreance(Long id){
+        Creance creance = creanceRepository.findById(id).get();
+        if(creance != null){
+            if(creance instanceof Donation){
+                return donationService.getDonation(id);
+            } else if (creance instanceof Recharge) {
+                return rechargeService.getRecharge(id);
+            } else if (creance instanceof Facture) {
+                return factureService.getFacture(id);
+            }
+        }
+        return null;
     }
 
     @Override
@@ -64,7 +84,11 @@ public class CreanceServiceImpl implements CreanceService {
         }
         return null;
     }
-
+    @Override
+    public List<CreanceDto> getCreanceByCreancierId(Long id) {
+        return creanceRepository.findByCreancier_Id(id).stream()
+                .map(creance -> creanceMapper.mapTo(creance)).collect(Collectors.toList());
+    }
     @Override
     public void deleteCreance(Long id){
         creanceRepository.deleteById(id);

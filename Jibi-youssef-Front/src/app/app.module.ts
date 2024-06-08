@@ -1,5 +1,4 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import { JwtModule } from "@auth0/angular-jwt";
 import {provideHttpClient, withFetch, withInterceptorsFromDi} from '@angular/common/http';
 import {BrowserModule, provideClientHydration} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
@@ -21,17 +20,31 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatIcon} from "@angular/material/icon";
 import {InvoiceComponent} from './components/invoice/invoice.component';
 import {MatStep, MatStepLabel, MatStepper, MatStepperNext} from "@angular/material/stepper";
-import {KeyValuePipe, NgForOf} from "@angular/common";
+import {KeyValuePipe, NgForOf, NgOptimizedImage} from "@angular/common";
 import {MatButton} from "@angular/material/button";
 import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelect} from "@angular/material/select";
 import {MatOption} from "@angular/material/autocomplete";
 import {AdminModule} from "./pages/admin-page/admin.module";
 import {environment} from "../environments/environment.development";
+import {ProClientPageComponent} from './pages/pro-client-page/pro-client-page.component';
+import {QrCodeComponent} from "./components/qr-code/qr-code.component";
+import {QrCodeScannerComponent} from "./components/qr-code-scanner/qr-code-scanner.component";
+import {RechargeSoldeComponent} from "./components/recharge-solde/recharge-solde.component";
+import {FactureComponent} from "./components/facture/facture.component";
+import {RechargeComponent} from "./components/recharge/recharge.component";
+import {AccountComponent} from "./components/account/account.component";
+import {
+  ConfirmationPaiementListComponent
+} from "./components/confirmation-paiement-list/confirmation-paiement-list.component"
+import {CreancierComponent} from "./components/creancier/creancier.component"
+import {CreanceComponent} from "./components/creance/creance.component";
+import {DonationComponent} from "./components/donation/donation.component";
 
-export function tokenGetter() {
-  return localStorage.getItem("access_token");
-}
+import {NgxScannerQrcodeModule} from "ngx-scanner-qrcode";
+import {CheckIcon} from "primeng/icons/check";
+import {ArrowDownIcon} from "primeng/icons/arrowdown";
+
 
 @NgModule({
   declarations: [
@@ -44,11 +57,37 @@ export function tokenGetter() {
     CreateAgentComponent,
     CreateClientComponent,
     SuccessSignupPageComponent,
-    AgentPageComponent,
     ChangePasswordComponent,
     ClientPageComponent,
     InvoiceComponent,
     LoginComponent,
+    ProClientPageComponent,
+
+    SuccessSignupPageComponent,
+    AgentPageComponent,
+    ChangePasswordComponent,
+    ClientPageComponent,
+    QrCodeComponent,
+    AccountComponent,
+    QrCodeScannerComponent,
+    RechargeSoldeComponent,
+    ProClientPageComponent,
+    ConfirmationPaiementListComponent,
+    CreancierComponent,
+    CreanceComponent,
+    FactureComponent,
+    DonationComponent,
+    RechargeComponent,
+
+    MatIcon,
+    MatStepper,
+    MatStep,
+    MatOption,
+    MatStepLabel,
+    MatButton,
+    MatStepperNext,
+    MatFormField,
+    MatSelect,
   ],
   imports: [
     BrowserModule,
@@ -56,26 +95,20 @@ export function tokenGetter() {
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatIcon,
-    MatStepper,
-    MatStep,
+
     KeyValuePipe,
     NgForOf,
     ReactiveFormsModule,
-    MatStepLabel,
-    MatButton,
-    MatStepperNext,
-    MatFormField,
-    MatSelect,
+
     MatOption,
     MatFormFieldModule,
     AdminModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: [environment.apiUrl],
-      },
-    }),
+    ReactiveFormsModule,
+    FormsModule,
+    NgxScannerQrcodeModule,
+    NgOptimizedImage,
+    CheckIcon,
+    ArrowDownIcon,
   ],
   providers: [
     provideClientHydration(),

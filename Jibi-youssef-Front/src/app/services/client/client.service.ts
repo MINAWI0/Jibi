@@ -11,12 +11,9 @@ export class ClientService {
 
   constructor(private http: HttpClient,private  session: SessionService) { }
 
-  private jsonHttpOptions: { headers: HttpHeaders } = {
-    headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + this.session.getToken())
-  };
+  private jsonHttpOptions: { headers: HttpHeaders } = environment.jsonHttpOptions;
 
   private apiUrl = environment.apiUrl;
-
 
   uploadDocument(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/documents/upload`, formData);

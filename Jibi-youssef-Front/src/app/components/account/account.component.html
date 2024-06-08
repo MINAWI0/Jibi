@@ -1,0 +1,7 @@
+<h3>votre solde est : {{solde}}</h3>
+<p>Pour transfere du solde, <a routerLink="/qr-transfer" class="text-light">clickez ici</a> </p>
+<p>Pour recharger votre solde, <a routerLink="/recharge-solde" class="text-light">clickez ici:</a> </p>
+
+
+<p style="text-align: center">Voici votre qr code pour recevoir du solde de la part d'un autre client: </p>
+<app-qr-code [qrData]="qrData"></app-qr-code>

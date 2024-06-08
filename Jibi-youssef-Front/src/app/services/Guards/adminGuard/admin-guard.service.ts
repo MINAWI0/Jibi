@@ -10,19 +10,13 @@ export class AdminGuard implements CanActivate {
   constructor(private sessionService: SessionService, private router: Router) {}
 
   canActivate(): boolean {
-    const user = this.sessionService.getUser();
-        if (user && this.isAdmin(user)) {
+    const role = this.sessionService.getRole();
+    if (role && role=='ROLE_ADMIN') {
       return true;
     } else {
       this.router.navigate(['/home']);
       return false;
     }
   }
-  isAdmin(user: any): boolean {
-    return user && 'username' in user &&
-      user.username === 'admin'
-      && user.password === 'admin'
-      && user.nom === 'Admin'
-      && user.prenom === 'Admin';
-  }
+
 }

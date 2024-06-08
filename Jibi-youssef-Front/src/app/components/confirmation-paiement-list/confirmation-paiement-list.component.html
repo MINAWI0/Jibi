@@ -1,0 +1,44 @@
+<!--<div>-->
+<!--  <h2>Confirmations for Compte Paiement ID: {{ comptePaiementId }}</h2>-->
+<!--  <ul>-->
+<!--    <li *ngFor="let confirmation of confirmations">-->
+<!--      {{ confirmation.date }} - {{ confirmation.montant }} - {{ confirmation.compte.id }} - {{ confirmation.creance.nom }}-->
+<!--      <img class="" [src]="confirmation.creance.creancier.logoURL">-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+
+<div class="container">
+  <div class="row wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+    <div class="col-xxl-12 mb-2" *ngFor="let confirmation of confirmations">
+      <div class="work__steps-inner">
+        <div class="row g-5">
+          <div class="col-xxl-6 col-xl-6 col-lg-6">
+            <div class="work__step-item-2 is-mainly-red text-center">
+              <div class="work__step-count">
+                <span><CheckIcon/></span>
+              </div>
+              <div class="work__step-content-2">
+                <h3>  Vous avez effectué une transaction .  </h3>
+                <p class="text-blue-50"> {{ confirmation.date }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-6 col-xl-6 col-lg-6">
+            <div class="work__step-item-2 is-mainly-blue text-center">
+              <div class="work__step-count">
+                <span class="w-[32px] h-[32px]"><img class="w-3/4" [src]="confirmation.creance.creancier.logoURL"></span>
+              </div>
+              <div class="work__step-content-2">
+                <h3>{{confirmation.creance.creancier.nom}}</h3>
+                <p class="text-red-600">{{confirmation.montant}} DH</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

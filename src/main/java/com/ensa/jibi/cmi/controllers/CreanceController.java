@@ -22,8 +22,8 @@ public class CreanceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CreanceDto> getCreance(@PathVariable Long id) {
-        CreanceDto creance = creanceService.getCreance(id);
+    public ResponseEntity<?> getCreance(@PathVariable Long id) {
+        Object creance = creanceService.getCreance(id);
         if (creance != null) {
             return ResponseEntity.ok(creance);
         } else {
@@ -39,6 +39,12 @@ public class CreanceController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @GetMapping("/creancier/{id}")
+    public ResponseEntity<List<CreanceDto>> getCreanceByCreancierId(@PathVariable Long id) {
+        List<CreanceDto> creances = creanceService.getCreanceByCreancierId(id);
+        return ResponseEntity.ok(creances);
+
     }
 
     @PutMapping("/{id}")
