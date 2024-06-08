@@ -7,27 +7,28 @@ import com.ensa.jibi.domain.enums.RechargeAmmount;
 import com.ensa.jibi.repositories.CreanceRepository;
 import com.ensa.jibi.services.impl.CreancierServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/cmi/creanciers")
+@CrossOrigin(origins = "http://localhost:4200")
 
 public class CreancierController {
     @Autowired
     private CreancierServiceImpl creancierService;
 
-    @Autowired
-    private CreanceRepository creanceRepository;
-    @GetMapping({"/{id}"})
-    public List<Creancier> getCreaciers(@PathVariable("id") Long id) {
+
+    @GetMapping
+    public List<Creancier> getCreaciers() {
         return creancierService.getAllCreanciers();
     }
 
+    @GetMapping("/{categorie}")
+    public List<Creancier> getCreanciersByCategorie(@PathVariable("categorie") String categorie) {
+        return creancierService.getCreanciersByCategorie(categorie);
+    }
 
 }

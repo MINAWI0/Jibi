@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CreancierRepository extends JpaRepository<Creancier,Long> {
-
-
     public Creancier getById(long id);
+    public List<Creancier> findAllByCategorie(String categorie);
 }

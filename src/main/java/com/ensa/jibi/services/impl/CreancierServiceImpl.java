@@ -22,4 +22,6 @@ public class CreancierServiceImpl implements CreancierService {
     public Creancier getCreancier(Long id){
         return creancierRepository.getById(id);
     }
+    public List<Creancier> getCreanciersByCategorie(String categorie){ return creancierRepository.findAllByCategorie(categorie);}
+
 }

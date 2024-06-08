@@ -8,4 +8,5 @@ public interface CreancierService {
     public List<Creancier> getAllCreanciers();
 
     public Object getCreancier(Long id);
+    public List<Creancier> getCreanciersByCategorie(String categorie);
 }
