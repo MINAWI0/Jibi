@@ -23,6 +23,8 @@ import {ProClientGuard} from "./services/proClientGuard/pro-client-guard.service
 import {
   ConfirmationPaiementListComponent
 } from "./components/confirmation-paiement-list/confirmation-paiement-list.component";
+import {CreancesComponent} from "./components/creances/creances.component";
+import {CreanciersComponent} from "./components/creanciers/creanciers.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -47,7 +49,9 @@ const routes: Routes = [
       { path: 'create-agent', component: CreateAgentComponent },
       { path: 'create-client', component: CreateClientComponent }
     ]
-  }
+  },
+  {path:'creances', component:CreancesComponent},
+  {path:'creanciers', component:CreanciersComponent}
 ];
 
 @NgModule({

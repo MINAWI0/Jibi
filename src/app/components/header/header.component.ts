@@ -33,14 +33,14 @@ export class HeaderComponent implements OnInit {
     const user = this.userService.getUser();
     return user && 'clientType' in user;
   }
-  getSolde(): number {
-    const user = this.userService.getUser();
-    const numTel = user.numTel;
-    let solde = 0;
-    const compte = this.compte.getCompte();
-    if (compte) {
-      solde = compte.solde;
-    }
-    return solde;
+  getSolde(): any {
+    // const user = this.userService.getUser();
+    // const numTel = user.numTel;
+    // let solde = 0;
+    // const compte = this.compte.getCompte();
+    // if (compte) {
+    //   solde = compte.solde;
+    // }
+    // return solde;
   }
 }

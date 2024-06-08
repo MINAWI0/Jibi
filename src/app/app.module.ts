@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +30,8 @@ import {
 import {NgOptimizedImage} from "@angular/common";
 import {CheckIcon} from "primeng/icons/check";
 import {ArrowDownIcon} from "primeng/icons/arrowdown";
-import { CreditorComponent } from './components/creditor/creditor.component';
+import { CreanciersComponent } from './components/creanciers/creanciers.component';
+import { CreancesComponent } from './components/creances/creances.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CreditorComponent } from './components/creditor/creditor.component';
     RechargeSoldeComponent,
     ProClientPageComponent,
     ConfirmationPaiementListComponent,
-    CreditorComponent
+    CreanciersComponent,
+    CreancesComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +73,7 @@ import { CreditorComponent } from './components/creditor/creditor.component';
     provideClientHydration(),
     provideHttpClient(withFetch())
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

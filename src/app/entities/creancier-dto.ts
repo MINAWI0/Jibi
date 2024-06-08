@@ -5,5 +5,6 @@ export interface CreancierDto {
   nom: string;
   categorie: string;
   logoURL: string;
+  description: string;
   creances: CreanceDto[];
 }
