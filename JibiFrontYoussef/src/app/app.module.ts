@@ -62,7 +62,7 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {CreancesComponent} from "./components/formss/creances.component";
 import {FormulairePageComponent} from "./components/formss/formulaire-page/formulaire-page.component";
-
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -145,6 +145,8 @@ import {FormulairePageComponent} from "./components/formss/formulaire-page/formu
     MatHeaderCellDef,
     MatHeaderRowDef,
     MatRowDef,
+
+    QRCodeModule,
 
     RouterModule,
   ],
