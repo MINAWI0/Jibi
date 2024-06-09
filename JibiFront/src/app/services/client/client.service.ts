@@ -12,9 +12,10 @@ export class ClientService {
   constructor(private http: HttpClient,private  session: SessionService) { }
 
   private jsonHttpOptions: { headers: HttpHeaders } =   {
-    headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + new SessionService().getToken())
+    headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + this.session.getToken())
   };
   private apiUrl = environment.apiUrl;
+  private agentId = this.session.getUser().id;
 
   uploadDocument(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/documents/upload`, formData);
@@ -22,6 +23,12 @@ export class ClientService {
 
   saveClient(client: ClientDto): Observable<any> {
     console.log(this.session.getToken())
-    return this.http.post<any>(`${this.apiUrl}/clients`, client,this.jsonHttpOptions);
+    console.log(this.agentId)
+    return this.http.post<any>(`${this.apiUrl}/clients/${this.agentId}`, client,this.jsonHttpOptions);
+  }
+
+  getAgentClients(): Observable<any> {
+    console.log(this.agentId)
+    return this.http.get<any>(`${this.apiUrl}/clients/${this.agentId}`);
   }
 }

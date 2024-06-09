@@ -6,12 +6,15 @@ import com.ensa.jibi.backend.domain.entities.Client;
 import com.ensa.jibi.backend.domain.entities.Role;
 import com.ensa.jibi.backend.domain.requests.LoginRequest;
 import com.ensa.jibi.backend.mappers.ClientMapper;
+import com.ensa.jibi.backend.repositories.AgentRepository;
 import com.ensa.jibi.backend.repositories.ClientRepository;
+import com.ensa.jibi.backend.services.AgentService;
 import com.ensa.jibi.backend.services.ClientService;
 import com.ensa.jibi.backend.services.OTPService;
 import com.ensa.jibi.backend.services.RoleService;
 import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
 import com.ensa.jibi.cmi.services.impl.ComptePaiementServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,7 @@ import static java.util.Arrays.asList;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
@@ -33,20 +37,13 @@ public class ClientServiceImpl implements ClientService {
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
     private final OTPService otpService;
+    private final AgentRepository agentRepository;
 
-    @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper, ComptePaiementServiceImpl comptePaiementService, PasswordEncoder passwordEncoder, RoleService roleService, OTPService otpService) {
-        this.clientRepository = clientRepository;
-        this.clientMapper = clientMapper;
-        this.comptePaiementService = comptePaiementService;
-        this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
-        this.otpService = otpService;
-    }
+
 
     @Override
     //TODO:: add sending otp (copy it from agent dto)
-    public ClientDto addClient(ClientDto clientDto) {
+    public ClientDto addClient(ClientDto clientDto,Long agentId) {
         String phoneNumber = clientDto.getNumTel();
         Role clientRole = roleService.findByName("ROLE_USER");
         if (comptePaiementService.existsById(phoneNumber)) {
@@ -56,6 +53,7 @@ public class ClientServiceImpl implements ClientService {
         Client client = clientMapper.mapFrom(clientDto);
         client.setPassword(passwordEncoder.encode(otpService.sendOTP(clientDto.getNumTel())));
         client.setRoles(asList(clientRole));
+        client.setAgent(agentRepository.findAgentById(agentId));
         client = clientRepository.save(client);
 
         // Create a new ComptePaiement with the ID = phone number
@@ -111,6 +109,13 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findAll()
                 .stream()
                 .map(clientMapper::mapTo)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClientDto> getClientsByAgentId(Long agentId) {
+        return clientRepository.findClientByAgent_Id(agentId)
+                .stream().map(clientMapper::mapTo)
                 .collect(Collectors.toList());
     }
 

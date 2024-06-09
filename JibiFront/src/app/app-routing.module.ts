@@ -18,12 +18,10 @@ import {RechargeSoldeComponent} from "./components/recharge-solde/recharge-solde
 import {FactureComponent} from "./components/facture/facture.component";
 import {RechargeComponent} from "./components/recharge/recharge.component";
 import {AccountComponent} from "./components/account/account.component";
-import {ConfirmationPaiementListComponent} from "./components/confirmation-paiement-list/confirmation-paiement-list.component"
-import {CreancierComponent} from "./components/creancier/creancier.component"
-import {CreanceComponent} from "./components/creance/creance.component";
 import {DonationComponent} from "./components/donation/donation.component";
 import {ProClientGuard} from "./services/Guards/proClientGuard/pro-client-guard.service"
-import {NormalClientGuardService} from  "./services/Guards/normalClientGuard/normal-client-guard.service"
+import {FormulairePageComponent} from "./components/formss/formulaire-page/formulaire-page.component";
+import {CreancesComponent} from "./components/formss/creances.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -41,6 +39,8 @@ const routes: Routes = [
   { path: 'client-pro', component: ProClientPageComponent, canActivate: [AuthGuard, ProClientGuard] },
   { path: 'qr-account', component: AccountComponent, canActivate: [AuthGuard, ClientGuard] },
 
+  { path: 'creances' , component: CreancesComponent},
+  {path : 'form/:type' , component : FormulairePageComponent},
   {
     path: 'agent',
     component: AgentPageComponent,

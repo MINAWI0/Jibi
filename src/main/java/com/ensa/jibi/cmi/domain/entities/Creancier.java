@@ -22,8 +22,9 @@ public class Creancier {
     private String nom;
     private String categorie;
     private String logoURL;
+    private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "creancier")
     private List<Creance> creances = new ArrayList<>();
 
 

@@ -18,9 +18,10 @@ export class CreanceService {
     return this.http.get<CreanceDto[]>(this.baseUrl,this.jsonHttpOptions);
   }
 
-  getCreance(id: number): Observable<CreanceDto> {
-    return this.http.get<CreanceDto>(`${this.baseUrl}/${id}`,this.jsonHttpOptions);
+  getCreance(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
+
   getCreancesByCreancierId(id: number): Observable<CreanceDto[]> {
     return this.http.get<CreanceDto[]>(`${this.baseUrl}/creancier/${id}`,this.jsonHttpOptions);
   }

@@ -7,6 +7,7 @@ import {ClientDto} from "../../entities/client-dto";
 import {DocumentDto} from "../../entities/document-dto";
 import {CreateAgentComponent} from "../../components/create-agent/create-agent.component";
 import {CreateClientComponent} from "../../components/create-client/create-client.component";
+import {ClientsListComponent} from "../../components/clients-list/clients-list.component";
 
 @Component({
   selector: 'app-agent-page',
@@ -48,8 +49,8 @@ export class AgentPageComponent implements OnInit, AfterViewInit{
     let componentType: Type<any> | undefined;
     this.current = componentName
     switch (componentName) {
-      case 'create-agent':
-        componentType = CreateAgentComponent;
+      case 'client-list':
+        componentType = ClientsListComponent;
         break;
       case 'create-client':
         componentType = CreateClientComponent;

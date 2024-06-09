@@ -1,8 +1,4 @@
 <div class="qr-container">
-  <!--
-
-<qrcode (qrCodeURL)="onChangeURL($event)" [errorCorrectionLevel]="'M'" [qrdata]="qrData" [width]="256"></qrcode>
-
-  -->
+  <qrcode (qrCodeURL)="onChangeURL($event)" [errorCorrectionLevel]="'M'" [qrdata]="qrData" [width]="256"></qrcode>
   <a [href]="qrCodeDownloadLink" download="qrcode" class="bd-gradient-btn nav-btn">Download</a>
 </div>

@@ -11,7 +11,7 @@ export class ClientGuard implements CanActivate {
 
   canActivate(): boolean {
     const role = this.sessionService.getRole();
-    if (role && (role=='ROLE_CLIENT' || role=='ROLE_CLIENT_PRO' )) {
+    if (role && (role=='ROLE_USER' || role=='ROLE_CLIENT_PRO' )) {
       return true;
     } else {
       this.router.navigate(['/home']);

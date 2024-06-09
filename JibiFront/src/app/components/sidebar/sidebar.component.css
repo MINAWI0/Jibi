@@ -1,6 +1,7 @@
 /* navigation.component.css */
+
 .vertical-nav {
-  background-color: aliceblue;
+  background-color: #d3ebff99;
   height: 100%;
   width: 220px;
   position: fixed;
@@ -14,11 +15,11 @@
 
 .horizontal-nav{
   display: inline-flex;
-  background-color: aliceblue;
+  background-color: #d3ebff99;
   width: 90%;
   margin-left: 220px;
   position: fixed;
-  z-index: 99999999999;
+  z-index: 999;
   top: 0;
   overflow-x: hidden;
   padding-top: 11px;

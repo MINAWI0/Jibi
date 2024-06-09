@@ -10,8 +10,8 @@ export class NavigatorService {
   constructor(private router: Router,private session: SessionService) { }
 
   loginNavigation(){
-    this.session.getSessionData().role;
-    switch(this.session.getSessionData().role){
+    this.session.getRole();
+    switch(this.session.getRole()){
       case 'ROLE_ADMIN':
         this.router.navigate(['/admin']);
         break

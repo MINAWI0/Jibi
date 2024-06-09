@@ -17,9 +17,10 @@ public class ImpayeController {
     private ImpayeServiceImpl impayeService;
 
     @GetMapping("/facture/{id}")
-    public List<ImpayeDto> getImpayeByFacture(@PathVariable("id") Long id) {
-        return impayeService.getImpayesByFacture(id);
+    public List<ImpayeDto> getImpayeByFacture(@PathVariable("id") Long numFacture) {
+        return impayeService.getImpayesByFacture(numFacture);
     }
+
     @PostMapping
     public ResponseEntity<?> createImpaye(@RequestBody ImpayeDto impayeDto) {
         try {

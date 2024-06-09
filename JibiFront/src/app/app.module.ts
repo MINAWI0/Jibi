@@ -1,4 +1,5 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from "@angular/router";
 import {provideHttpClient, withFetch, withInterceptorsFromDi} from '@angular/common/http';
 import {BrowserModule, provideClientHydration} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
@@ -39,10 +40,28 @@ import {
 import {CreancierComponent} from "./components/creancier/creancier.component"
 import {CreanceComponent} from "./components/creance/creance.component";
 import {DonationComponent} from "./components/donation/donation.component";
+import {CreanciersComponent} from "./components/creanciers/creanciers.component";
 
 import {NgxScannerQrcodeModule} from "ngx-scanner-qrcode";
 import {CheckIcon} from "primeng/icons/check";
 import {ArrowDownIcon} from "primeng/icons/arrowdown";
+import {ClientsListComponent} from './components/clients-list/clients-list.component';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable
+} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
+import {MatPaginator} from "@angular/material/paginator";
+import {CreancesComponent} from "./components/formss/creances.component";
+import {FormulairePageComponent} from "./components/formss/formulaire-page/formulaire-page.component";
 
 
 @NgModule({
@@ -77,7 +96,11 @@ import {ArrowDownIcon} from "primeng/icons/arrowdown";
     FactureComponent,
     DonationComponent,
     RechargeComponent,
-
+    ClientsListComponent,
+    CreanciersComponent,
+    CreancesComponent,
+    ClientPageComponent,
+    FormulairePageComponent
   ],
   imports: [
     BrowserModule,
@@ -110,6 +133,20 @@ import {ArrowDownIcon} from "primeng/icons/arrowdown";
     NgOptimizedImage,
     CheckIcon,
     ArrowDownIcon,
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatRow,
+    MatHeaderRow,
+    MatPaginator,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatHeaderRowDef,
+    MatRowDef,
+
+    RouterModule,
   ],
   providers: [
     provideClientHydration(),

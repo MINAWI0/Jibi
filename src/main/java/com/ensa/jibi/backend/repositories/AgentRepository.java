@@ -12,4 +12,5 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
     Agent findByUsernameAndPassword(String username, String password);
 
 
+    Agent findAgentById(Long agentId);
 }

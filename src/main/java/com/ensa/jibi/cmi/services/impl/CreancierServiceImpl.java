@@ -29,6 +29,11 @@ public class CreancierServiceImpl implements CreancierService {
     }
 
     @Override
+    public List<Creancier> getCreanciers(){
+        return creancierRepository.findAll();
+    }
+
+    @Override
     public CreancierDto getCreancier(Long id){
         Optional<Creancier> creancier = creancierRepository.findById(id);
         return creancier.map(creancierMapper::mapTo).orElse(null);
@@ -51,6 +56,9 @@ public class CreancierServiceImpl implements CreancierService {
         }
         return null;
     }
+
+    @Override
+    public List<Creancier> getCreanciersByCategorie(String categorie){ return creancierRepository.findAllByCategorie(categorie);}
 
     @Override
     public void deleteCreancier(Long id) {

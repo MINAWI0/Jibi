@@ -42,9 +42,12 @@ public class AgentService {
         Role agentRole = roleService.findByName("ROLE_AGENT");
         agentDto.setPassword(passwordEncoder.encode(otpService.sendOTP(agentDto.getNumTel())));
         Agent agent = agentMapper.mapFrom(agentDto);
+
         agent.setRoles(asList(agentRole));
         return agentMapper.mapTo(agentRepository.save(agent));
     }
+
+
 
     public AgentDto getUserByUsernameAndPassword(LoginRequest loginRequest){
     Agent agent = agentRepository.

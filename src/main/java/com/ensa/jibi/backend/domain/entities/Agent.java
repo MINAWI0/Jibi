@@ -28,6 +28,11 @@ public class Agent extends User{
 
     private String numCommerce;
     private String numPatente;
+
+    @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Client> clients = new ArrayList<>();
+
 //    private String docUrl;
     @OneToMany(mappedBy = "agent" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference

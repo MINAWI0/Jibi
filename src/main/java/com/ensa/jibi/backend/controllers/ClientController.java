@@ -19,10 +19,10 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @PostMapping
+    @PostMapping("/{agentId}")
     @PreAuthorize("hasRole('ROLE_AGENT')")
-    public ClientDto addClient(@RequestBody ClientDto clientDto) {
-        return clientService.addClient(clientDto);
+    public ClientDto addClient(@RequestBody ClientDto clientDto,@PathVariable("agentId") Long agentId) {
+        return clientService.addClient(clientDto,agentId);
     }
 
     @PutMapping("/{id}/update")
@@ -34,6 +34,12 @@ public class ClientController {
     public void deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
     }
+
+    @GetMapping("/{agentId}")
+    public List<ClientDto> getClientByAgentId(@PathVariable("agentId") Long agentId) {
+        return clientService.getClientsByAgentId(agentId);
+    }
+
 
     @GetMapping("/{id}/details")
     public ClientDto getClientById(@PathVariable Long id) {

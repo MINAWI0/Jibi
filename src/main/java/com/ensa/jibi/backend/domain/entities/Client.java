@@ -22,6 +22,11 @@ public class Client extends User{
     private String numTel;
     @Enumerated(EnumType.ORDINAL)
     private ClientType clientType;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "agent_id")
+    private Agent agent;
+
     @OneToMany(mappedBy = "client" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private List<Document> documents = new ArrayList<>();
