@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {SafeUrl} from "@angular/platform-browser";
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 
 @Component({
   selector: 'app-qr-code',
@@ -9,7 +10,9 @@ import {SafeUrl} from "@angular/platform-browser";
 export class QrCodeComponent {
   @Input() qrData: string = '';
   public qrCodeDownloadLink: SafeUrl = "";
-
+  elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
+  value = '0698113157';
 
   constructor() { }
 

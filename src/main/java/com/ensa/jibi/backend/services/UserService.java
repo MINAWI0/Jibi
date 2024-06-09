@@ -13,6 +13,7 @@ import com.ensa.jibi.backend.mappers.UserMapper;
 import com.ensa.jibi.backend.repositories.UserRepository;
 import com.ensa.jibi.backend.services.impl.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,8 @@ public class UserService {
         return userMapper.mapTo(userRepository.save(user));
     }
 
+
+
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream().map(userMapper::mapTo).collect(Collectors.toList()); // Use mapper to convert User to UserDto
@@ -57,6 +60,7 @@ public class UserService {
         return userRepository.findByUsername(userName);
     }
     public User getUserById(Long id) { return userRepository.findById(id).orElse(null);}
+
     public User getUserByUsernameAndPassword(LoginRequest loginRequest) {
         return userRepository.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
     }

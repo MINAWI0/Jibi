@@ -62,7 +62,7 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {CreancesComponent} from "./components/formss/creances.component";
 import {FormulairePageComponent} from "./components/formss/formulaire-page/formulaire-page.component";
-import { JwtModule } from "@auth0/angular-jwt";
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 @NgModule({
   declarations: [
@@ -108,11 +108,9 @@ import { JwtModule } from "@auth0/angular-jwt";
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-
     KeyValuePipe,
     NgForOf,
     ReactiveFormsModule,
-
     MatIcon,
     MatStepper,
     MatStep,
@@ -122,8 +120,6 @@ import { JwtModule } from "@auth0/angular-jwt";
     MatStepperNext,
     MatFormField,
     MatSelect,
-
-
     MatOption,
     MatFormFieldModule,
     AdminModule,
@@ -145,8 +141,8 @@ import { JwtModule } from "@auth0/angular-jwt";
     MatHeaderCellDef,
     MatHeaderRowDef,
     MatRowDef,
-
     RouterModule,
+    NgxQRCodeModule,
   ],
   providers: [
     provideClientHydration(),

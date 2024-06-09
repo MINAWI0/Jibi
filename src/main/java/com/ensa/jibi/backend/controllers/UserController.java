@@ -19,6 +19,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -33,6 +34,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> userDtos = userService.getAllUsers();
+        return new ResponseEntity<>(userDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable("id") Long id) {
+        User userDtos = userService.getUserById(id);
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 

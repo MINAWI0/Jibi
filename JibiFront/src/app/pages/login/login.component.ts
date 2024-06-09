@@ -40,7 +40,8 @@ export class LoginComponent {
       (response: any) => {
         console.log(response)
         const user = response.role.users.find((user: { username: string; }) => user.username === loginRequest.username);
-        this.session.setSessionData({ user: user,role: response.role.name,token: response.token});
+        this.session.setSessionData({token: response.token});
+
         if (user.firstLogin) {
           this.dialogService.openChangePasswordPage()
           return;

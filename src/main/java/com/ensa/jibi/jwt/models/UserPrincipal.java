@@ -31,6 +31,10 @@ public class UserPrincipal implements UserDetails {
     return user.getId();
   }
 
+  public String getPhone() {
+    return user.getNumTel();
+  }
+
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

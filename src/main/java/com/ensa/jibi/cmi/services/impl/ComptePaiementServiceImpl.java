@@ -10,7 +10,6 @@ import com.ensa.jibi.cmi.services.ComptePaimentService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +42,11 @@ public class ComptePaiementServiceImpl implements ComptePaimentService {
                 .stream()
                 .map(compteMapper::mapTo)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ComptePaiementDto getComptePaiement(String id) {
+        return compteMapper.mapTo(comptePaiementRepository.findComptePaiementById(id));
     }
 
     @Override

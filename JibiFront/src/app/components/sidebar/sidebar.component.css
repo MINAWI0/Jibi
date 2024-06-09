@@ -120,7 +120,7 @@ input[type='text']{
   height: min-content;
 }
 .curr{
-  margin-left: 4%;margin-right: 4%;padding-top: 1%;font-weight: 500;
+  padding-top: 1%;font-weight: 500;
 }
 .account-dropdown {
   margin-top: 0.5%;
@@ -165,4 +165,39 @@ input[type='text']{
 .account-dropdown:hover .dropdown-content {
   display: block;
   border-radius: 5%;
+}
+
+
+.bd-gradient-btn {
+  font-size: 15px;
+  color: var(--bd-common-white);
+  text-transform: uppercase;
+  font-weight: var(--bd-fw-sbold);
+  padding: 0px 35px;
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flexbox;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  height: 45px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -o-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+  position: relative;
+  -webkit-transition: all 0.5s ease-out 0s;
+  -moz-transition: all 0.5s ease-out 0s;
+  -ms-transition: all 0.5s ease-out 0s;
+  -o-transition: all 0.5s ease-out 0s;
+  z-index: 5;
+  margin-left: 3%;
+  margin-top: 6px;
+  background-position: 100% 100%;
+  background-size: 300% 100%;
+  background-image: var(--bd-gradient-1);
 }

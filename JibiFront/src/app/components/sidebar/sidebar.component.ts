@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
 import {SessionService} from "../utils/session/session.service"
-import {CompteService} from "../../services/compte/compte.service";
-import {DialogService} from "../utils/dialog/dialog.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -24,6 +22,7 @@ export class SidebarComponent implements OnInit {
         { name: 'Transactions', icon: 'fas fa-exchange-alt', link: 'confirmapayment', visible: this.current == 'admin' || this.current == 'client' },
         { name: 'Paiements et factures', icon: 'fas fa-file-invoice-dollar', link: 'invoice', visible: this.current == 'client' },
         { name: 'Creanciers', icon: 'fas fa-users', link: 'creanciers', visible: this.current == 'client' },
+        { name: 'Recharge sold', icon: 'fas fa-users', link: 'rechargerSold', visible: this.current == 'client' },
         { name: 'Notifications', icon: 'fas fa-bell', link: '', visible: this.current == 'client' },
         { name: 'New Client', icon: 'fas fa-user-plus', link: 'create-client', visible: this.current == 'agent' },
         { name: 'New Agent', icon: 'fas fa-user-tie', link: 'create-agent', visible: this.current == 'admin' },
@@ -37,7 +36,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.itemClicked.emit(this.currentContent)
-    console.log(this.currentContent)
+    this.solde = this.sessionService.getComptePayment().solde
   }
 
   selectComponent(componentName: string) {
@@ -52,4 +51,9 @@ export class SidebarComponent implements OnInit {
     this.sessionService.clearSessionData()
     this.router.navigate(['/home']);
   }
+
+  rechrgerSold() {
+
+  }
+
 }

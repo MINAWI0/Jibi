@@ -1,5 +1,6 @@
 package com.ensa.jibi.jwt.util;
 
+import com.ensa.jibi.cmi.services.impl.ComptePaiementServiceImpl;
 import com.ensa.jibi.jwt.models.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -16,10 +17,16 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
 
+  private final ComptePaiementServiceImpl comptePaiementService;
+
   @Value("${jwt.secret}")
   private String SECRET_KEY;
 
-  public String extractUsername(String token) {
+    public JwtUtil(ComptePaiementServiceImpl comptePaiementService) {
+        this.comptePaiementService = comptePaiementService;
+    }
+
+    public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
   }
 
@@ -47,7 +54,8 @@ public class JwtUtil {
   public String generateToken(UserPrincipal userDetails) {
     Map<String, Object> claims = new HashMap<>();
     claims.put("role", userDetails.getRole());
-    claims.put("id", userDetails.getId());
+    claims.put("user", userDetails);
+    claims.put("compte", comptePaiementService.getComptePaiement(userDetails.getPhone()));
     return createToken(claims, userDetails.getUsername());
   }
 

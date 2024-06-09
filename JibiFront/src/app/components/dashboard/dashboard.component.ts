@@ -35,7 +35,7 @@ export class DashboardComponent {
     this.confirmationPaiementService.getConfirmationsByComptePaiementId().subscribe((confirmations) => {
       // Filter confirmations for today
       this.confirmations = confirmations.filter(confirmation => this.isToday(new Date(confirmation.date)));
-      console.log(confirmations);
+
       // Sort confirmations by date
       this.confirmations.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     });

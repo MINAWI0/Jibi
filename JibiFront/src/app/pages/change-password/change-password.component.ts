@@ -30,7 +30,7 @@ export class ChangePasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.session.getUser().id
+    this.userId = this.session.decodeToken().id
   }
 
   handleChangePassword(): void {

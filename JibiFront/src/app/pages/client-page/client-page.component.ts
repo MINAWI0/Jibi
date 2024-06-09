@@ -9,6 +9,7 @@ import {DashboardComponent} from "../../components/dashboard/dashboard.component
 import {
   ConfirmationPaiementListComponent
 } from "../../components/confirmation-paiement-list/confirmation-paiement-list.component";
+import {RechargeSoldeComponent} from "../../components/recharge-solde/recharge-solde.component";
 
 @Component({
   selector: 'app-client-page',
@@ -51,6 +52,9 @@ export class ClientPageComponent implements OnInit, AfterViewInit{
         break;
       case  'confirmapayment':
         componentType = ConfirmationPaiementListComponent;
+        break;
+      case  'rechargerSold':
+        componentType = RechargeSoldeComponent;
         break;
     }
 

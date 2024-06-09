@@ -1,8 +1,15 @@
 <div class="qr-container">
+  <ngx-qrcode
+    [elementType]="elementType"
+    [errorCorrectionLevel]="correctionLevel"
+    [value]="value"
+    cssClass="bshadow"
+  ></ngx-qrcode>
   <!--
 
 <qrcode (qrCodeURL)="onChangeURL($event)" [errorCorrectionLevel]="'M'" [qrdata]="qrData" [width]="256"></qrcode>
 
   -->
+  <textarea [(ngModel)]="value"></textarea>
   <a [href]="qrCodeDownloadLink" download="qrcode" class="bd-gradient-btn nav-btn">Download</a>
 </div>
