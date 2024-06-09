@@ -1,0 +1,33 @@
+<main>
+    <section class="register__area section-space-bottom">
+        <div class="container">
+            <div class="login__wrapper text-center mx-auto">
+                <div class="login__intro mb-40">
+                    <h3 class="login__title">Formulaire de {{capitalizeFirstLetter(type)}}</h3>
+                    <p>Veuillez remplir les champs ci-dessous</p>
+                </div>
+                <form [formGroup]="formulaire" (ngSubmit)="onSubmit()">
+                    <div *ngFor="let field of formFields" class="login__input mb-25">
+                        <input *ngIf="field.type !== 'Enum'"
+                               [type]="field.type.toLowerCase()"
+                               [placeholder]="capitalizeFirstLetter(field.nom)"
+                               [formControlName]="field.nom">
+                        <div *ngIf="field.type === 'Enum'" class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle bd-gradient-btn-white" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ selectedOption[field.nom] || 'Selectionner un montant' }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li *ngFor="let option of field.options">
+                                    <button class="dropdown-item" type="button" (click)="selectOption(field.nom, option)">{{ option }}</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="login__submit mb-25">
+                        <button class="bd-gradient-btn w-100" type="submit">Confirmer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
