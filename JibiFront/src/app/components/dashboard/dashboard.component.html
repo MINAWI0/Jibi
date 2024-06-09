@@ -1,0 +1,45 @@
+<div class="flex flex-row-reverse justify-between mt-4">
+  <div class="card flex justify-content-center w-2/5 bg-transparent p-1">
+    <div class=" mx-auto pb-20">
+      <div class="mx-auto bg-neutral-800 px-2.5 py-2 rounded-[4px] text-[2.5rem] text-white">Les paiements d'aujourd'hui.</div>
+    </div>
+    <p-carousel
+      [value]="confirmations"
+      [numVisible]="1"
+      [numScroll]="1"
+      orientation="horizontal"
+      verticalViewPortHeight="360px">
+      <ng-template let-confirmation pTemplate="item">
+        <div class="border-1 surface-border border-round m-2 flex flex-col align-items-center">
+          <div class="mb-3">
+            <div class="">
+              <img
+                src="{{ confirmation.creance.creancier.logoURL}}"
+                [alt]="confirmation.name"
+                class="border-round" />
+              <p-tag
+                [value]="confirmation.inventoryStatus"
+                [severity]="getSeverity(confirmation.inventoryStatus)"
+                class="absolute bg-black h-2"
+                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+            </div>
+          </div>
+
+          <div class="flex justify-content-between align-items-center">
+            <div class="mt-0 font-semibold text-[2rem]">
+              {{   confirmation.montant + " DH" }}
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+  <div  class="w-3/5">
+    <chart-line-style-demo></chart-line-style-demo>
+  </div>
+
+</div>
+
+
+

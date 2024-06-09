@@ -3,6 +3,8 @@ package com.ensa.jibi.jwt.models;
 
 import com.ensa.jibi.backend.domain.entities.Admin;
 import com.ensa.jibi.backend.domain.entities.User;
+import com.ensa.jibi.cmi.domain.entities.ComptePaiement;
+import com.ensa.jibi.cmi.services.impl.ComptePaiementServiceImpl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +16,19 @@ import java.util.List;
 
 public class UserPrincipal implements UserDetails {
 
-
   private final User user;
 
   public UserPrincipal(User user){
       this.user = user;
+  }
+
+
+  public String getRole() {
+    return user.getRoles().iterator().next().getName();
+  }
+
+  public Long getId() {
+    return user.getId();
   }
 
 

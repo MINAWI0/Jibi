@@ -7,8 +7,12 @@ import com.ensa.jibi.backend.domain.requests.LoginRequest;
 import com.ensa.jibi.backend.exceptions.PhoneNumberException;
 import com.ensa.jibi.backend.mappers.AgentMapper;
 import com.ensa.jibi.backend.repositories.AgentRepository;
+import com.ensa.jibi.backend.repositories.ClientRepository;
 import com.ensa.jibi.backend.repositories.RoleRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,34 +21,26 @@ import java.util.Collection;
 
 import static java.util.Arrays.*;
 
-@Service
+@Service@AllArgsConstructor
 public class AgentService {
     private final AgentRepository agentRepository;
     private final AgentMapper agentMapper;
     private final OTPService otpService;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
+    private final ClientRepository clientRepository;
 
-    @Autowired
-    public AgentService(AgentRepository agentRepository, AgentMapper agentMapper, OTPService otpService, PasswordEncoder passwordEncoder, RoleService roleService) {
-        this.agentRepository = agentRepository;
-        this.agentMapper = agentMapper;
-        this.otpService = otpService;
-        this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
-    }
 
-    public AgentDto save(AgentDto agentDto) {
-     String agentPhoneNumber = agentDto.getNumTel();
-        if (agentRepository.existsByNumTel(agentPhoneNumber)) {
-            throw new PhoneNumberException("Phone number " + agentPhoneNumber + " already exists.");
+    public ResponseEntity<?> save(AgentDto agentDto) {
+        String agentPhoneNumber = agentDto.getNumTel();
+        if (agentRepository.existsByNumTel(agentPhoneNumber) || clientRepository.existsByNumTel(agentPhoneNumber)) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Phone number " + agentPhoneNumber + " already exists.\"}");
         }
         Role agentRole = roleService.findByName("ROLE_AGENT");
         agentDto.setPassword(passwordEncoder.encode(otpService.sendOTP(agentDto.getNumTel())));
         Agent agent = agentMapper.mapFrom(agentDto);
-
         agent.setRoles(asList(agentRole));
-        return agentMapper.mapTo(agentRepository.save(agent));
+        return new ResponseEntity<>(agentMapper.mapTo(agentRepository.save(agent)), HttpStatus.CREATED);
     }
 
 
@@ -56,4 +52,7 @@ public class AgentService {
         return agentMapper.mapTo(agent);
     }
 
+    public boolean existsByNumTel(String numTel) {
+        return agentRepository.existsByNumTel(numTel);
+    }
 }

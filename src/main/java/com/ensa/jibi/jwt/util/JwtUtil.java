@@ -1,5 +1,6 @@
 package com.ensa.jibi.jwt.util;
 
+import com.ensa.jibi.jwt.models.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -43,10 +44,13 @@ public class JwtUtil {
     return extractExpiration(token).before(new Date());
   }
 
-  public String generateToken(UserDetails userDetails) {
+  public String generateToken(UserPrincipal userDetails) {
     Map<String, Object> claims = new HashMap<>();
+    claims.put("role", userDetails.getRole());
+    claims.put("id", userDetails.getId());
     return createToken(claims, userDetails.getUsername());
   }
+
 
   private String createToken(Map<String, Object> claims, String subject) {
     return Jwts

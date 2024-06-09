@@ -24,7 +24,8 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
-
+    @Column(unique = true)
+    private String numTel;
     @Column(name = "first_login", columnDefinition = "boolean default true")
     private boolean firstLogin = true;
     @ManyToMany

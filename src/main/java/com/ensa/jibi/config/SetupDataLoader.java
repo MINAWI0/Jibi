@@ -45,6 +45,7 @@ public class SetupDataLoader implements
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+
         if (alreadySetup)
             return;
         Privilege readPrivilege
@@ -53,13 +54,13 @@ public class SetupDataLoader implements
                 = privilegeService.createPrivilegeIfNotFound("WRITE_PRIVILEGE");
         Privilege editPrivilege
                 = privilegeService.createPrivilegeIfNotFound("EDIT_PRIVILEGE");
-
         List<Privilege> adminPrivileges = Arrays.asList(
                 readPrivilege, writePrivilege,editPrivilege);
 
         roleService.createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
         roleService.createRoleIfNotFound("ROLE_AGENT",Arrays.asList(readPrivilege,writePrivilege));
-        roleService.createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
+        roleService.createRoleIfNotFound("ROLE_CLIENT", Arrays.asList(readPrivilege));
+        roleService.createRoleIfNotFound("ROLE_CLIENT_PRO", Arrays.asList(readPrivilege));
         Role adminRole = roleService.findByName("ROLE_ADMIN");
         Admin admin = new Admin();
         admin.setUsername("admin");

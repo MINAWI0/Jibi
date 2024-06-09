@@ -1,0 +1,32 @@
+:host ::ng-deep .p-card {
+  border-radius: 25px !important;
+  width: 550px;
+  border: 2px solid black;
+}
+:host ::ng-deep .p-card-header {
+  border-radius: 25px 25px 0px 0px !important;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  width: 150px;
+  margin: 0 auto;
+}
+:host ::ng-deep .p-card .p-card-subtitle {
+  color: black !important;
+}
+:host ::ng-deep .p-card .p-card-content {
+  font-size: 18px;
+  font-style: italic;
+  font-family: cursive;
+  font-weight: 700;
+  color: black;
+}
+:host ::ng-deep .p-card .p-card-footer {
+  display: flex;
+  justify-content: center;
+}
+:host ::ng-deep .p-button.p-element {
+  margin-right: 5px;
+}

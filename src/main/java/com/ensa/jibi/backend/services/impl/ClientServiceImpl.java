@@ -16,6 +16,8 @@ import com.ensa.jibi.cmi.domain.dto.ComptePaiementDto;
 import com.ensa.jibi.cmi.services.impl.ComptePaiementServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,30 +40,40 @@ public class ClientServiceImpl implements ClientService {
     private final RoleService roleService;
     private final OTPService otpService;
     private final AgentRepository agentRepository;
-
+    private final AgentService agentService;
 
 
     @Override
-    //TODO:: add sending otp (copy it from agent dto)
-    public ClientDto addClient(ClientDto clientDto,Long agentId) {
+    public ResponseEntity<?> addClient(ClientDto clientDto,Long agentId) {
         String phoneNumber = clientDto.getNumTel();
-        Role clientRole = roleService.findByName("ROLE_USER");
-        if (comptePaiementService.existsById(phoneNumber)) {
-            throw new IllegalArgumentException("Phone number already exists as ComptePaiement ID");
+        String username = clientDto.getUsername();
+        if(clientRepository.existsByUsername(username) || agentService.existsByNumTel(username)) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Please try with another UserName !\"}");
+        }
+        else if(clientRepository.existsByNumTel(phoneNumber) || agentService.existsByNumTel(phoneNumber)) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Phone number " + phoneNumber+ " already exists.\"}");
+        }
+        else if (comptePaiementService.existsById(phoneNumber)) {
+            return ResponseEntity.badRequest().body("{\"message\":\"CMI error: Phone number "+ phoneNumber+" already exists as ComptePaiement ID.\"}");
+        } else {
+            Role clientRole =new Role();
+            clientRole = clientDto.getClientType().getAccountLimit()!=0 ?
+                    roleService.findByName("ROLE_CLIENT") :
+                    roleService.findByName("ROLE_CLIENT_PRO");
+            Client client = clientMapper.mapFrom(clientDto);
+            client.setAgent(agentRepository.findAgentById(agentId));
+            client.setPassword(passwordEncoder.encode(otpService.sendOTP(clientDto.getNumTel())));
+            client.setRoles(asList(clientRole));
+            client = clientRepository.save(client);
+            // Create a new ComptePaiement with the ID = phone number
+            ComptePaiementDto comptePaiement = new ComptePaiementDto();
+            comptePaiement.setId(phoneNumber);
+            comptePaiement.setSolde(0.0); // Initialize solde
+            comptePaiementService.save(comptePaiement);
+            return new ResponseEntity<>(clientMapper.mapTo(client), HttpStatus.CREATED);
+
         }
 
-        Client client = clientMapper.mapFrom(clientDto);
-        client.setPassword(passwordEncoder.encode(otpService.sendOTP(clientDto.getNumTel())));
-        client.setRoles(asList(clientRole));
-        client.setAgent(agentRepository.findAgentById(agentId));
-        client = clientRepository.save(client);
-
-        // Create a new ComptePaiement with the ID = phone number
-        ComptePaiementDto comptePaiement = new ComptePaiementDto();
-        comptePaiement.setId(phoneNumber);
-        comptePaiement.setSolde(0.0); // Initialize solde
-        comptePaiementService.save(comptePaiement);
-        return clientMapper.mapTo(client);
     }
 
     @Override

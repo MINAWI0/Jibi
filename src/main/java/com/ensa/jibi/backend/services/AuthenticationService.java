@@ -60,6 +60,7 @@ public class AuthenticationService implements UserDetailsService {
     var jwt = jwtUtil.generateToken(userDetails);
     return ResponseEntity.ok().body( new AuthenticationResponse(role,jwt,userEntity.getId()));
   }
+
   public void setPassword(Long userId, String newPassword) {
     User user = userService.getUserById(userId);
     if (user != null) {

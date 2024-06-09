@@ -23,9 +23,6 @@ public class Agent extends User{
     private String adresse;
     private String email;
 
-    @Column(unique = true)
-    private String numTel;
-
     private String numCommerce;
     private String numPatente;
 

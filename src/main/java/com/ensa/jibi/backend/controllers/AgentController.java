@@ -21,9 +21,8 @@ public class AgentController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<AgentDto> saveAgent(@RequestBody AgentDto agentDto) {
-        AgentDto savedAgent = agentService.save(agentDto);
-        return ResponseEntity.ok(savedAgent);
+    public ResponseEntity<?> saveAgent(@RequestBody AgentDto agentDto) {
+        return agentService.save(agentDto);
     }
 
 

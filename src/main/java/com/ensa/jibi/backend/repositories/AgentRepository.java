@@ -10,7 +10,7 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
     boolean existsByNumTel(String numTel);
 
     Agent findByUsernameAndPassword(String username, String password);
-
+    boolean existsByUsername(String username);
 
     Agent findAgentById(Long agentId);
 }
