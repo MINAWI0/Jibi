@@ -19,9 +19,8 @@ export class CreancesComponent implements OnInit{
     @ViewChild(ClientPageComponent) dynamicLoader!: ClientPageComponent;
     @Input() data: any;
 
-    creanceType = [
-      {name: '',logoUrl: '',id: 0},
-    ]
+    creanceType = [ { name: '', logoUrl: '', id: 0 }]
+
 
 
     constructor(private formService: FormulaireService,
@@ -30,19 +29,33 @@ export class CreancesComponent implements OnInit{
                 protected clientPage: ClientPageComponent) {
     }
 
+    contains(name: string): boolean {
+      return this.creanceType.some((element) => element.name === name);
+    }
+
     ngOnInit(): void {
+      let creanceTypesAdded: { [key: string]: boolean } = {};
+      this.data.creances.forEach((creance: CreanceDto) => {
+        this.creanceService.getCreance(creance.id).subscribe((res) => {
+          let creanceType = { name: '', logoUrl: '', id: 0 };
 
-      this.data.creances.map((creance: CreanceDto) => this.creanceService.getCreance(creance.id).subscribe(
-        res =>{
-          if ("nomDonateur" in res)
-            this.creanceType.push({name: "Donation",logoUrl: res.creancier.logoURL,id: res.creancier.id});
-          else if("numFacture" in res)
-            this.creanceType.push({name: "Facture",logoUrl: res.creancier.logoURL,id: res.creancier.id});
-          else
-            this.creanceType.push({name: "Recharge",logoUrl: res.creancier.logoURL,id: res.creancier.id});
-        }
+          if ("nomDonateur" in res) {
+            creanceType.name = "Donation";
+          } else if ("numFacture" in res) {
+            creanceType.name = "Facture";
+          } else {
+            creanceType.name = "Recharge";
+          }
 
-      ) )
+          creanceType.logoUrl = res.creancier.logoURL;
+          creanceType.id = res.creancier.id;
+
+          if (!this.contains(creanceType.name)) {
+            this.creanceType.push(creanceType);
+            creanceTypesAdded[creanceType.name] = true;
+          }
+        });
+      });
 
       console.log(this.creanceType)
 

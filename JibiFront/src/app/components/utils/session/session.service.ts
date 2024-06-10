@@ -32,7 +32,9 @@ export class SessionService {
   getUser(): any{
     return this.getSessionData() ? this.decodeToken().user : null;
   }
-
+  getUserInfos(): any{
+    return this.getSessionData() ? this.decodeToken().userInfos : null;
+  }
   getComptePayment(): any {
     return this.getSessionData() ? this.decodeToken().compte : null;
   }
@@ -63,4 +65,5 @@ export interface CustomJwtPayload extends JwtPayload {
   role?: string;
   user?: number;
   compte?: number;
+  userInfos?: any
 }

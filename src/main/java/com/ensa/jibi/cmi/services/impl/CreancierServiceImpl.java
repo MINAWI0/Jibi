@@ -29,6 +29,11 @@ public class CreancierServiceImpl implements CreancierService {
     }
 
     @Override
+    public Long countCreanciers(){
+        return creancierRepository.count();
+    }
+
+    @Override
     public List<Creancier> getCreanciers(){
         return creancierRepository.findAll();
     }

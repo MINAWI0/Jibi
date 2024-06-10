@@ -6,6 +6,7 @@ import com.ensa.jibi.cmi.domain.entities.Creancier;
 import java.util.List;
 
 public interface CreancierService {
+    Long countCreanciers();
     public List<CreancierDto> getAllCreanciers();
     //public CreancierDto getCreancier(Long id);
     public CreancierDto save(CreancierDto creancierDto);

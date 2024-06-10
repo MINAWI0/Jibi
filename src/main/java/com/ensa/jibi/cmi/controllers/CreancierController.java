@@ -31,6 +31,12 @@ public class CreancierController {
         }
     }
 
+    @GetMapping("/count")
+    public Long countCreanciers() {
+        System.out.println(creancierService.countCreanciers());
+        return creancierService.countCreanciers();
+    }
+
     @PostMapping
     public ResponseEntity<CreancierDto> createCreancier(@RequestBody CreancierDto creancierDto) {
         CreancierDto createdCreancier = creancierService.save(creancierDto);

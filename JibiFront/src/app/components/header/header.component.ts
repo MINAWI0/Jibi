@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SessionService } from '../utils/session/session.service';
+import {CompteService} from "../../services/compte/compte.service";
+import {SessionService} from "../utils/session/session.service";
 import {DialogService} from "../utils/dialog/dialog.service";
-import { CompteService } from '../../services/compte/compte.service';
+
 
 @Component({
   selector: 'app-header',
@@ -11,29 +12,14 @@ import { CompteService } from '../../services/compte/compte.service';
 })
 export class HeaderComponent implements OnInit {
   solde: number = -1;
+
+
   constructor(
     private sessionService: SessionService,
-    private router: Router,
-    private compteService: CompteService,
-    protected dialogService: DialogService,) {
-    this.compteService.compte$.subscribe((compte: any) => {
-      if (compte) {
-        this.solde = compte.solde;
-      }
-    });
-  }
+    private dialogService: DialogService, private compte: CompteService) {}
 
   ngOnInit(): void {
-    const compte = this.compteService.getCompte();
-    if (compte) {
-      this.solde = compte.solde;
-    }
 
-    this.compteService.compte$.subscribe((compte: any) => {
-      if (compte) {
-        this.solde = compte.solde;
-      }
-    });
   }
 
   isLoggedIn(): boolean {
@@ -42,6 +28,14 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.sessionService.clearSessionData();
-    this.router.navigate(['/home']);
+  }
+
+  isClient(): boolean {
+    const user = this.sessionService.getUser();
+    return user && 'clientType' in user;
+  }
+
+  logIn() {
+    this.dialogService.openLoginPage()
   }
 }

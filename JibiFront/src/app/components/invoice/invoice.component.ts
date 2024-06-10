@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -10,32 +10,13 @@ import jsPDF from 'jspdf';
 export class InvoiceComponent implements OnInit{
   @ViewChild('downloadSection') downloadSection!: ElementRef;
   invoiceNumber: string = '';
+  invoiceData: any
+  @Input() data: any;
   ngOnInit() {
-    this.generateInvoiceNumber()
+      this.invoiceData = this.data.data
+      this.generateInvoiceNumber()
   }
 
-  invoiceData = {
-    invoiceNumber: '#LL93784',
-    invoiceDate: '01.07.2022',
-    sender: {
-      name: 'Lowell H. Dominguez',
-      address: '84 Spilman Street, London,',
-      email: 'lowell@gmail.com'
-    },
-    paymentInfo: {
-      companyName: 'Laralink Ltd',
-      address: '86-90 Paul Street, London,\n England EC2A 4NE',
-      email: 'demo@gmail.com'
-    },
-    Transaction: {
-      type: 'Payment',
-      date: '01/07/2022',
-      number: 'PNM768787',
-      paymentMethodType: 'CreditCard',
-      paymentMethodNumber: '*************5654',
-      amount: '1000',
-    }
-  };
   generateInvoiceNumber() {
     const randomPart = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
     this.invoiceNumber = `INV-${Date.now()}-${randomPart}`;

@@ -1,15 +1,14 @@
 import {AfterViewInit, Component, Injector, OnInit, Type, ViewChild, ViewContainerRef} from '@angular/core';
-import {CreateClientComponent} from "../../components/create-client/create-client.component";
 import {InvoiceComponent} from "../../components/invoice/invoice.component";
 import {CreanciersComponent} from "../../components/creanciers/creanciers.component";
 import {CreancesComponent} from "../../components/formss/creances.component";
 import {FormulairePageComponent} from "../../components/formss/formulaire-page/formulaire-page.component";
-import {AccountComponent} from "../../components/account/account.component";
 import {DashboardComponent} from "../../components/dashboard/dashboard.component";
 import {
   ConfirmationPaiementListComponent
 } from "../../components/confirmation-paiement-list/confirmation-paiement-list.component";
 import {RechargeSoldeComponent} from "../../components/recharge-solde/recharge-solde.component";
+import {ImpayesComponent} from "../../components/impayes/impayes/impayes.component";
 
 @Component({
   selector: 'app-client-page',
@@ -46,6 +45,9 @@ export class ClientPageComponent implements OnInit, AfterViewInit{
         break;
       case 'form':
         componentType = FormulairePageComponent;
+        break;
+      case 'impayes':
+        componentType = ImpayesComponent;
         break;
       case 'dashboard':
         componentType = DashboardComponent;

@@ -8,23 +8,23 @@
           </div>
           <div class="tm_invoice_right tm_text_right">
             <!--<div class="tm_primary_color tm_f50 tm_text_uppercase">Invoice</div>-->
-            <div class="tm_logo"><img src="../../../assets/imgs/logo/logo-black.svg" alt="Logo"></div>
+            <div class="tm_logo"><img src="{{invoiceData.logoUrl}}" alt="Logo"></div>
           </div>
         </div>
-        <div class="tm_primary_color m-100 tm_f40" style="margin-left: 35%">Factur jhgdh</div>
+        <div class="tm_primary_color m-100 tm_f40" style="margin-left: 35%">{{invoiceData.titre}}</div>
         <div class="tm_invoice_info tm_mb20" style="margin-top: 20px">
           <div class="tm_invoice_seperator tm_gray_bg"></div>
           <div class="tm_invoice_info_list">
-            <p class="tm_invoice_number tm_m0">Invoice No: <b id="invoice_number" class="tm_primary_color">{{invoiceData.invoiceNumber}}</b></p>
+            <p class="tm_invoice_number tm_m0">Number: <b id="invoice_number" class="tm_primary_color">{{invoiceData.invoiceNumber}}</b></p>
             <p class="tm_invoice_date tm_m0">Date: <b class="tm_primary_color">{{invoiceData.invoiceDate}}</b></p>
           </div>
         </div>
         <div class="tm_invoice_head tm_mb10">
           <div class="tm_invoice_left">
-            <p class="tm_mb2"><b class="tm_primary_color">Invoice To:</b></p>
+            <p class="tm_mb2"><b class="tm_primary_color">To:</b></p>
             <p>
               {{invoiceData.sender.name}} <br>
-              {{invoiceData.sender.address}}<br>United Kingdom <br>
+              {{invoiceData.sender.address}}<br>
               {{invoiceData.sender.email}}
             </p>
           </div>
@@ -60,7 +60,7 @@
                 <td class="tm_width_4">{{invoiceData.Transaction.number}}</td>
                 <td class="tm_width_2">{{invoiceData.Transaction.paymentMethodType}}</td>
                 <td class="tm_width_1">{{invoiceData.Transaction.paymentMethodNumber}}</td>
-                <td class="tm_width_2 tm_text_right"><span>- </span>${{invoiceData.Transaction.amount}}</td>
+                <td class="tm_width_2 tm_text_right"><span>- </span>{{invoiceData.Transaction.amount}}</td>
               </tr>
               </tbody>
             </table>

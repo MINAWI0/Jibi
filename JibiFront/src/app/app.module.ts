@@ -5,7 +5,6 @@ import {BrowserModule, provideClientHydration} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './pages/home/home.component';
-import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {LoginComponent} from './pages/login/login.component';
 import {ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
@@ -62,7 +61,12 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {CreancesComponent} from "./components/formss/creances.component";
 import {FormulairePageComponent} from "./components/formss/formulaire-page/formulaire-page.component";
-import { QrCodeModule } from 'ng-qrcode';
+import {QrCodeModule} from 'ng-qrcode';
+import {HeaderComponent} from "./components/header/header.component";
+import {PartenairesComponent} from "./components/partenaires/partenaires.component";
+import {StatistiqueComponent} from "./components/statistique/statistique.component";
+import { ImpayesComponent } from './components/impayes/impayes/impayes.component';
+
 
 @NgModule({
   declarations: [
@@ -100,7 +104,12 @@ import { QrCodeModule } from 'ng-qrcode';
     CreanciersComponent,
     CreancesComponent,
     ClientPageComponent,
-    FormulairePageComponent
+    FormulairePageComponent,
+    HeaderComponent,
+    PartenairesComponent,
+    StatistiqueComponent,
+    ImpayesComponent,
+
   ],
   imports: [
     BrowserModule,

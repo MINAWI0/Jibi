@@ -36,6 +36,9 @@ export class AlertService {
   }
 
   showInfo(msg: string) {
+    const errorHtml = `
+     <h3>${msg}</h3>
+  `;
     Swal.fire({
       title: 'Info',
       text: msg,
@@ -45,11 +48,16 @@ export class AlertService {
   }
 
   showWarning(msg: string) {
+    const errorHtml = `
+     <h3>${msg}</h3>
+  `;
+
     Swal.fire({
       title: 'Avertissement',
-      text: msg,
       icon: 'warning',
-      confirmButtonText: 'OK',
+      html: errorHtml,
+      showConfirmButton: false,
+      timer: 4000,
     });
   }
 }

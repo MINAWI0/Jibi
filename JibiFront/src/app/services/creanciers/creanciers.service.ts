@@ -15,6 +15,10 @@ export class CreanciersService {
 
   constructor(private http: HttpClient) { }
 
+  countCreanciers(): Observable<number>{
+    return this.http.get<number>(`${this.baseUrl}/count`);
+  }
+
   getCreditors(): Observable<CreancierDto[]>{
     return this.http.get<CreancierDto[]>(this.baseUrl);
   }
