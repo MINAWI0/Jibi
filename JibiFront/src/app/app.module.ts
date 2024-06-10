@@ -63,6 +63,14 @@ import {MatPaginator} from "@angular/material/paginator";
 import {CreancesComponent} from "./components/formss/creances.component";
 import {FormulairePageComponent} from "./components/formss/formulaire-page/formulaire-page.component";
 import { QrCodeModule } from 'ng-qrcode';
+import {
+  MatDatepicker,
+  MatDatepickerInput,
+  MatDatepickerModule,
+  MatDatepickerToggle
+} from "@angular/material/datepicker";
+import {MatInput} from "@angular/material/input";
+import { AgentsListComponent } from './components/agents-list/agents-list.component';
 
 @NgModule({
   declarations: [
@@ -100,13 +108,18 @@ import { QrCodeModule } from 'ng-qrcode';
     CreanciersComponent,
     CreancesComponent,
     ClientPageComponent,
-    FormulairePageComponent
+    FormulairePageComponent,
+    AgentsListComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
     KeyValuePipe,
     NgForOf,
@@ -142,7 +155,11 @@ import { QrCodeModule } from 'ng-qrcode';
     MatHeaderRowDef,
     MatRowDef,
     RouterModule,
-    QrCodeModule
+    QrCodeModule,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatInput,
+    MatDatepickerInput
   ],
   providers: [
     provideClientHydration(),

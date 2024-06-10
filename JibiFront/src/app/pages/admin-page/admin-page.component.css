@@ -1,8 +1,8 @@
 .body-content{
-  margin-left: 226px;
-  margin-top: 72px;
-  width: 81%;
-  height: 90%;
+  margin-left: 250px;
+  margin-top: 92px;
+  width: calc(100% - 250px);
+  height:calc(100% - 82px) ;
 }
 .contact__wrapper {
   background: #f6f8fa;

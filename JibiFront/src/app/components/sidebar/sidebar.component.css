@@ -1,11 +1,12 @@
 /* navigation.component.css */
 .vertical-nav {
-  background-color: aliceblue;
   height: 100%;
-  width: 220px;
+  width: 250px;
   position: fixed;
   z-index: 1;
   top: 0;
+  /*background:#F9F9F9;*/
+
   left: 0;
   overflow-x: hidden;
   padding-top: 20px;
@@ -13,12 +14,17 @@
 }
 
 .horizontal-nav{
-  display: inline-flex;
-  background-color: aliceblue;
-  width: 90%;
-  margin-left: 220px;
+  border-bottom: lavender 2px solid;
+  padding-right:20px;
+  display: flex;
+  gap:25px;
+  justify-content: flex-end;
+  width:calc(100% - 250px);
+  align-items: center;
+  margin-left: 250px;
+  background:white;
   position: fixed;
-  z-index: 99999999999;
+  z-index: 1;
   top: 0;
   overflow-x: hidden;
   padding-top: 11px;
@@ -31,29 +37,32 @@
 }
 .vertical-nav ul li {
   display: flex;
+  margin-left:3%;
+  border-radius: 10px;
+  width:94%;
   align-items: center;
   padding-left: 20px;
   font-weight: 500;
 }
 .vertical-nav ul li:hover{
-  background-color: #ffffff;
+  background-color: #f3f4fa;
 }
 .vertical-nav li.active {
-  background-color: #ffffff; /* Change the background color of the selected li */
+  background-color: #ebeefd;
   font-weight: bold; /* Change the font weight of the selected li */
-  color: #333; /* Change the text color of the selected li */
+  /*color: #333; !* Change the text color of the selected li *!*/
 }
 
-.vertical-nav li.active a {
-  color: #333; /* Change the link color of the selected li */
-}
+/*.vertical-nav li.active a {*/
+/*  color: #333; !* Change the link color of the selected li *!*/
+/*}*/
 
 .vertical-nav li.active img {
   filter: brightness(0.8); /* Change the brightness of the icon in the selected li */
 }
 .vertical-nav li a {
   display: block;
-  color: #032d49;
+  /*color: #032d49;*/
   padding: 16px;
   text-decoration: none;
 }
@@ -91,6 +100,11 @@
   }
 }
 
+.sub__btn{
+  height: 50px;
+  padding: 0 30px;
+}
+
 .search-bar {
   display: flex;
   align-items: center;
@@ -98,7 +112,7 @@
   border-radius: 5px;
   padding: 5px;
   color: #1a1e21;
-  margin-right: 0%;
+  margin-right: 0;
   margin-left: 15%;
   input[type="text"] {
     flex: 1;
@@ -126,7 +140,7 @@ input[type='text']{
   margin-top: 0.5%;
   margin-left: 8%;
   position: relative;
-  display: inline-block;
+
 }
 
 .account-btn {
@@ -168,36 +182,39 @@ input[type='text']{
 }
 
 
-.bd-gradient-btn {
-  font-size: 15px;
-  color: var(--bd-common-white);
-  text-transform: uppercase;
-  font-weight: var(--bd-fw-sbold);
-  padding: 0px 35px;
-  display: -webkit-inline-box;
-  display: -moz-inline-box;
-  display: -ms-inline-flexbox;
-  display: -webkit-inline-flex;
-  display: inline-flexbox;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  height: 45px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -o-border-radius: 30px;
-  -ms-border-radius: 30px;
-  border-radius: 30px;
-  position: relative;
-  -webkit-transition: all 0.5s ease-out 0s;
-  -moz-transition: all 0.5s ease-out 0s;
-  -ms-transition: all 0.5s ease-out 0s;
-  -o-transition: all 0.5s ease-out 0s;
-  z-index: 5;
-  margin-left: 3%;
-  margin-top: 6px;
-  background-position: 100% 100%;
-  background-size: 300% 100%;
-  background-image: var(--bd-gradient-1);
+/*.bd-gradient-btn {*/
+/*  font-size: 15px;*/
+/*  color: var(--bd-common-white);*/
+/*  text-transform: uppercase;*/
+/*  font-weight: var(--bd-fw-sbold);*/
+/*  !*padding: 0px 35px;*!*/
+/*  display: -webkit-inline-box;*/
+/*  display: -moz-inline-box;*/
+/*  display: -ms-inline-flexbox;*/
+/*  display: -webkit-inline-flex;*/
+/*  display: inline-flexbox;*/
+/*  display: inline-flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  gap: 6px;*/
+/*  height: 45px;*/
+/*  -webkit-border-radius: 30px;*/
+/*  -moz-border-radius: 30px;*/
+/*  -o-border-radius: 30px;*/
+/*  -ms-border-radius: 30px;*/
+/*  border-radius: 30px;*/
+/*  position: relative;*/
+/*  -webkit-transition: all 0.5s ease-out 0s;*/
+/*  -moz-transition: all 0.5s ease-out 0s;*/
+/*  -ms-transition: all 0.5s ease-out 0s;*/
+/*  -o-transition: all 0.5s ease-out 0s;*/
+/*  z-index: 5;*/
+/*  margin-left: 3%;*/
+/*  margin-top: 6px;*/
+/*  background-position: 100% 100%;*/
+/*  background-size: 300% 100%;*/
+/*  background-image: var(--bd-gradient-1);*/
+/*}*/
+.active-font {
+  font-weight: bold; /* or whatever font weight you prefer */
 }

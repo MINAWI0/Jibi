@@ -1,5 +1,5 @@
 <!-- Contact form area start -->
-<div class="contact__area section-space-bottom">
+<div class="contact__area section-space-bottom d-flex justify content-center">
   <div class="container">
     <div class="col-xxl-12">
       <div class="solution__tab bd-tab">
@@ -7,9 +7,9 @@
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#infos-tab-pane" type="button" role="tab" aria-controls="infos-tab-pane" aria-selected="true"><span>01</span>Informations personnelles</button>
           </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="doc-tab" data-bs-toggle="tab" data-bs-target="#doc-tab-pane" type="button" role="tab" aria-controls="doc-tab-pane" aria-selected="false" tabindex="-1"><span>02</span>Pièces jointes</button>
-          </li>
+<!--          <li class="nav-item" role="presentation">-->
+<!--            <button class="nav-link" id="doc-tab" data-bs-toggle="tab" data-bs-target="#doc-tab-pane" type="button" role="tab" aria-controls="doc-tab-pane" aria-selected="false" tabindex="-1"><span>02</span>Pièces jointes</button>-->
+<!--          </li>-->
         </ul>
       </div>
     </div>
@@ -80,13 +80,14 @@
                       </div>
                     </div>
                     <!-- Date de naissance -->
+
                     <div class="col-xxl-6 col-xl-6 col-lg-6">
                       <div class="contact__input-box mb-15">
                         <div class="contact__input-title">
                           <label for="dateNaissance">Date de naissance</label>
                         </div>
                         <div class="contact__input ui-datepicker-prev-hover">
-                          <input formControlName="dateNaissance" id="dateNaissance" type="date">
+                          <input formControlName="dateNaissance" id="dateNaissance"   type="date">
                           <div *ngIf="agentForm.get('dateNaissance')?.invalid && agentForm.get('dateNaissance')?.touched" class="text-danger">
                             Date de naissance is required
                           </div>

@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, Type, ViewChild, ViewContainerRef} from '@angular/core';
 import {CreateAgentComponent} from "../../components/create-agent/create-agent.component";
 import {CreateClientComponent} from "../../components/create-client/create-client.component";
+import {AgentsListComponent} from "../../components/agents-list/agents-list.component";
 
 @Component({
   selector: 'app-admin-page',
@@ -27,8 +28,8 @@ export class AdminPageComponent implements OnInit, AfterViewInit{
       case 'create-agent':
         componentType = CreateAgentComponent;
         break;
-      case 'create-client':
-        componentType = CreateClientComponent;
+      case 'agents-list':
+        componentType = AgentsListComponent;
         break;
     }
     if (componentType) {

@@ -55,7 +55,9 @@ public class JwtUtil {
     Map<String, Object> claims = new HashMap<>();
     claims.put("role", userDetails.getRole());
     claims.put("user", userDetails);
-    claims.put("compte", comptePaiementService.getComptePaiement(userDetails.getPhone()));
+
+      if (!userDetails.getRole().equals("ROLE_ADMIN"))
+        claims.put("compte", comptePaiementService.getComptePaiement(userDetails.getPhone()));
     return createToken(claims, userDetails.getUsername());
   }
 
