@@ -62,7 +62,7 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {CreancesComponent} from "./components/formss/creances.component";
 import {FormulairePageComponent} from "./components/formss/formulaire-page/formulaire-page.component";
-import { QRCodeModule } from 'angularx-qrcode';
+import { QrCodeModule } from 'ng-qrcode';
 
 @NgModule({
   declarations: [
@@ -142,7 +142,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     MatHeaderRowDef,
     MatRowDef,
     RouterModule,
-    QRCodeModule
+    QrCodeModule
   ],
   providers: [
     provideClientHydration(),
@@ -150,6 +150,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimationsAsync(),
   ],
+  bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
   exports: [

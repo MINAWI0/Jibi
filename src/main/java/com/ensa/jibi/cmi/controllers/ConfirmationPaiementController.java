@@ -1,6 +1,7 @@
 package com.ensa.jibi.cmi.controllers;
 
 import com.ensa.jibi.cmi.domain.dto.ConfirmationPaiementDto;
+import com.ensa.jibi.cmi.domain.dto.ConfirmationRequest;
 import com.ensa.jibi.cmi.services.ConfirmationPaiementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class ConfirmationPaiementController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createConfirmationPaiement(@RequestBody ConfirmationPaiementDto confirmationPaiementDto){
+    public ResponseEntity<?> createConfirmationPaiement(@RequestBody ConfirmationRequest confirmationPaiementDto){
         try {
             ConfirmationPaiementDto createdConfirmationPaiement = confirmationPaiementService.createConfirmationPaiement(confirmationPaiementDto);
             return ResponseEntity.ok(createdConfirmationPaiement);

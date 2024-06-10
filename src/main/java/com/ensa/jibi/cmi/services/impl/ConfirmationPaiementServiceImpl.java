@@ -1,6 +1,7 @@
 package com.ensa.jibi.cmi.services.impl;
 
 import com.ensa.jibi.cmi.domain.dto.ConfirmationPaiementDto;
+import com.ensa.jibi.cmi.domain.dto.ConfirmationRequest;
 import com.ensa.jibi.cmi.domain.entities.ConfirmationPaiement;
 import com.ensa.jibi.cmi.domain.entities.ComptePaiement;
 import com.ensa.jibi.cmi.mappers.impl.ConfirmationPaiementMapperImpl;
@@ -39,10 +40,10 @@ public class ConfirmationPaiementServiceImpl implements ConfirmationPaiementServ
     }
 
     @Override
-    public ConfirmationPaiementDto createConfirmationPaiement(ConfirmationPaiementDto confirmationPaiementDto){
-        Long creanceId = confirmationPaiementDto.getCreance().getId();
-        String comptePaiementId = confirmationPaiementDto.getCompte().getId();
-        Double montant = confirmationPaiementDto.getMontant();
+    public ConfirmationPaiementDto createConfirmationPaiement(ConfirmationRequest confirmationRequest){
+        Long creanceId = confirmationRequest.getCreanceId();
+        String comptePaiementId = confirmationRequest.getCompteId();
+        Double montant = confirmationRequest.getMontant();
 
         boolean creanceExists = creanceRepository.existsById(creanceId);
         boolean comptePaiementExists = comptePaiementRepository.existsById(comptePaiementId);
@@ -54,9 +55,11 @@ public class ConfirmationPaiementServiceImpl implements ConfirmationPaiementServ
                 throw new IllegalArgumentException("Solde insuffisant");
             }
 
-            ConfirmationPaiement confirmationPaiement = confirmationPaiementMapper.mapFrom(confirmationPaiementDto);
+            ConfirmationPaiement confirmationPaiement = new ConfirmationPaiement();
             confirmationPaiement.setCreance(creanceRepository.findById(creanceId).get());
             confirmationPaiement.setCompte(comptePaiement);
+            confirmationPaiement.setMontant(montant);
+            confirmationPaiement.setDate(confirmationRequest.getDate());
 
             ConfirmationPaiement savedConfirmationPaiement = confirmationPaiementRepository.save(confirmationPaiement);
 
