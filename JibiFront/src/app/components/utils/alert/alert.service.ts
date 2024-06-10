@@ -23,6 +23,20 @@ export class AlertService {
     });
   }
 
+  showSuccessRecharge(message: string) {
+    const successHtml = `
+    <div class="success-container">
+      <img src="assets/imgs/logo/icon-correct.png" alt="correct image" class="correct-logo" />
+      <h3>${message}</h3>
+    </div>
+  `;
+
+    Swal.fire({
+      html: successHtml,
+      showConfirmButton: false,
+    });
+  }
+
   showError(msg: string) {
     const errorHtml = `
      <h3>${msg}</h3>

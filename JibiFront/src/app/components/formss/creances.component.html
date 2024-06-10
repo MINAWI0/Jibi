@@ -18,7 +18,7 @@
                 <div class="col-xxl-7 col-xl-7 col-lg-7">
                     <div class="row g-5" *ngFor="let element of creanceType">
                         <div class="col-lg-4 col-md-4 col-sm-4" *ngIf="element.name=='Recharge'">
-                            <div class="our-values__item wow fadeIn" data-wow-delay=".4s" [routerLink]="['/form', 'recharge']" >
+                            <div class="our-values__item wow fadeIn" data-wow-delay=".4s" (click)="this.clientPage.loadComponent('form',{data: 'recharge',creanceId: creanceType.at(2)})" >
                                 <div class="our-values__icon">
                                         <span>
 

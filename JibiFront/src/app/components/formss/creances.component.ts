@@ -48,7 +48,7 @@ export class CreancesComponent implements OnInit{
           }
 
           creanceType.logoUrl = res.creancier.logoURL;
-          creanceType.id = res.creancier.id;
+          creanceType.id = creance.id;
 
           if (!this.contains(creanceType.name)) {
             this.creanceType.push(creanceType);

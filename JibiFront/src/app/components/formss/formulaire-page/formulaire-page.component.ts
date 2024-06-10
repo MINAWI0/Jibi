@@ -11,6 +11,8 @@ import {ConfirmationPaiementDto} from "../../../entities/confirmation-paiement-d
 import {SessionService} from "../../utils/session/session.service";
 import {ParseError} from "@angular/compiler";
 import {ConfirmationRequest} from "../../../entities/confirmationRequest";
+import {DatePipe} from "@angular/common";
+import {response} from "express";
 
 
 @Component({
@@ -66,6 +68,9 @@ export class FormulairePageComponent {
     this.formulaire.get(field)?.setValue(option);
   }
 
+  formattedDate!: string;
+
+
   onSubmit(): void {
     if(this.type=="donation"){
       var montantInput = this.formulaire.get("montant")?.value;
@@ -74,9 +79,9 @@ export class FormulairePageComponent {
         montant: montantNumber,
         compteId: this.sessionService.getComptePayment().id,
         creanceId: this.data.creanceId.id,
-        date: new Date()
+        date:  new Date()
+
       }
-      console.log(this.confirmationRequest)
       this.confirmationPaymentService.confirmPayment(
         this.confirmationRequest
       ).subscribe(
@@ -112,10 +117,24 @@ export class FormulairePageComponent {
         error => this.alertService.showWarning(error.message.error)
       )
     }else if (this.type=="recharge") {
-      console.log("rech")
+      this.confirmationRequest = {
+        montant: this.getRechargeValue(this.formulaire.get("montant")?.value) || 10,
+        compteId: this.sessionService.getComptePayment().id,
+        creanceId: this.data.creanceId.id,
+        date:  new Date()
+
+      }
+      this.confirmationPaymentService.confirmPayment(
+        this.confirmationRequest
+      ).subscribe(
+        response => {
+          this.alertService.showSuccessRecharge("Votre code de Recharge "+ this.confirmationRequest.montant +
+            "DH est : "+this.generateInvoiceNumber())
+        },
+        error => this.alertService.showError("Solde  Insuffisant !")
+      )
     }
     else {
-      console.log("facture")
       this.impayeService.getImpayeByFacture(this.formulaire.get("numFacture")?.value).subscribe(
         impaye =>{
           if (impaye.length== 0){
@@ -130,8 +149,30 @@ export class FormulairePageComponent {
 
   }
 
+  getRechargeValue(value: string): number | null {
+    if (value === 'RECHARGE_10DH') {
+      return 10;
+    } else if (value === 'RECHARGE_20DH') {
+      return 20;
+    } else if (value === 'RECHARGE_50DH') {
+      return 50;
+    } else if (value === 'RECHARGE_70DH') {
+      return 70;
+    } else if (value === 'RECHARGE_80DH') {
+      return 80;
+    } else if (value === 'RECHARGE_90DH') {
+      return 90;
+    } else if (value === 'RECHARGE_100DH') {
+      return 100;
+    } else {
+      return null;
+    }
+  }
+
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
+  generateInvoiceNumber() {
+   return Math.floor(Math.random() * 100000000000000).toString().padStart(14, '0');
+  }
 }

@@ -59,7 +59,8 @@ public class JwtUtil {
     claims.put("role", userDetails.getRole());
     claims.put("user", userDetails);
     claims.put("userInfos", userService.getUserByUsername(userDetails.getUsername()));
-    claims.put("compte", comptePaiementService.getComptePaiement(userDetails.getPhone()));
+    if(!(userDetails.getRole().equals("ROLE_ADMIN") || userDetails.getRole().equals("ROLE_AGENT")))
+      claims.put("compte", comptePaiementService.getComptePaiement(userDetails.getPhone()));
     return createToken(claims, userDetails.getUsername());
   }
 
