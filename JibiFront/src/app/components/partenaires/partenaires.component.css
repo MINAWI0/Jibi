@@ -1,0 +1,28 @@
+/* Conteneur principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px; /* Ajustez le padding selon vos besoins */
+}
+
+/* Flexbox pour aligner les logos horizontalement */
+.container > div {
+  display: flex;
+  justify-content: center; /* Centre les logos horizontalement */
+  flex-wrap: wrap; /* Permet aux logos de passer à la ligne suivante si nécessaire */
+  gap: 20px; /* Espacement entre les logos, ajustez selon vos besoins */
+}
+
+/* Style pour chaque logo */
+.logo {
+  display: flex;
+  align-items: center; /* Centre verticalement si les images ont des tailles différentes */
+  margin: 0; /* Enlevez les marges si nécessaire */
+}
+
+.logo img {
+  max-height: 100px; /* Ajustez la hauteur maximale des logos selon vos besoins */
+  height: auto;
+  width: auto;
+  display: block;
+}
