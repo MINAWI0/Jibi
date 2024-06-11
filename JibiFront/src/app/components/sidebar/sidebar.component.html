@@ -3,8 +3,11 @@
     {{currentRoute}}
   </div>
   <a class="sub__btn" (click)="logout()"  style="cursor:pointer">Logout</a>
+  <!-- Use Angular's ngIf for conditional rendering and Angular's (click) event binding -->
+  <div *ngIf="current === 'client' || current === 'client-pro' ">
+    <a class="bd-gradient-btn nav-btn btn-xs" style="cursor:pointer" (click)="rechrgerSold()">Solde : {{ solde }}</a>
+  </div>
 
-  <a class="bd-gradient-btn nav-btn btn-xs " style="cursor:pointer" (click)="rechrgerSold()" >Solde : {{solde}}</a>
 </nav>
 <nav class="vertical-nav">
   <div class="offcanvas__logo" style="width: 80px; margin-left: 20px;margin-bottom:30px">

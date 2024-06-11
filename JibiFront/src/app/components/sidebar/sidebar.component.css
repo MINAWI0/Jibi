@@ -37,6 +37,7 @@
 }
 .vertical-nav ul li {
   display: flex;
+  color:black;
   margin-left:3%;
   border-radius: 10px;
   width:94%;
@@ -45,10 +46,10 @@
   font-weight: 500;
 }
 .vertical-nav ul li:hover{
-  background-color: #f3f4fa;
+  background-color: #f5f5f5;
 }
 .vertical-nav li.active {
-  background-color: #ebeefd;
+  background-color: #f5f5f5;
   font-weight: bold; /* Change the font weight of the selected li */
   /*color: #333; !* Change the text color of the selected li *!*/
 }
@@ -164,7 +165,7 @@ input[type='text']{
 }
 
 .dropdown-content a {
-  color: #333;
+  /*color: #333;*/
   padding: 10px;
   text-decoration: none;
   display: block;
@@ -216,5 +217,6 @@ input[type='text']{
 /*  background-image: var(--bd-gradient-1);*/
 /*}*/
 .active-font {
-  font-weight: bold; /* or whatever font weight you prefer */
+    font-size: 18px;
+  font-weight: 600; /* or whatever font weight you prefer */
 }

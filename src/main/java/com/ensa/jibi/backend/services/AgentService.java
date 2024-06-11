@@ -4,20 +4,18 @@ import com.ensa.jibi.backend.domain.dto.AgentDto;
 import com.ensa.jibi.backend.domain.entities.Agent;
 import com.ensa.jibi.backend.domain.entities.Role;
 import com.ensa.jibi.backend.domain.requests.LoginRequest;
-import com.ensa.jibi.backend.exceptions.PhoneNumberException;
 import com.ensa.jibi.backend.mappers.AgentMapper;
 import com.ensa.jibi.backend.repositories.AgentRepository;
 import com.ensa.jibi.backend.repositories.ClientRepository;
-import com.ensa.jibi.backend.repositories.RoleRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.*;
 
@@ -55,4 +53,12 @@ public class AgentService {
     public boolean existsByNumTel(String numTel) {
         return agentRepository.existsByNumTel(numTel);
     }
+
+    public List<AgentDto> getAllAgents() {
+        List<Agent> agents = agentRepository.findAll();
+        return agents.stream()
+                .map(agentMapper::mapTo)
+                .collect(Collectors.toList());
+    }
+
 }

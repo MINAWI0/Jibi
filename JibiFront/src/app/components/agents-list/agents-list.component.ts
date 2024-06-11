@@ -1,32 +1,46 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {ClientDto} from "../../entities/client-dto";
-import {MatSort} from "@angular/material/sort";
-import {MatPaginator} from "@angular/material/paginator";
-import {ClientService} from "../../services/client/client.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
+interface DataItem {
+  Nom: string;
+  Prenom: string;
+  UserName: string;
+  ClientType: string;
+  Action: number;
+}
 
 @Component({
   selector: 'app-agents-list',
   templateUrl: './agents-list.component.html',
-  styleUrl: './agents-list.component.css'
+  styleUrls: ['./agents-list.component.css']
 })
 export class AgentsListComponent implements OnInit {
-  clients = new MatTableDataSource<ClientDto>([]);
-  clients$: ClientDto[] = [];
-  @ViewChild(MatSort) sort: MatSort | null = null;
-  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  constructor(private clientService: ClientService) {}
 
-  ngOnInit() {
-    this.getAgentClients()
+  filterForm: FormGroup;
+  data: DataItem[] = [
+    { Nom: '2017-09-29 01:22', Prenom: '200398', UserName: 'iPhone X 64Gb Grey', ClientType: '$999.00', Action: 1 },
+    { Nom: '2017-09-28 05:57', Prenom: '200397', UserName: 'Samsung S8 Black', ClientType: '$756.00', Action: 1 },
+    // ... (rest of the data)
+  ];
+  filteredData: DataItem[] = [...this.data];
+  search: string='';
+
+  constructor(private fb: FormBuilder) {
+    this.filterForm = this.fb.group({
+      Nom: [''],
+      Prenom: [''],
+      UserName: [''],
+      ClientType: [''],
+      Action: ['']
+    });
   }
 
-  getAgentClients(){
-    this.clientService.getAgentClients().subscribe(clients => {
-      this.clients = new MatTableDataSource(clients);
-      this.clients.sort = this.sort;
-      this.clients.paginator = this.paginator;
-    })
+  ngOnInit() { }
+
+  applyFilter() {
+    let filterValue = this.search.trim().toLowerCase(); // Remove whitespace and convert to lowercase
+    this.filteredData = this.data.filter(item => {
+      return Object.values(item).some(val => val.toString().toLowerCase().includes(filterValue));
+    });
   }
 }
