@@ -3,16 +3,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {FactureDto} from "../../entities/facture-dto";
 import {environment} from "../../../environments/environment.development";
+import {SessionService} from "../../components/utils/session/session.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FactureService {
 
-  private baseUrl = 'http://localhost:8080/api/factures';
-  private jsonHttpOptions: { headers: HttpHeaders } = environment.jsonHttpOptions;
+  private baseUrl = environment.apiUrl+'/api/factures';
+  private jsonHttpOptions: { headers: HttpHeaders } =   {
+    headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + this.session.getToken())
+  };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private session: SessionService) { }
 
   getAllFactures(): Observable<FactureDto[]> {
     return this.http.get<FactureDto[]>(this.baseUrl,this.jsonHttpOptions);

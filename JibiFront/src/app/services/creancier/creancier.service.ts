@@ -9,7 +9,7 @@ import {SessionService} from "../../components/utils/session/session.service";
   providedIn: 'root'
 })
 export class CreancierService {
-  private baseUrl = 'http://localhost:8080/api/creanciers';
+  private baseUrl =environment.apiUrl+ '/api/creanciers';
   private jsonHttpOptions: { headers: HttpHeaders } =   {
     headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + this.session.getToken())
   };

@@ -3,13 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CreancierDto} from "../../entities/creancier-dto";
 import {CreanceDto} from "../../entities/creance-dto";
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreanciersService {
 
-  private baseUrl = 'http://localhost:8080/api/creanciers';
+  private baseUrl = environment.apiUrl+'/api/creanciers';
 
   creances!: CreanceDto [];
 

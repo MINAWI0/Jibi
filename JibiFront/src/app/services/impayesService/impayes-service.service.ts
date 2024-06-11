@@ -2,13 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ImpayeDto} from "../../entities/ImpayeDto";
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImpayesServiceService {
 
-  private baseUrl = 'http://localhost:8080/api/impayes';
+  private baseUrl = environment.apiUrl+'/api/impayes';
 
   constructor(private http: HttpClient) { }
 

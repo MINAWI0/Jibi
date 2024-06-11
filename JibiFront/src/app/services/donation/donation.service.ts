@@ -8,7 +8,7 @@ import {DonationDto} from "../../entities/donation-dto";
   providedIn: 'root'
 })
 export class DonationService {
-  private baseUrl = 'http://localhost:8080/api/donations';
+  private baseUrl = environment.apiUrl+'/api/donations';
 
   constructor(private http: HttpClient) { }
 

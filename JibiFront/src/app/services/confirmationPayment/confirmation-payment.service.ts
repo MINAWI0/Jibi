@@ -3,12 +3,13 @@ import {HttpClient} from "@angular/common/http";
 import {DonationDto} from "../../entities/donation-dto";
 import {Observable} from "rxjs";
 import {ConfirmationRequest} from "../../entities/confirmationRequest";
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfirmationPaymentService {
-  private baseUrl = 'http://localhost:8080/api/confirmationPaiements';
+  private baseUrl = environment.apiUrl+'/api/confirmationPaiements';
 
   constructor(private http: HttpClient) { }
 

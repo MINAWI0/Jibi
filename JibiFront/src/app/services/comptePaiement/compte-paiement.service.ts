@@ -15,7 +15,7 @@ interface TransferRequest {
 })
 export class ComptePaiementService {
 
-  private baseUrl = 'http://localhost:8080/api/comptePaiements';
+  private baseUrl = environment.apiUrl+'/api/comptePaiements';
   private jsonHttpOptions: { headers: HttpHeaders } =   {
     headers: new HttpHeaders({}).set('Authorization', 'Bearer ' + this.session.getToken())
   };
