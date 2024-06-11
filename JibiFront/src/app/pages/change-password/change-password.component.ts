@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from '../../services/login/login.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoginService} from '../../services/login/login.service';
 import {UserService} from "../../services/user/user.service";
 import {AlertService} from "../../components/utils/alert/alert.service"
 import {MatDialogRef} from "@angular/material/dialog";
 import {NavigatorService} from "../../components/utils/navigator/navigator.service"
 import {SessionService} from "../../components/utils/session/session.service";
+
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
@@ -19,10 +20,8 @@ export class ChangePasswordComponent implements OnInit {
   successMessage: string = '';
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+
     private loginService: LoginService,
-    private userService: UserService,
     private session: SessionService,
     private alertService: AlertService,
     public dialogRef: MatDialogRef<ChangePasswordComponent>,
@@ -38,12 +37,10 @@ export class ChangePasswordComponent implements OnInit {
       this.errorMessage = 'Passwords do not match!';
       return;
     }
-
     if (this.userId === null) {
       this.errorMessage = 'Invalid user ID!';
       return;
     }
-
     this.loginService.setPassword(this.userId, this.newPassword).subscribe(
       () => {
         this.successMessage = 'Password updated successfully!';
@@ -62,9 +59,5 @@ export class ChangePasswordComponent implements OnInit {
 
   isValidPassword(password: string): boolean {
     return password.length >= 8;
-  }
-
-  isAdmin(user: any): boolean {
-    return user && 'username' in user;
   }
 }

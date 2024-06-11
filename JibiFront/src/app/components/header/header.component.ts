@@ -16,10 +16,27 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private sessionService: SessionService,
-    private dialogService: DialogService, private compte: CompteService) {}
+    private router: Router,
+    private compteService: CompteService,
+    protected dialogService: DialogService,) {
+    this.compteService.compte$.subscribe((compte: any) => {
+      if (compte) {
+        this.solde = compte.solde;
+      }
+    });
+  }
 
   ngOnInit(): void {
+    const compte = this.compteService.getCompte();
+    if (compte) {
+      this.solde = compte.solde;
+    }
 
+    this.compteService.compte$.subscribe((compte: any) => {
+      if (compte) {
+        this.solde = compte.solde;
+      }
+    });
   }
 
   isLoggedIn(): boolean {

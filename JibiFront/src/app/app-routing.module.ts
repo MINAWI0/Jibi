@@ -22,11 +22,14 @@ import {DonationComponent} from "./components/donation/donation.component";
 import {ProClientGuard} from "./services/Guards/proClientGuard/pro-client-guard.service"
 import {FormulairePageComponent} from "./components/formss/formulaire-page/formulaire-page.component";
 import {CreancesComponent} from "./components/formss/creances.component";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'success-signup', component: SuccessSignupPageComponent },
   { path: 'invoice', component: InvoiceComponent },
+  { path: 'd', component: RechargeComponent },
+
   { path: 'home', component: HomeComponent },
   { path: 'change-password', component: ChangePasswordComponent },
   { path: 'login', component: LoginComponent, canActivate:[LoginGuard] },

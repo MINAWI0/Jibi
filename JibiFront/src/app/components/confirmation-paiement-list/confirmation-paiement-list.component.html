@@ -1,4 +1,4 @@
-<div class="d-flex mb-3">
+<div class="d-flex mb-3" style="padding-top: 3rem">
   <input type="text" class="form-control me-2" placeholder="Search by créancier name"
          [(ngModel)]="searchTerm" (ngModelChange)="filterConfirmations()">
 
@@ -29,7 +29,7 @@
           <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="work__step-item-2 is-mainly-blue text-center">
               <div class="work__step-count">
-                <span class="w-[32px] h-[32px]"><img class="w-3/4 " [src]="confirmation.creance.creancier.logoURL"></span>
+                <span class="w-[80px] h-[80px]" style="width: 80px;height: 80px;"><img width="50px" height="50px" [src]="confirmation.creance.creancier.logoURL"></span>
               </div>
               <div class="work__step-content-2">
                 <h3>{{confirmation.creance.creancier.nom}}</h3>

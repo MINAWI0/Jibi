@@ -9,6 +9,9 @@ import {
 } from "../../components/confirmation-paiement-list/confirmation-paiement-list.component";
 import {RechargeSoldeComponent} from "../../components/recharge-solde/recharge-solde.component";
 import {ImpayesComponent} from "../../components/impayes/impayes/impayes.component";
+import {OtpComponent} from "../otp/otp.component";
+import {RechargeComponent} from "../../components/recharge/recharge.component";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-client-page',
@@ -18,11 +21,21 @@ import {ImpayesComponent} from "../../components/impayes/impayes/impayes.compone
 export class ClientPageComponent implements OnInit, AfterViewInit{
   @ViewChild('componentContainer', { read: ViewContainerRef, static: true  }) componentContainer!: ViewContainerRef;
   current!: any;
-
-  constructor(private injector: Injector) {}
-  ngOnInit() {}
+  dto: any
+  constructor(private injector: Injector,private route: ActivatedRoute,private router: Router) {}
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      const encodedDto = params.get('dto');
+      if (encodedDto) {
+        this.dto = JSON.parse(decodeURIComponent(encodedDto));
+        this.loadComponent('invoice',{data: this.dto});
+      } else {
+        this.router.navigate(['/client'])
+      }
+    });
+  }
   ngAfterViewInit() {
-    this.loadComponent('create-client');
+    this.loadComponent('dashboard');
   }
 
   loadComponent(componentName: string, data?: any) {
@@ -36,6 +49,9 @@ export class ClientPageComponent implements OnInit, AfterViewInit{
     switch (componentName) {
       case 'invoice':
         componentType = InvoiceComponent;
+        break;
+      case 'otp':
+        componentType = RechargeComponent;
         break;
       case 'creanciers':
         componentType = CreanciersComponent;

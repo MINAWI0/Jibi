@@ -62,6 +62,9 @@
                           <div *ngIf="agentForm.get('cin')?.invalid && agentForm.get('cin')?.touched" class="text-danger">
                             N° Pièce d'identité is required
                           </div>
+                          <div *ngIf="agentForm.get('cin')?.hasError('cinPasseportInvalid')" class="text-danger">
+                            CIN must start with 1 or 2 letters followed by up to 6-7 numbers.
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -69,12 +72,15 @@
                     <div class="col-xxl-6 col-xl-6 col-lg-6">
                       <div class="contact__input-box mb-15">
                         <div class="contact__input-title">
-                          <label for="passeport">Passeport<span> *</span></label>
+                          <label for="passeport">Passeport</label>
                         </div>
                         <div class="contact__input">
                           <input formControlName="passeport" id="passeport" type="text" placeholder="Passeport">
-                          <div *ngIf="agentForm.get('passeport')?.invalid && agentForm.get('passeport')?.touched" class="text-danger">
-                            Passeport is required
+                          <!--                          <div *ngIf="agentForm.get('passeport')?.invalid && agentForm.get('passeport')?.touched" class="text-danger">-->
+                          <!--                            Passeport is required-->
+                          <!--                          </div>-->
+                          <div *ngIf="agentForm.get('passeport')?.hasError('cinPasseportInvalid')" class="text-danger">
+                            Passeport must start with 1 or 2 letters followed by up to 6-7 numbers.
                           </div>
                         </div>
                       </div>
@@ -87,8 +93,8 @@
                         </div>
                         <div class="contact__input ui-datepicker-prev-hover">
                           <input formControlName="dateNaissance" id="dateNaissance" type="date">
-                          <div *ngIf="agentForm.get('dateNaissance')?.invalid && agentForm.get('dateNaissance')?.touched" class="text-danger">
-                            Date de naissance is required
+                          <div *ngIf="agentForm.get('dateNaissance')?.hasError('dateNaissanceInvalid')" class="text-danger">
+                            Date Naissance invalide.
                           </div>
                         </div>
                       </div>
@@ -128,9 +134,12 @@
                           <label for="numTel">Numéro de téléphone<span> *</span></label>
                         </div>
                         <div class="contact__input">
-                          <input formControlName="numTel" id="numTel" type="tel" placeholder="01 23 45 67 89">
+                          <input formControlName="numTel" id="numTel" type="tel" placeholder="6 XX XX XX XX">
                           <div *ngIf="agentForm.get('numTel')?.invalid && agentForm.get('numTel')?.touched" class="text-danger">
                             Numéro de téléphone is required
+                          </div>
+                          <div *ngIf="agentForm.get('numTel')?.dirty && agentForm.get('numTel')?.hasError('numTelInvalid')" class="text-danger">
+                            NumTel must start with 6 or 7 and be followed by 9 numbers.
                           </div>
                         </div>
                       </div>

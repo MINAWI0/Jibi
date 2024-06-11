@@ -46,3 +46,7 @@ mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled) {
 .section-space-bottom{
   padding-bottom: 25px;
 }
+.gradient-text-1{
+  font-size:35px;
+  font-weight:bold;
+}

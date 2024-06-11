@@ -1,6 +1,7 @@
 package com.ensa.jibi.cmi.controllers;
 
 import com.ensa.jibi.cmi.domain.dto.CreancierDto;
+import com.ensa.jibi.cmi.domain.entities.Creancier;
 import com.ensa.jibi.cmi.services.CreancierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class CreancierController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CreancierDto> getCreancier(@PathVariable Long id) {
+    public ResponseEntity<CreancierDto> getCreancier(@PathVariable("id") Long id) {
         CreancierDto creancier = creancierService.getCreancier(id);
         if (creancier != null) {
             return ResponseEntity.ok(creancier);
@@ -58,4 +59,14 @@ public class CreancierController {
         creancierService.deleteCreancier(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    @GetMapping("/categorie/{categorie}")
+    public List<Creancier> getCreanciersByCategorie(@PathVariable("categorie") String categorie) {
+        return creancierService.getCreanciersByCategorie(categorie);
+    }
+
+
+
+
 }

@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog
 import {LoginComponent} from "../../../pages/login/login.component";
 import {ForgotPasswordComponent} from "../../../pages/forgot-password/forgot-password.component";
 import {ChangePasswordComponent} from "../../../pages/change-password/change-password.component";
+import {OtpComponent} from "../../../pages/otp/otp.component";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,22 @@ export class DialogService {
   constructor(
     private dialog: MatDialog,
   ) { }
+
+  openOtpDialog(data: any){
+    this.dialog.closeAll();
+    this.currentDialogRef = this.dialog.open(OtpComponent, {
+      height: '90%',
+      width: '40%',
+      position: {
+        top: '6%',
+        left: '39%'
+      },
+      data: {
+        data
+      }
+    });
+    return this.currentDialogRef;
+  }
 
   openLoginPage() {
     this.dialog.closeAll();

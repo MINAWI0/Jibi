@@ -3,8 +3,8 @@
   <div class="container">
     <div class="col-xxl-12">
       <mat-stepper linear #stepper>
-        <mat-step>
-          <form [formGroup]="clientForm" >
+        <form [formGroup]="clientForm" >
+          <mat-step>
             <ng-template matStepLabel>Client Informations</ng-template>
             <div class="tab-content" >
               <div class="tab-pane show active" id="infos-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -66,6 +66,9 @@
                               <div *ngIf="clientForm.get('numTel')?.invalid && clientForm.get('numTel')?.touched" class="text-danger">
                                 Num Tel is required
                               </div>
+                              <div *ngIf="clientForm.get('numTel')?.dirty && clientForm.get('numTel')?.hasError('numTelInvalid')" class="text-danger">
+                                NumTel must start with 6 or 7 and be followed by 9 numbers.
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -91,13 +94,10 @@
               </div>
             </div>
             <div>
-              <button type="button" mat-button matStepperNext>Next</button>
+              <button mat-button matStepperNext>Next</button>
             </div>
-          </form>
-
-        </mat-step>
-        <mat-step>
-          <form [formGroup]="clientForm" >
+          </mat-step>
+          <mat-step>
             <ng-template matStepLabel>Client Documents</ng-template>
             <div class="tab-content" >
               <div class="tab-pane show active" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -150,99 +150,11 @@
             <div class="contact__btn">
               <button class="bd-gradient-btn w-100" (click)="onSubmit()">Submit</button>
             </div>
-          </form>
-        </mat-step>
+          </mat-step>
+        </form>
       </mat-stepper>
 
     </div>
   </div>
 </div>
 
-<!--
-
-<div class="col-lg-12">
-  <div class="contact__input-box mb-15 mb-20">
-    <div class="contact__input-title">
-      <label for="username">Username<span> *</span></label>
-    </div>
-    <div class="contact__input">
-      <input name="username" id="username" formControlName="username" type="text" placeholder="Enter your username">
-      <div *ngIf="clientForm.get('username')?.invalid && clientForm.get('username')?.touched" class="text-danger">
-        Username is required
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col-lg-12">
-  <div class="contact__input-box mb-15 mb-20">
-    <div class="contact__input-title">
-      <label for="numTel">Num Tel<span> *</span></label>
-    </div>
-    <div class="contact__input">
-      <input name="numTel" id="numTel" formControlName="numTel" type="text" placeholder="Enter your phone number">
-      <div *ngIf="clientForm.get('numTel')?.invalid && clientForm.get('numTel')?.touched" class="text-danger">
-        Num Tel is required
-      </div>
-    </div>
-  </div>
-</div>-->
-<!--              <div class="col-lg-12">-->
-<!--                <div class="contact__input-box mb-15 mb-20">-->
-<!--                  <div class="contact__input-title">-->
-<!--                    <label>Client Type<span> *</span></label>-->
-<!--                  </div>-->
-<!--                  <div class="contact__select">-->
-<!--                    <select id="clientType" formControlName="clientType" >-->
-<!--                      <option *ngFor="let type of clientTypes | keyvalue" [value]="type.value">{{ type.value }}</option>-->
-<!--                    </select>-->
-<!--                    <div *ngIf="clientForm.get('clientType')?.invalid && clientForm.get('clientType')?.touched" class="text-danger">-->
-<!--                      Client Type is required-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--
-<div class="col-lg-12">
-  <div class="contact__input-title">
-    <label>Client Type<span> *</span></label>
-  </div>
-  <select id="clientType"  formControlName="clientType">
-    <option *ngFor="let type of clientTypes | keyvalue" [value]="type.value">{{ type.value }}</option>
-  </select>
-</div>
-
-<div class="col-lg-12">
-  <div class="contact__input-box mb-25">
-    <div class="contact__input-title">
-      <label for="file">Fichier</label>
-    </div>
-    <div class="contact__input">
-      <label class="bd-gradient-btn-white w-100" style="cursor:pointer" for="file">Parcourir</label>
-      <input type="file" id="file" (change)="onFileChange($event)" class="form-control" style="display:none">
-    </div>
-  </div>
-</div>
-
-<div class="col-lg-12">
-  <div class="contact__input-box mb-15 mb-20">
-    <div class="contact__input-title">
-      <label for="description">Description</label>
-    </div>
-    <div class="contact__input">
-      <input name="description" id="description" formControlName="description" type="text" placeholder="Description...">
-    </div>
-  </div>
-</div>
-<div class="col-lg-12">
-</div>
-</div>
-</div>
-<div class="contact__btn">
-  <button class="bd-gradient-btn w-100" (click)="onSubmit()" type="submit">Submit</button>
-</div>
-</form>
-<p class="ajax-response"></p>
-</div>
-</div>
-</div>
--->

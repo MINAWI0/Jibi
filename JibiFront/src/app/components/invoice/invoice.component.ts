@@ -21,6 +21,7 @@ export class InvoiceComponent implements OnInit{
     const randomPart = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
     this.invoiceNumber = `INV-${Date.now()}-${randomPart}`;
   }
+
   downloadPDF() {
     const downloadSection = this.downloadSection.nativeElement;
     const invoiceNumber = this.invoiceNumber;

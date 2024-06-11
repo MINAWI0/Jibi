@@ -14,7 +14,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/src/main/resources/templates/")
+                .addResourceLocations("classpath:/src/main/resources/templates/browser")
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override
@@ -22,7 +22,7 @@ public class MvcConfig implements WebMvcConfigurer {
                         Resource requestedResource = location.createRelative(resourcePath);
 
                         return requestedResource.exists() && requestedResource.isReadable() ? requestedResource
-                                : new ClassPathResource("/templates/index.html");
+                                : new ClassPathResource("/templates/browser/index.html");
                     }
                 });
     }

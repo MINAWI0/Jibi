@@ -24,7 +24,7 @@ export class CreanciersService {
   }
 
   getCreditorsByCategory(categorie: string):Observable<CreancierDto[]>{
-    return this.http.get<CreancierDto[]>(`${this.baseUrl}/${categorie}`);
+    return this.http.get<CreancierDto[]>(`${this.baseUrl}/categorie/${categorie}`);
   }
 
   setCreances(creances:CreanceDto[]):void{

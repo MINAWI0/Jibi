@@ -1,6 +1,6 @@
 .service__icon-2 span {
-  width: 100px;
-  height: 100px;
+  width: 128px;
+  height: 171px;
   display: inline-flex;
   background-size: cover;
   align-items: center;
@@ -13,3 +13,4 @@
   font-size: 45px;
   color: var(--bd-theme-primary);
 }
+

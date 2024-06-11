@@ -16,10 +16,17 @@
   <a class="bd-gradient-btn nav-btn" (click)="rechrgerSold()" >Solde : {{solde}}</a>
 </nav>
 <nav class="vertical-nav">
-  <div class="offcanvas__logo" style="width: 80px; margin-left: 20px;">
-    <a routerLink="">
-      <img src="assets/imgs/logo/logo-black.svg" alt="logo not found">
-    </a>
+  <div  style="margin-left: 20px;">
+    <div class="header__left">
+      <div class="header__logo">
+        <a routerLink="">
+                <span class="gradient-text-1">
+                  <img src="assets/imgs/log.svg" width="40px" height="40px">
+                  JIBI
+                </span>
+        </a>
+      </div>
+    </div>
   </div>
   <ul *ngFor="let element of navs" style="  margin-top: 20px;">
     <li class="w-100 content-center" *ngIf="element.visible" [class.active]="currentContent === element.link">

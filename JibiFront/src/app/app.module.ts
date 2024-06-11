@@ -66,6 +66,7 @@ import {HeaderComponent} from "./components/header/header.component";
 import {PartenairesComponent} from "./components/partenaires/partenaires.component";
 import {StatistiqueComponent} from "./components/statistique/statistique.component";
 import { ImpayesComponent } from './components/impayes/impayes/impayes.component';
+import { OtpComponent } from './pages/otp/otp.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { ImpayesComponent } from './components/impayes/impayes/impayes.component
     PartenairesComponent,
     StatistiqueComponent,
     ImpayesComponent,
+    OtpComponent,
 
   ],
   imports: [
@@ -158,6 +160,7 @@ import { ImpayesComponent } from './components/impayes/impayes/impayes.component
     provideHttpClient(withFetch()),
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimationsAsync(),
+    ClientPageComponent
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

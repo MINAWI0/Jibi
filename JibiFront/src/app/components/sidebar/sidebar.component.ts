@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
 import {SessionService} from "../utils/session/session.service"
+import {CompteService} from "../../services/compte/compte.service";
+import {DialogService} from "../utils/dialog/dialog.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -12,15 +14,27 @@ export class SidebarComponent implements OnInit {
   currentRoute!: any;
   current!: any;
   navs!: any;
-  constructor(private router: Router,private sessionService: SessionService) {
+  constructor(
+    private router: Router,
+    private sessionService: SessionService,
+    private compteService: CompteService,
+    protected dialogService: DialogService,) {
+
+    this.compteService.compte$.subscribe((compte: any) => {
+      if (compte) {
+        this.solde = compte.solde;
+      }
+    });
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.current= event.url.split('/').at(1);
+        if (this.current.length >10) {
+          this.router.navigate(['/client']);
+        }
       }
       this.navs = [
         { name: 'Dashboard', icon: 'fas fa-tachometer-alt', link: 'dashboard', visible: this.current == 'admin' || this.current == 'client' },
         { name: 'Transactions', icon: 'fas fa-exchange-alt', link: 'confirmapayment', visible: this.current == 'admin' || this.current == 'client' },
-        { name: 'Paiements et factures', icon: 'fas fa-file-invoice-dollar', link: 'invoice', visible: this.current == 'client' },
         { name: 'Creanciers', icon: 'fas fa-users', link: 'creanciers', visible: this.current == 'client' },
         { name: 'Recharge sold', icon: 'fas fa-users', link: 'rechargerSold', visible: this.current == 'client' },
         { name: 'Notifications', icon: 'fas fa-bell', link: '', visible: this.current == 'client' },
@@ -36,7 +50,16 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.itemClicked.emit(this.currentContent)
-    this.solde = this.sessionService.getComptePayment().solde
+    const compte = this.compteService.getCompte();
+    if (compte) {
+      this.solde = compte.solde;
+    }
+
+    this.compteService.compte$.subscribe((compte: any) => {
+      if (compte) {
+        this.solde = compte.solde;
+      }
+    });
   }
 
   selectComponent(componentName: string) {

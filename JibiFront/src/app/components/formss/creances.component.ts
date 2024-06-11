@@ -41,13 +41,15 @@ export class CreancesComponent implements OnInit{
 
           if ("nomDonateur" in res) {
             creanceType.name = "Donation";
+            creanceType.logoUrl='https://res.cloudinary.com/dlkvn0fpz/image/upload/v1718082628/pfsfiles/o1xvw9tkdzwa6nd3hygm.jpg'
           } else if ("numFacture" in res) {
             creanceType.name = "Facture";
+            creanceType.logoUrl='https://res.cloudinary.com/dlkvn0fpz/image/upload/v1718082311/pfsfiles/mjhrgrfhhrcvvjhpqz83.jpg'
           } else {
             creanceType.name = "Recharge";
+            creanceType.logoUrl='https://res.cloudinary.com/dlkvn0fpz/image/upload/v1718082319/pfsfiles/umqwsuh6t6omtdh1rq2j.jpg'
           }
 
-          creanceType.logoUrl = res.creancier.logoURL;
           creanceType.id = creance.id;
 
           if (!this.contains(creanceType.name)) {

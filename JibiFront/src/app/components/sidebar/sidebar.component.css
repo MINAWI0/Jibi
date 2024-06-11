@@ -201,3 +201,7 @@ input[type='text']{
   background-size: 300% 100%;
   background-image: var(--bd-gradient-1);
 }
+.gradient-text-1{
+  font-size:35px;
+  font-weight:bold;
+}
