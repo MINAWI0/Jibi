@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Document {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String docUrl;
     private String description;

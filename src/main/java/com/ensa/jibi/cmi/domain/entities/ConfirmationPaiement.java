@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class ConfirmationPaiement {
     //la meme classe sera utilisé pour l'historique des transactions
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Double montant;
