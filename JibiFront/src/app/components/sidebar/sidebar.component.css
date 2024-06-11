@@ -218,5 +218,5 @@ input[type='text']{
 /*}*/
 .active-font {
     font-size: 18px;
-  font-weight: 600; /* or whatever font weight you prefer */
+  font-weight: 500; /* or whatever font weight you prefer */
 }

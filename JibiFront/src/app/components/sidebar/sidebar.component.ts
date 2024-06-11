@@ -18,13 +18,14 @@ export class SidebarComponent implements OnInit {
         this.current= event.url.split('/').at(1);
       }
       this.navs = [
-        { name: 'Dashboard', icon: 'fas fa-tachometer-alt', link: 'dashboard', visible:  this.current == 'client' },
+        { name: 'Dashboard',icon: 'fa-light fa-gauge', activeIcon: 'fas fa-tachometer-alt', link: 'dashboard', visible:  this.current == 'client' },
         { name: 'Transactions', activeIcon: 'fas fa-exchange-alt',icon: 'fa-light fa-arrow-right-arrow-left', link: 'confirmapayment', visible:  this.current == 'client' },
-        { name: 'Paiements et factures', icon: 'fas fa-file-invoice-dollar', link: 'invoice', visible: this.current == 'client' },
-        { name: 'Creanciers', icon: 'fas fa-users', link: 'creanciers', visible: this.current == 'client' },
-        { name: 'Recharge sold', icon: 'fas fa-users', link: 'rechargerSold', visible: this.current == 'client' },
-        { name: 'Notifications', icon: 'fas fa-bell', link: '', visible: this.current == 'client' },
-        { name: 'New Client', icon: 'fas fa-user-plus', link: 'create-client', visible: this.current == 'agent' },
+        { name: 'Paiements et factures',icon: 'fa-light fa-file-invoice-dollar', activeIcon:'fas fa-file-invoice-dollar', link: 'invoice', visible: this.current == 'client' },
+        { name: 'Creanciers', activeIcon: 'fas fa-users',icon:'fa-light fa-users', link: 'creanciers', visible: this.current == 'client' },
+        { name: 'Recharge sold', activeIcon: 'fas fa-users',icon:'fa-light fa-users', link: 'rechargerSold', visible: this.current == 'client' },
+        { name: 'Notifications',icon: 'fa-light fa-bell', activeIcon: 'fas fa-bell', link: '', visible: this.current == 'client' },
+        { name: 'New Client',icon:'fa-light fa-user-plus', activeIcon: 'fas fa-user-plus', link: 'create-client', visible: this.current == 'agent' },
+        { name: 'Clients List', activeIcon: 'fas fa-users',icon:'fa-light fa-users', link: 'agents-list', visible: this.current == 'agent' },
         { name: 'New Agent', icon: 'fa-light fa-user-tie',activeIcon: 'fas fa-user-tie', link: 'create-agent', visible: this.current == 'admin' },
         { name: 'Agents List', activeIcon: 'fas fa-users',icon:'fa-light fa-users', link: 'agents-list', visible: this.current == 'admin' }
       ];
